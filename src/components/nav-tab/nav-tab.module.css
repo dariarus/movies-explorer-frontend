@@ -1,0 +1,33 @@
+.navigation {
+  display: flex;
+  max-width: 308px;
+}
+
+.navigation__item {
+  all: unset;
+  margin-right: 10px;
+  background-color: #303030;
+  border-radius: 10px;
+  padding: 10px 17px;
+  cursor: pointer;
+  transition-duration: 0.4s; /* скорость наступления эффекта hover */
+  -webkit-transition-duration: 0.4s; /* Safari */
+}
+
+.navigation__item:last-child {
+  margin-right: 0;
+}
+
+.navigation__item:hover {
+  transform: scale(1.2, 1.2);
+}
+
+.navigation__item-text {
+  margin: 0;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #fff;
+}
