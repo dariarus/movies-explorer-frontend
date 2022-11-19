@@ -4,3 +4,14 @@
   font-family: 'Inter', 'Arial', sans-serif;
   color: #fff;
 }
+
+.section_techs {
+  padding: 100px 70px;
+  background-color: #272727;
+}
+
+.section__content-wrapper {
+  box-sizing: border-box;
+  margin: auto;
+  max-width: 1140px;
+}

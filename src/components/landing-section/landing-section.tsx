@@ -6,9 +6,11 @@ import sectionStyles from './landing-section.module.css';
 
 export const LandingSection: FunctionComponent<TSection> = (props) => {
   return (
-    <section className={sectionStyles.section}>
-      <SectionHeader header={props.header}/>
-      {props.children}
+    <section className={props.sectionMod ? `${sectionStyles.section} ${sectionStyles['section_techs']}` : `${sectionStyles.section}`}>
+      <div className={sectionStyles['section__content-wrapper']}>
+        <SectionHeader header={props.header}/>
+        {props.children}
+      </div>
     </section>
 
   )

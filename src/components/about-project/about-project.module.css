@@ -1,0 +1,59 @@
+.article-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  box-sizing: border-box;
+  padding: 70px 0 110px;
+}
+
+.statistics {
+  display: flex;
+}
+
+.statistics__section {
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.statistics__section_back {
+  flex-basis: 25%;
+}
+
+.statistics__section_front {
+  flex-basis: 75%;
+}
+
+.statistics__scale {
+  padding: 9px 0;
+}
+
+.statistics__scale_back {
+  background-color: #3ddc84;
+}
+
+.statistics__scale_front {
+  background-color: #303030;
+}
+
+.statistics__scale-text {
+  margin: 0;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+}
+
+.statistics__scale-text_back {
+  color: #000;
+}
+
+.statistics__scale-text_front {
+  color: #fff;
+}
+
+.statistics__scale-text_secondary {
+  padding-top: 14px;
+  color: #8B8B8B;
+}
