@@ -2,6 +2,7 @@ import React, {FunctionComponent} from 'react';
 import {Promo} from '../components/promo/promo';
 import {AboutProject} from '../components/about-project/about-project';
 import {Techs} from '../components/techs/techs';
+import {AboutMe} from '../components/about-me/about-me';
 
 export const MainPage: FunctionComponent = () => {
   return (
@@ -9,6 +10,7 @@ export const MainPage: FunctionComponent = () => {
       <Promo/>
       <AboutProject/>
       <Techs/>
+      <AboutMe/>
     </>
   )
 }

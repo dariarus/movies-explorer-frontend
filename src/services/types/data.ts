@@ -10,3 +10,9 @@ export type TLandingArticle = {
   heading: string,
   content: string,
 }
+
+export type TProjectLink = {
+  header: string,
+  link: string,
+  needSeparator: boolean,
+}

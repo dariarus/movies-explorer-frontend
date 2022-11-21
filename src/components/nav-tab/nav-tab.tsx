@@ -4,7 +4,7 @@ import navStyles from './nav-tab.module.css';
 
 export const NavTab: FunctionComponent = () => {
   return (
-    <div className={navStyles.navigation}>
+    <nav className={navStyles.navigation}>
       <button role="button" className={navStyles['navigation__item']}>
         <p className={navStyles['navigation__item-text']}>О проекте</p>
       </button>
@@ -14,6 +14,6 @@ export const NavTab: FunctionComponent = () => {
       <button role="button" className={navStyles['navigation__item']}>
         <p className={navStyles['navigation__item-text']}>Студент</p>
       </button>
-    </div>
+    </nav>
   )
 }

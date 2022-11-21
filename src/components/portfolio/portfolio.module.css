@@ -1,0 +1,13 @@
+.portfolio {
+  padding-top: 100px;
+}
+
+.portfolio__header {
+  margin: 0 0 50px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: #8b8b8b;
+}
