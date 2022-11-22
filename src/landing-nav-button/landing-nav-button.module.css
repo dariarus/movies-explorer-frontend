@@ -1,0 +1,28 @@
+.button  {
+  all: unset;
+  margin-right: 10px;
+  background-color: #303030;
+  border-radius: 10px;
+  padding: 10px 17px;
+  cursor: pointer;
+  transition-duration: 0.4s; /* скорость наступления эффекта hover */
+  -webkit-transition-duration: 0.4s; /* Safari */
+}
+
+.button:last-child {
+  margin-right: 0;
+}
+
+.button:hover {
+  transform: scale(1.2, 1.2);
+}
+
+.button__name {
+  margin: 0;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #fff;
+}

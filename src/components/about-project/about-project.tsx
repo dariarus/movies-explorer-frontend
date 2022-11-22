@@ -3,10 +3,11 @@ import {LandingSection} from '../landing-section/landing-section';
 
 import aboutProjectStyles from './about-project.module.css';
 import {LandingArticle} from '../landing-article/landing-article';
+import {TSection} from '../../services/types/data';
 
-export const AboutProject: FunctionComponent = () => {
+export const AboutProject = React.forwardRef<HTMLDivElement>((props, ref) => {
   return (
-    <LandingSection header="О проекте" sectionMod={false}>
+    <LandingSection header="О проекте" sectionMod={false} ref={ref}>
       <div className={aboutProjectStyles['article-wrapper']}>
         <LandingArticle heading="Дипломный проект включал 5 этапов"
                         content="Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки."/>
@@ -45,4 +46,4 @@ export const AboutProject: FunctionComponent = () => {
       </div>
     </LandingSection>
   )
-}
+})
