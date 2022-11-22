@@ -5,7 +5,7 @@ import {Techs} from '../components/techs/techs';
 import {AboutMe} from '../components/about-me/about-me';
 import {TCombinedRef} from '../services/types/data';
 
-export const MainPage: FunctionComponent = () => {
+export const Main: FunctionComponent = () => {
   const aboutProjectRef = React.useRef<HTMLDivElement>(null);
   const techsRef = React.useRef<HTMLDivElement>(null);
   const aboutMeRef = React.useRef<HTMLDivElement>(null);

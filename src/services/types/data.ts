@@ -22,3 +22,8 @@ export type TProjectLink = {
   link: string,
   needSeparator: boolean,
 }
+
+export type TFormButton = {
+  name: string,
+  needSearchMod: boolean
+}
