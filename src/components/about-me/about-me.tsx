@@ -6,9 +6,9 @@ import myPortrait from '../../images/my-portrait.jpg';
 import aboutMeStyles from './about-me.module.css';
 import {Portfolio} from '../portfolio/portfolio';
 
-export const AboutMe: FunctionComponent = () => {
+export const AboutMe = React.forwardRef<HTMLDivElement>((props, ref)   => {
   return (
-    <LandingSection header="Студент" sectionMod={false}>
+    <LandingSection header="Студент" sectionMod={false} ref={ref}>
       <article className={aboutMeStyles.article}>
         <div>
           <h3 className={`${aboutMeStyles.text} ${aboutMeStyles['text_heading']}`}>Дарья</h3>
@@ -29,4 +29,4 @@ export const AboutMe: FunctionComponent = () => {
       <Portfolio/>
     </LandingSection>
   )
-}
+})

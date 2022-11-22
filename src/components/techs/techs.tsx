@@ -2,10 +2,11 @@ import React, {FunctionComponent} from 'react';
 import {LandingSection} from '../landing-section/landing-section';
 
 import techsStyles from './techs.module.css';
+import {TCombinedRef} from '../../services/types/data';
 
-export const Techs: FunctionComponent = () => {
+export const Techs = React.forwardRef<HTMLDivElement>((props, ref)  => {
   return (
-    <LandingSection header="Технологии" sectionMod={true}>
+    <LandingSection header="Технологии" sectionMod={true} ref={ref}>
       <article className={techsStyles.article}>
         <h3 className={`${techsStyles['article__text']} ${techsStyles['article__text_heading']}`}>10 технологий</h3>
         <p className={`${techsStyles['article__text']} ${techsStyles['article__text_paragraph']}`}>
@@ -26,4 +27,4 @@ export const Techs: FunctionComponent = () => {
       </article>
     </LandingSection>
   )
-}
+})

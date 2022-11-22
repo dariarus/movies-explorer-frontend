@@ -8,20 +8,20 @@ import {TCombinedRef} from '../services/types/data';
 export const MainPage: FunctionComponent = () => {
   const aboutProjectRef = React.useRef<HTMLDivElement>(null);
   const techsRef = React.useRef<HTMLDivElement>(null);
-  const aboutMeRefRef = React.useRef<HTMLDivElement>(null);
+  const aboutMeRef = React.useRef<HTMLDivElement>(null);
 
-  const combinedRef: TCombinedRef | undefined = {
+  const combinedRef: TCombinedRef= {
     aboutProjectRef: aboutProjectRef,
     techsRef: techsRef,
-    aboutMeRefRef: aboutMeRefRef
+    aboutMeRef: aboutMeRef
   }
 
   return (
     <>
-      <Promo ref={combinedRef}/>
+      <Promo refs={combinedRef}/>
       <AboutProject ref={aboutProjectRef}/>
-      {/*<Techs />*/}
-      {/*<AboutMe />*/}
+      <Techs ref={techsRef}/>
+      <AboutMe ref={aboutMeRef}/>
     </>
   )
 }

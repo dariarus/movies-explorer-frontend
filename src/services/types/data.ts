@@ -9,7 +9,7 @@ export type TSection = {
 export type TCombinedRef = {
   aboutProjectRef: RefObject<HTMLDivElement>,
   techsRef: RefObject<HTMLDivElement>,
-  aboutMeRefRef: RefObject<HTMLDivElement>
+  aboutMeRef: RefObject<HTMLDivElement>
 }
 
 export type TLandingArticle = {
