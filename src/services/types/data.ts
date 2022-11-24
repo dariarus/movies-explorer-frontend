@@ -27,3 +27,9 @@ export type TFormButton = {
   name: string,
   needSearchMod: boolean
 }
+
+export type TMovie = {
+  name: string
+  duration: string,
+  image: string,
+}

@@ -1,4 +1,4 @@
-import React, {ForwardedRef, useEffect, useRef} from 'react';
+import {ForwardedRef, useEffect, useRef} from 'react';
 
 /* Модифицированный код нового хука в React-е более поздней версии:
 https://stackoverflow.com/questions/62238716/using-ref-current-in-react-forwardref */
