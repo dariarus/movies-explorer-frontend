@@ -28,8 +28,17 @@ export type TFormButton = {
   needSearchMod: boolean
 }
 
+export enum ButtonView {
+  add = 'add',
+  added = 'added',
+  delete = 'delete',
+}
+
+export type TButtonView = '' | 'add' | 'added' | 'delete';
+
 export type TMovie = {
   name: string
   duration: string,
   image: string,
+  buttonView: TButtonView,
 }

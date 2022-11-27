@@ -7,8 +7,9 @@ import {MoviesCard} from '../movies-card/movies-card';
 import {MoreMoviesButton} from '../more-movies-button/more-movies-button';
 import {Preloader} from '../preloader/preloader';
 import {convertSeconds} from '../../utils/functions';
+import {TButtonView} from '../../services/types/data';
 
-export const MoviesCardList: FunctionComponent = () => {
+export const MoviesCardList: FunctionComponent<{buttonView: TButtonView}> = (props) => {
   // const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -20,7 +21,7 @@ export const MoviesCardList: FunctionComponent = () => {
           tmpMoviesArray.map((movie, index) => {
               const durationConversion = convertSeconds(movie.duration);
               return (
-                <MoviesCard key={index} name={movie.nameRU} duration={durationConversion} image={movie.image}/>
+                <MoviesCard key={index} name={movie.nameRU} duration={durationConversion} image={movie.image} buttonView={props.buttonView}/>
               )
             }
           )
