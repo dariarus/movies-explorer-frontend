@@ -20,3 +20,40 @@ export const useForwardRef = <T, >(
 
   return targetRef;
 };
+
+export const combineMinutesString = (min: number) => {
+  const minRest = min % 10;
+  return `${min === 1
+    ? '0' + min + ' минута'
+    : min === 0
+      ? '0' + min + ' минут'
+      : minRest === 1
+        ? min + ' минута'
+        : minRest === 0
+          ? min + ' минут'
+          : minRest <= 4 && min >= 22
+            ? min + ' минуты'
+            : minRest <= 4 && min < 10
+              ? '0' + min + ' минуты'
+              : minRest > 4 && min < 10
+                ? '0' + min + ' минут'
+                : min + ' минут'}`;
+}
+
+export const convertSeconds = (seconds: string) => {
+  const sec = parseInt(seconds);
+  const minutes = Math.floor(sec / 60);
+  const hours = Math.floor(sec / 60 / 60);
+  const minutesHourRest = Math.floor(sec / 60) - (hours * 60); // остаток минут от часа
+
+  if (sec < 3600) {
+   return combineMinutesString(minutes);
+  }
+
+  return `0${hours === 1
+    ? hours + ' час'
+    : hours <= 4
+      ? hours + ' часа'
+      : hours + ' часов'} :
+      ${combineMinutesString(minutesHourRest)}`
+}

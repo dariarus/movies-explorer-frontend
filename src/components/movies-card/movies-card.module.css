@@ -34,38 +34,3 @@
 .movie__text_secondary {
   color: #8b8b8b;
 }
-
-.button {
-  all: unset;
-  margin: 18px auto;
-  min-width: 100px;
-  min-height: 29px;
-  border-radius: 30px;
-  font-family: 'Inter', 'Arial', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 11px;
-  color: #fff;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color .2s ease, color .2s ease, opacity .2s ease;
-  /*transition: color .2s ease;*/
-}
-
-.button_default {
-  background-color: #313131;
-}
-
-.button_active {
-  background: url('../../images/tick.svg') center center no-repeat #ee3465;
-}
-
-.button_default:hover {
-  background-color: rgba(49, 49, 49, 0.5);
-  color: #3ddC84;
-}
-
-.button_active:hover {
-  opacity: 50%;
-}

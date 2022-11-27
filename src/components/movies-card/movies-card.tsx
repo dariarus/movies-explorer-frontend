@@ -3,8 +3,10 @@ import React, {FunctionComponent, useState} from 'react';
 import moviesCardStyles from './movies-card.module.css';
 
 import {TMovie} from '../../services/types/data';
+import {AddFilmButton} from '../add-film-button/add-film-button';
 
-export const MoviesCard: FunctionComponent<TMovie & { buttonIsActive: boolean, onClick: () => void }> = (props) => {
+export const MoviesCard: FunctionComponent<TMovie> = (props) => {
+
   return (
     <div className={moviesCardStyles.movie}>
       <div className={moviesCardStyles['movie__info']}>
@@ -13,13 +15,7 @@ export const MoviesCard: FunctionComponent<TMovie & { buttonIsActive: boolean, o
           className={`${moviesCardStyles['movie__text']} ${moviesCardStyles['movie__text_secondary']}`}>{props.duration}</p>
       </div>
       <img src={props.image} alt="Обложка фильма" className={moviesCardStyles['movie__image']}/>
-      {
-        props.buttonIsActive
-          ? <button className={`${moviesCardStyles.button} ${moviesCardStyles['button_active']}`}
-                    onClick={props.onClick}></button>
-          : <button className={`${moviesCardStyles.button} ${moviesCardStyles['button_default']}`}
-                    onClick={props.onClick}>Сохранить</button>
-      }
+      <AddFilmButton/>
     </div>
   )
 }
