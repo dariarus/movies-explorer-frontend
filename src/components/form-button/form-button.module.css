@@ -1,9 +1,7 @@
 .button {
   all: unset;
-  position: absolute;
-  bottom: 0;
-  right: 0;
   box-sizing: border-box;
+  width: 100%;
   padding: 13px 0 15px;
   background-color: #4285F4;
   border-radius: 5px;
@@ -19,10 +17,11 @@
 }
 
 .button_search {
+  position: absolute;
   right: 10px;
   bottom: 10px;
   padding: 17px 0;
-  min-width: 100px;
+  max-width: 100px;
 }
 
 .button:hover {

@@ -34,11 +34,25 @@ export enum ButtonView {
   delete = 'delete',
 }
 
-export type TButtonView = '' | 'add' | 'added' | 'delete';
+export type TButtonView = 'add' | 'added' | 'delete';
 
 export type TMovie = {
   name: string
   duration: string,
   image: string,
   buttonView: TButtonView,
+}
+
+export type TCredentialsForm = {
+  formHeader: string,
+  buttonName: string,
+  commentQuestion: string,
+  commentLink: string,
+}
+
+export type TInput = {
+  label: string,
+  type: string,
+  lastOfType: boolean,
+  error?: string,
 }

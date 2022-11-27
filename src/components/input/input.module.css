@@ -1,0 +1,33 @@
+.label {
+  width: 100%;
+}
+
+.label__input-name {
+  margin: 0 0 10px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #8b8b8b;
+}
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #2f2f2f;
+  border-radius: 8px;
+  border: none;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #fff;
+}
+
+/*.input_last-of-type {*/
+/*  margin-bottom: 69px;*/
+/*}*/
