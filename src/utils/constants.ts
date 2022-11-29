@@ -59,4 +59,9 @@ export const tmpMoviesArray = [
     image: "https://lumiere-a.akamaihd.net/v1/images/p_shangchiandthelegendofthetenringshomeentupdate_22055_7b62fa67.jpeg?region=0%2C0%2C540%2C800",
     nameRU: "фильм",
   },
-]
+];
+
+export const tmpAccountData = {
+  name: "Dasha",
+  email: "test1@mail.ru",
+}

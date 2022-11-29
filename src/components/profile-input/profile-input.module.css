@@ -1,0 +1,49 @@
+.label {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: solid 1px #424242;
+}
+
+.label_last-of-type {
+  border: none;
+}
+
+.label__input-name {
+  flex-basis: 50%;
+  margin: 16px 0;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  color: #fff;
+}
+
+.input {
+  box-sizing: border-box;
+  /*flex-basis: 50%;*/
+  padding: 16px 0;
+  background: transparent;
+  border: none;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: right;
+  color: #fff;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.label:focus-within {
+  background: #2f2f2f;
+  border-radius: 6px 6px 0 0;
+}
+
+.label_last-of-type:focus-within {
+  border-radius: 0 0 6px 6px;
+}

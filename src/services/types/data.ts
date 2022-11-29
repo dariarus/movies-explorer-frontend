@@ -53,6 +53,16 @@ export type TCredentialsForm = {
 export type TInput = {
   label: string,
   type: string,
-  lastOfType: boolean,
+  isLastOfType: boolean,
   error?: string,
+}
+
+export type TProfileInput = {
+  label: string,
+  isLastOfType: boolean,
+  value: string,
+}
+
+export type THeaderNavigation = {
+  isAuthorized: boolean,
 }

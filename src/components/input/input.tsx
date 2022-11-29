@@ -5,6 +5,7 @@ import inputStyles from './input.module.css';
 import {TInput} from '../../services/types/data';
 
 export const Input: FunctionComponent<TInput> = (props) => {
+  const [inputValue, setInputValue] = useState('');
   // const [isError, setIsError] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(true);
 
@@ -15,7 +16,8 @@ export const Input: FunctionComponent<TInput> = (props) => {
         <p className={inputStyles['label__input-name']}>{props.label}</p>
         <input type={props.type} name={props.label}
                // className={props.lastOfType ? `${inputStyles.input} ${inputStyles['input_last-of-type']}` : `${inputStyles.input}`}/>
-               className={inputStyles.input}/>
+               className={inputStyles.input}
+               onChange={event => setInputValue(event.target.value)}/>
       </label>
       <p>{props.error}</p>
     </>

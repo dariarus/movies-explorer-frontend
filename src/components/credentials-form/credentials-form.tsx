@@ -17,10 +17,10 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
           <div>
             {
               props.pageType === 'register' &&
-              <Input label="Имя" type="text" lastOfType={false}/>
+              <Input label="Имя" type="text" isLastOfType={false}/>
             }
-            <Input label="E-mail" type="text" lastOfType={false}/>
-            <Input label="Пароль" type="password" lastOfType={true}/>
+            <Input label="E-mail" type="text" isLastOfType={false}/>
+            <Input label="Пароль" type="password" isLastOfType={true}/>
           </div>
           <FormButton name={props.buttonName} needSearchMod={false}/>
         </div>

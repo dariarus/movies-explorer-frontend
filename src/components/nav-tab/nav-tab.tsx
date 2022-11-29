@@ -1,7 +1,8 @@
-import React, {FunctionComponent} from 'react';
+import React from 'react';
 
 import navStyles from './nav-tab.module.css';
-import {LandingNavButton} from '../../landing-nav-button/landing-nav-button';
+
+import {LandingNavButton} from '../landing-nav-button/landing-nav-button';
 import {TCombinedRef} from '../../services/types/data';
 
 export const NavTab = (props: {refs: TCombinedRef}) => {

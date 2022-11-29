@@ -2,7 +2,7 @@ import React, {ForwardedRef, useEffect, useRef} from 'react';
 
 import navButtonStyles from './landing-nav-button.module.css';
 
-import {useForwardRef} from '../utils/functions';
+import {useForwardRef} from '../../utils/functions';
 
 export const LandingNavButton = React.forwardRef<HTMLDivElement, { tabName: string }>((props, ref) => {
   const sectionRef = useForwardRef<HTMLDivElement>(ref);

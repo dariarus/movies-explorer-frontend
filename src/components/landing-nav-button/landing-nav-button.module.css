@@ -6,7 +6,6 @@
   padding: 10px 17px;
   cursor: pointer;
   transition-duration: 0.4s; /* скорость наступления эффекта hover */
-  -webkit-transition-duration: 0.4s; /* Safari */
 }
 
 .button:last-child {
