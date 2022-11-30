@@ -8,15 +8,15 @@ export const AddFilmButton: FunctionComponent<{buttonView: TButtonView}> = (prop
   return (
     <>
       {
-        buttonView === ButtonView.add
+        buttonView === ButtonView.added
           ? <button className={`${addFilmButtonStyles.button} ${addFilmButtonStyles['button_active']}`}
                     onClick={() => {
-                      setButtonView(ButtonView.added)
+                      setButtonView(ButtonView.add)
                     }}></button>
-          : buttonView === ButtonView.added
+          : buttonView === ButtonView.add
             ? <button className={`${addFilmButtonStyles.button} ${addFilmButtonStyles['button_default']}`}
                       onClick={() => {
-                        setButtonView(ButtonView.add)
+                        setButtonView(ButtonView.added)
                       }}>Сохранить</button>
             : <button className={`${addFilmButtonStyles.button} ${addFilmButtonStyles['button_delete']}`}
               // onClick={() => {

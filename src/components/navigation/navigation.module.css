@@ -18,13 +18,20 @@
   margin: 0;
   font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
-  font-weight: 400;
   font-size: 14px;
   line-height: 18px;
   text-align: right;
   text-decoration: none;
   color: #fff;
   transition: text-decoration .2s ease;
+}
+
+.nav__item_default {
+  font-weight: 400;
+}
+
+.nav__item_active {
+  font-weight: 500;
 }
 
 .nav__item_margin-left {
@@ -37,6 +44,10 @@
 
 .nav__button {
   all: unset;
+}
+
+.nav__button-link {
+  text-decoration: none;
 }
 
 .nav__button_account {

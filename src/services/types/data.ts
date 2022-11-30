@@ -48,6 +48,7 @@ export type TCredentialsForm = {
   buttonName: string,
   commentQuestion: string,
   commentLink: string,
+  commentLinkPath: string,
 }
 
 export type TInput = {

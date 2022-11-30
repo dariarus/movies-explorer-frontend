@@ -1,4 +1,5 @@
 import React from 'react';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import appStyles from './app.module.css';
 
@@ -14,21 +15,33 @@ import {Footer} from '../footer/footer';
 
 function App() {
   return (
-    <>
-      <Header/>
+    <BrowserRouter basename="/movies-explorer">
       <main className={appStyles.main}>
-        {/*<Main/>*/}
-        {/*<Movies/>*/}
-        {/*<SavedMovies/>*/}
-        {/*<Register/>*/}
-        {/*<Login/>*/}
-        {/*<Profile/>*/}
-        <NotFound404/>
-        {/*<main className="pt-10 pb-10">*/}
-        {/*  <Switch location={background || location}>*/}
+        <Switch>
+          <Route path="/" exact={true}>
+            <Main/>
+          </Route>
+          <Route path="/movies" exact={true}>
+            <Movies/>
+          </Route>
+          <Route path="/saved-movies" exact={true}>
+            <SavedMovies/>
+          </Route>
+          <Route path="/signup" exact={true}>
+            <Register/>
+          </Route>
+          <Route path="/signin" exact={true}>
+            <Login/>
+          </Route>
+          <Route path="/profile" exact={true}>
+            <Profile/>
+          </Route>
+          <Route>
+            <NotFound404/>
+          </Route>
+        </Switch>
       </main>
-      <Footer/>
-    </>
+    </BrowserRouter>
   );
 }
 
