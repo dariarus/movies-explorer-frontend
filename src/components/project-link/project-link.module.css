@@ -20,7 +20,7 @@
   margin: 0;
   width: 29px;
   height: 29px;
-  background: url('../images/arrow.svg') center center no-repeat;
+  background: url('../../images/arrow.svg') center center no-repeat;
   text-decoration: none;
   transition-duration: 0.4s;
   -webkit-transition-duration: 0.4s;

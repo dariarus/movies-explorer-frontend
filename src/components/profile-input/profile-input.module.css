@@ -5,6 +5,15 @@
   border-bottom: solid 1px #424242;
 }
 
+.label:focus-within {
+  background: #2f2f2f;
+  border-radius: 6px 6px 0 0;
+}
+
+.label_last-of-type:focus-within {
+  border-radius: 0 0 6px 6px;
+}
+
 .label_last-of-type {
   border: none;
 }
@@ -22,7 +31,6 @@
 
 .input {
   box-sizing: border-box;
-  /*flex-basis: 50%;*/
   padding: 16px 0;
   background: transparent;
   border: none;
@@ -32,18 +40,16 @@
   font-size: 11px;
   line-height: 13px;
   text-align: right;
+}
+
+.input_default {
   color: #fff;
+}
+
+.input_errored {
+  color: #ee3465;
 }
 
 .input:focus {
   outline: none;
-}
-
-.label:focus-within {
-  background: #2f2f2f;
-  border-radius: 6px 6px 0 0;
-}
-
-.label_last-of-type:focus-within {
-  border-radius: 0 0 6px 6px;
 }

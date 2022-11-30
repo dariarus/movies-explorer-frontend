@@ -1,25 +1,34 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent, useEffect, useState} from 'react';
+import {useForm, UseFormRegister} from 'react-hook-form';
 
 import inputStyles from './input.module.css';
 
-import {TInput} from '../../services/types/data';
+import {IFormValues, TInput} from '../../services/types/data';
+import {setOptionsForInputValidation} from '../../utils/functions';
 
-export const Input: FunctionComponent<TInput> = (props) => {
+export const Input: FunctionComponent<TInput & { registerInput: UseFormRegister<IFormValues>, required: boolean, errors: any }> = (props) => {
   const [inputValue, setInputValue] = useState('');
-  // const [isError, setIsError] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean>(true);
 
-  // TODO: сделать валидацию
+  const required = props.required;
+
   return (
     <>
       <label className={inputStyles.label}>
         <p className={inputStyles['label__input-name']}>{props.label}</p>
-        <input type={props.type} name={props.label}
-               // className={props.lastOfType ? `${inputStyles.input} ${inputStyles['input_last-of-type']}` : `${inputStyles.input}`}/>
-               className={inputStyles.input}
-               onChange={event => setInputValue(event.target.value)}/>
+        <input type={props.type}
+          // name={props.inputName}
+               className={props.errors[props.inputName]
+                 ? `${inputStyles.input} ${inputStyles['input_errored']}`
+                 : `${inputStyles.input} ${inputStyles['input_default']}`}
+               autoComplete={props.autocomplete}
+          // onChange={event => setInputValue(event.target.value)}
+               {...props.registerInput(props.inputName, setOptionsForInputValidation(props.inputName))}
+        />
       </label>
-      <p>{props.error}</p>
+      {
+        props.errors[props.inputName] &&
+        <p className={inputStyles['input__error-message']}>{props.errors[props.inputName]?.message}</p>
+      }
     </>
   )
 }

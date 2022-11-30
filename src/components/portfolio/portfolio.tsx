@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import {ProjectLink} from '../../project-link/project-link';
+import {ProjectLink} from '../project-link/project-link';
 
 import portfolioStyles from './portfolio.module.css';
 

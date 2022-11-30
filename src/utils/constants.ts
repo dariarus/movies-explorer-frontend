@@ -65,3 +65,4 @@ export const tmpAccountData = {
   name: "Dasha",
   email: "test1@mail.ru",
 }
+

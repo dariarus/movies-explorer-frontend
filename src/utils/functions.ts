@@ -57,3 +57,31 @@ export const convertSeconds = (seconds: string) => {
       : hours + ' часов'} :
       ${combineMinutesString(minutesHourRest)}`
 }
+
+export const setOptionsForInputValidation = (inputName: string) => {
+  if (inputName === 'name') {
+    return {
+      required: "Необходимо заполнить данное поле",
+      minLength: {
+        value: 2,
+        message: "Минимальная длина имени - 2 символа",
+      },
+      maxLength: {
+        value: 30,
+        message: "Максимальная длина имени - 30 символов",
+      },
+    }
+  } else if (inputName === 'email') {
+    return {
+      required: "Необходимо заполнить данное поле",
+      pattern: {
+        value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+        message: "Введите корректный e-mail",
+      },
+    }
+  } else {
+    return {
+      required: "Необходимо заполнить данное поле"
+    }
+  }
+}

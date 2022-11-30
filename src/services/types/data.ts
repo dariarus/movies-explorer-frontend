@@ -51,16 +51,24 @@ export type TCredentialsForm = {
   commentLinkPath: string,
 }
 
+export interface IFormValues {
+  name: string;
+  email: string;
+  password: string;
+}
+
 export type TInput = {
   label: string,
+  inputName: 'name' | 'email' | 'password',
   type: string,
   isLastOfType: boolean,
-  error?: string,
+  autocomplete: string
 }
 
 export type TProfileInput = {
   label: string,
   isLastOfType: boolean,
+  inputName: 'name' | 'email' | 'password',
   value: string,
 }
 

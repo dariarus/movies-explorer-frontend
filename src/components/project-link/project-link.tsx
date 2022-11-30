@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import {TProjectLink} from '../services/types/data';
+import {TProjectLink} from '../../services/types/data';
 
 import projectLinkStyles from './project-link.module.css';
 
