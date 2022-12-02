@@ -20,7 +20,7 @@
   margin: 0;
   width: 29px;
   height: 29px;
-  background: url('../../images/arrow.svg') center center no-repeat;
+  background: url(../../images/arrow.svg) center center no-repeat;
   text-decoration: none;
   transition-duration: 0.4s;
   -webkit-transition-duration: 0.4s;
@@ -35,4 +35,28 @@
   height: 1px;
   background-color: #424242;;
   border: none;
+}
+
+@media screen and (max-width: 975px) {
+  .link__name {
+    max-width: 795px;
+  }
+}
+
+@media screen and (max-width: 855px) {
+  .link__name {
+    max-width: 680px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .link__name {
+    max-width: 635px;
+    font-size: 28px;
+  }
+
+  .link__icon {
+    width: 27px;
+    height: 27px;
+  }
 }

@@ -24,3 +24,26 @@
   letter-spacing: -0.04em;
   color: #fff;
 }
+
+@media screen and (max-width: 1220px) {
+  .wrapper {
+    margin: 20px 20px 0;
+  }
+}
+
+@media screen and (max-width: 1005px) {
+  .wrapper__heading {
+    padding: 0 24px;
+    font-size: 40px;
+    line-height: 52px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    width: 728px;
+    min-height: 834px;
+    margin: 20px auto 0;
+    padding-top: 350px;
+  }
+}

@@ -43,7 +43,7 @@
 }
 
 .article__link:hover {
-  color: #3DDC84;
+  color: #3ddc84;
 }
 
 .article__image {
@@ -52,4 +52,36 @@
   object-position: center center;
   display: block;
   border-radius: 10px;
+}
+
+@media screen and (max-width: 1026px) {
+  .article {
+    gap: 49px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .text_heading {
+    margin-bottom: 16px;
+    font-size: 40px;
+    line-height: 40px;
+  }
+
+  .text_subheading {
+    margin-bottom: 20px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .text_paragraph {
+    margin-bottom: 87px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .article__image {
+    max-width: 255px;
+    max-height: 307px;
+  }
+
 }

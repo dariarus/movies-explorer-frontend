@@ -15,3 +15,13 @@
   margin: auto;
   max-width: 1140px;
 }
+
+@media screen and (max-width: 768px) {
+  .section {
+    padding: 90px 50px;
+  }
+
+  .section_techs {
+    padding: 90px 50px;
+  }
+}

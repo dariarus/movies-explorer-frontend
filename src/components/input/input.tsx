@@ -9,20 +9,17 @@ import {setOptionsForInputValidation} from '../../utils/functions';
 export const Input: FunctionComponent<TInput & { registerInput: UseFormRegister<IFormValues>, required: boolean, errors: any }> = (props) => {
   const [inputValue, setInputValue] = useState('');
 
-  const required = props.required;
-
   return (
     <>
       <label className={inputStyles.label}>
         <p className={inputStyles['label__input-name']}>{props.label}</p>
         <input type={props.type}
-          // name={props.inputName}
                className={props.errors[props.inputName]
                  ? `${inputStyles.input} ${inputStyles['input_errored']}`
                  : `${inputStyles.input} ${inputStyles['input_default']}`}
                autoComplete={props.autocomplete}
-          // onChange={event => setInputValue(event.target.value)}
                {...props.registerInput(props.inputName, setOptionsForInputValidation(props.inputName))}
+               onChange={event => setInputValue(event.target.value)}
         />
       </label>
       {

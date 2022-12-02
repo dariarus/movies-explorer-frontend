@@ -57,3 +57,10 @@
   padding-top: 14px;
   color: #8B8B8B;
 }
+
+@media screen and (max-width: 768px) {
+  .article-wrapper {
+    gap: 30px;
+    padding-bottom: 93px;
+  }
+}

@@ -73,3 +73,15 @@
   line-height: 12px;
   color: #ee3465;
 }
+
+@media screen and (max-width: 768px) {
+  .form {
+    width: 410px;
+    min-height: 413px;
+    margin: 236px auto 16px;
+  }
+
+  .form__input-wrapper {
+    padding: 96px 0 210px;
+  }
+}

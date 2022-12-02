@@ -15,7 +15,7 @@ export const MoviesCard: FunctionComponent<TMovie> = (props) => {
           className={`${moviesCardStyles['movie__text']} ${moviesCardStyles['movie__text_secondary']}`}>{props.duration}</p>
       </div>
       <img src={props.image} alt="Обложка фильма" className={moviesCardStyles['movie__image']}/>
-      <AddFilmButton buttonView={props.buttonView}/>
+      <AddFilmButton buttonView={props.buttonView} />
     </div>
   )
 }

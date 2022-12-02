@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from "react";
+import React from "react";
 
 import promoStyles from './promo.module.css';
 import {NavTab} from '../nav-tab/nav-tab';

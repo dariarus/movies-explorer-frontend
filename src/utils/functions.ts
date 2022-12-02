@@ -85,3 +85,8 @@ export const setOptionsForInputValidation = (inputName: string) => {
     }
   }
 }
+
+export const getWindowWidth = () => {
+  const {innerWidth} = window;
+  return {innerWidth};
+}

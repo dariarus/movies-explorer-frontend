@@ -48,6 +48,18 @@
   height: 1px;
   margin-top: 44px;
   border: none;
-  background: #AAAAAA;
-  opacity: 0.2;
+  background: #aaa;
+  opacity: .2;
+}
+
+@media screen and (max-width: 1150px) {
+  .wrapper {
+    margin: 0 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .decor {
+    margin-top: 51px;
+  }
 }
