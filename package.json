@@ -28,7 +28,10 @@
     ]
   },
   "dependencies": {
+    "@types/react-hamburger-menu": "^0.0.4",
+    "hamburger-react": "^2.5.0",
     "react": "^18.0.0",
+    "react-burger-menu": "^3.0.8",
     "react-dom": "^18.0.0",
     "react-hook-form": "^7.40.0",
     "react-router-dom": "^5.3.4",
@@ -43,6 +46,7 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.3",
     "@types/react": "^18.0.25",
+    "@types/react-burger-menu": "^2.8.3",
     "@types/react-dom": "^18.0.9",
     "@types/react-router-dom": "^5.3.3"
   }

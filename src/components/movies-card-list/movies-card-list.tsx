@@ -18,6 +18,7 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView }> = (p
   const [moreItemsToShow, setMoreItemsToShow] = useState<number>(0);
 
   const itemsToShowArray = tmpMoviesArray.slice(0, itemsToShow);
+  console.log(itemsToShowArray);
 
   const onClickMoreMoviesButton = () => {
     setItemsToShow(itemsToShow + moreItemsToShow)

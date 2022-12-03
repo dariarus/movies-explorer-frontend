@@ -1,4 +1,6 @@
 .header {
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -6,6 +8,7 @@
   max-width: 1280px;
   margin: auto;
   padding: 18px 70px;
+  background-color: #202020;
 }
 
 @media screen and (max-width: 768px){

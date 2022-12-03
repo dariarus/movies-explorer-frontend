@@ -16,9 +16,6 @@ function App() {
     <BrowserRouter basename="/movies-explorer">
       <main className={appStyles.main}>
         <Switch>
-          <Route path="/" exact={true}>
-            <Main/>
-          </Route>
           <Route path="/movies" exact={true}>
             <Movies/>
           </Route>
@@ -33,6 +30,9 @@ function App() {
           </Route>
           <Route path="/profile" exact={true}>
             <Profile/>
+          </Route>
+          <Route path="/" exact={true}>
+            <Main/>
           </Route>
           <Route>
             <NotFound404/>
