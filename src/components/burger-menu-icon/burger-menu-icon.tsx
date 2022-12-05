@@ -3,7 +3,7 @@ import Hamburger, {BurgerProps, RenderOptions} from 'hamburger-react';
 
 import hamburgerStyles from './burger-menu-icon-2.module.css';
 
-export const BurgerMenuIcon: FunctionComponent<{ onClick: () => void, isOpen: boolean, isActive: boolean }> = (props) => {
+export const BurgerMenuIcon: FunctionComponent<{ onClick: (event: any) => void, isOpen: boolean, isActive: boolean }> = (props) => {
   return (
     <>
       {

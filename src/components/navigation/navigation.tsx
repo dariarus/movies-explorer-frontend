@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect, useState} from 'react';
+import React, {FunctionComponent, ReactEventHandler, useEffect, useState} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import {slide as Menu} from 'react-burger-menu';
 
@@ -25,6 +25,7 @@ export const Navigation: FunctionComponent<THeaderNavigation> = (props) => {
   const handleOpenMenu = () => {
     setMenuIsOpen(!menuIsOpen);
     setIsBurgerButtonActive(!isBurgerButtonActive);
+    document.body.classList.toggle('body-overlay');
   }
 
   return (
@@ -60,18 +61,20 @@ export const Navigation: FunctionComponent<THeaderNavigation> = (props) => {
                 <BurgerMenuIcon onClick={handleOpenMenu} isOpen={menuIsOpen} isActive={isBurgerButtonActive}/>
                 <Menu right width={'68%'} customBurgerIcon={false} customCrossIcon={false}
                       isOpen={menuIsOpen}
-                      // noOverlay
                       className={navigationStyles['nav__burger-menu-wrapper']}
                       itemListClassName={navigationStyles['nav__burger-menu']}
                       overlayClassName={navigationStyles['nav__overlay']}>
                   <div className={navigationStyles['nav__burger-menu-films']}>
                     <NavLink to="/"
+                             exact
                              className={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_default']}`}
                              activeClassName={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_active']}`}>Главная</NavLink>
                     <NavLink to="/movies"
+                             exact
                              className={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_default']}`}
                              activeClassName={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_active']}`}>Фильмы</NavLink>
                     <NavLink to="/saved-movies"
+                             exact
                              className={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_default']}`}
                              activeClassName={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_active']}`}>
                       Сохраненные фильмы
