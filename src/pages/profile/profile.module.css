@@ -74,7 +74,11 @@
   color: #ee3465;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 769px) {
+  .wrapper {
+    padding-bottom: 40px;
+  }
+
   .form {
     width: 410px;
     min-height: 413px;
@@ -83,5 +87,27 @@
 
   .form__input-wrapper {
     padding: 96px 0 210px;
+  }
+}
+
+@media screen and (max-width: 434px){
+  .form {
+    width: 260px;
+    min-height: 565px;
+    margin-top: 70px;
+  }
+
+  .form__input-wrapper {
+    padding: 80px 0 379px;
+  }
+
+  .form__button {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .link {
+    font-size: 12px;
+    line-height: 15px;
   }
 }

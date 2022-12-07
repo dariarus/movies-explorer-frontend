@@ -18,7 +18,6 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView }> = (p
   const [moreItemsToShow, setMoreItemsToShow] = useState<number>(0);
 
   const itemsToShowArray = tmpMoviesArray.slice(0, itemsToShow);
-  console.log(itemsToShowArray);
 
   const onClickMoreMoviesButton = () => {
     setItemsToShow(itemsToShow + moreItemsToShow)
@@ -32,9 +31,12 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView }> = (p
     if (screenWidth.innerWidth >= 1200) {
       setItemsToShow(12);
       setMoreItemsToShow(12);
-    } else if (screenWidth.innerWidth <= 768) {
+    } else if (screenWidth.innerWidth < 1200 && screenWidth.innerWidth >= 641) {
       setItemsToShow(8);
       setMoreItemsToShow(8);
+    } else if (screenWidth.innerWidth < 641) {
+      setItemsToShow(5);
+      setMoreItemsToShow(5);
     }
 
     window.addEventListener('resize', handleScreenWidth);

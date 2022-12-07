@@ -16,3 +16,10 @@
   background-color: #dadada;
   border: none;
 }
+
+@media screen and (max-width: 321px) {
+  .header {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

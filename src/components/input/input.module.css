@@ -26,6 +26,10 @@
   line-height: 16px;
 }
 
+.input:focus {
+  outline: 1.5px solid rgba(170, 170, 170, 1);
+}
+
 .input_default {
   color: #fff;
 }

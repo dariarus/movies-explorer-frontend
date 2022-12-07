@@ -58,9 +58,31 @@
   color: #8B8B8B;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 769px) {
   .article-wrapper {
     gap: 30px;
     padding-bottom: 93px;
+  }
+}
+
+@media screen and (max-width: 682px) {
+  .article-wrapper {
+    display: block;
+    padding: 60px 0 4px;
+  }
+}
+
+@media screen and (max-width: 361px) {
+   .statistics__scale {
+    padding: 11px 0;
+  }
+
+  .statistics__scale-text {
+    font-size: 11px;
+    line-height: 11px;
+  }
+
+  .statistics__scale-text_secondary {
+    padding-top: 10px;
   }
 }

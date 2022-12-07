@@ -37,3 +37,21 @@
   line-height: 18px;
   color: #8b8b8b;
 }
+
+@media screen and (max-width: 371px) {
+  .movie__info {
+    padding: 14px;
+  }
+
+  .movie__image {
+    height: 168px;
+  }
+
+  .movie__text {
+    font-size: 12px;
+  }
+
+  .movie__text_secondary {
+    font-size: 10px;
+  }
+}

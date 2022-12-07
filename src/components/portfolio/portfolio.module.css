@@ -11,3 +11,14 @@
   line-height: 20px;
   color: #8b8b8b;
 }
+
+@media screen and (max-width: 321px) {
+  .portfolio {
+    padding-top: 70px;
+  }
+
+  .portfolio__header {
+    margin-bottom: 40px;
+    font-size: 14px;
+  }
+}

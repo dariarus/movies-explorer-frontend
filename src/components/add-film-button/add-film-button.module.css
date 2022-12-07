@@ -39,5 +39,4 @@
 
 .button_delete:hover {
   background-color: rgba(238, 52, 101, .35);
-  /*box-shadow: 0 0 16px 8px rgba(238, 52, 101, .25), 0 0 16px 8px rgba(238, 52, 101, .25);*/
 }

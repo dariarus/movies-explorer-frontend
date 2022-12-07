@@ -16,12 +16,22 @@
   max-width: 1140px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 769px) {
   .section {
     padding: 90px 50px;
   }
 
   .section_techs {
     padding: 90px 50px;
+  }
+}
+
+@media screen and (max-width: 321px) {
+  .section {
+    padding: 70px 18px;
+  }
+
+  .section_techs {
+    padding: 70px 18px;
   }
 }

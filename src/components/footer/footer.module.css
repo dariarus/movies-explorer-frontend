@@ -23,6 +23,7 @@
 
 .footer__info-wrapper {
   display: flex;
+  flex-direction: row-reverse;
   justify-content: space-between;
   padding-top: 20px;
   border-top: solid 1px #424242;
@@ -34,8 +35,31 @@
   min-width: 182px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 769px) {
   .footer {
     padding: 79px 30px 20px;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .footer {
+    padding: 79px 10px 20px;
+  }
+
+  .footer__text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .footer__info-wrapper {
+    flex-direction: column;
+    padding-top: 0;
+  }
+
+  .footer__resources-info {
+    flex-direction: column;
+    min-height: 42px;
+    justify-content: space-between;
+    padding: 30px 0;
   }
 }

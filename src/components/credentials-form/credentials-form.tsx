@@ -21,7 +21,7 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
   return (
     <div className={credentialsFormStyles['form-wrapper']}>
       <form className={credentialsFormStyles.form} onSubmit={handleSubmit(onSubmit)}>
-        <Logo logoStyle={credentialsFormStyles['form__logo']}/>
+        <Logo logoStyle={credentialsFormStyles['form__logo']} linkStyle={credentialsFormStyles['form__logo-link']}/>
         <h3 className={credentialsFormStyles['form__header']}>{props.formHeader}</h3>
         <div className={credentialsFormStyles['form-wrapper__input-wrapper']}>
           <div>

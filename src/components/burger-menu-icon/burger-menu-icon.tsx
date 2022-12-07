@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import Hamburger, {BurgerProps, RenderOptions} from 'hamburger-react';
 
-import hamburgerStyles from './burger-menu-icon-2.module.css';
+import hamburgerStyles from './burger-menu-icon.module.css';
 
 export const BurgerMenuIcon: FunctionComponent<{ onClick: (event: any) => void, isOpen: boolean, isActive: boolean }> = (props) => {
   return (
@@ -12,9 +12,13 @@ export const BurgerMenuIcon: FunctionComponent<{ onClick: (event: any) => void, 
         //   <span className={hamburgerStyles['header__icon-span']}></span>
         // </button>
         <button
-          className={props.isActive ? `${hamburgerStyles['menu-icon']} ${hamburgerStyles['menu-icon_active']}` : `${hamburgerStyles['menu-icon']}`}
+          className={props.isActive
+            ? `${hamburgerStyles['menu-icon']} ${hamburgerStyles['menu-icon_active']}`
+            : `${hamburgerStyles['menu-icon']}`}
           onClick={props.onClick}>
-          <span className={props.isActive ? `${hamburgerStyles['menu-icon__span_active']}` : `${hamburgerStyles['menu-icon__span']}`}></span>
+          <span className={props.isActive
+            ? `${hamburgerStyles['menu-icon__span']} ${hamburgerStyles['menu-icon__span_active']}`
+            : `${hamburgerStyles['menu-icon__span']}`}></span>
         </button>
       }
     </>

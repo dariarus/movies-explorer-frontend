@@ -18,7 +18,7 @@ export const Input: FunctionComponent<TInput & { registerInput: UseFormRegister<
                  ? `${inputStyles.input} ${inputStyles['input_errored']}`
                  : `${inputStyles.input} ${inputStyles['input_default']}`}
                autoComplete={props.autocomplete}
-               {...props.registerInput(props.inputName, setOptionsForInputValidation(props.inputName))}
+               {...props.registerInput(props.inputName, setOptionsForInputValidation(props.inputName))} // валидация
                onChange={event => setInputValue(event.target.value)}
         />
       </label>

@@ -24,3 +24,9 @@
 .button:disabled {
   display: none;
 }
+
+@media screen and (max-width: 371px) {
+  .button {
+    min-width: 240px;
+  }
+}

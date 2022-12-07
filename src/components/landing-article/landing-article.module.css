@@ -20,8 +20,30 @@
   color: #fff;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 769px) {
   .content {
     line-height: 18px;
+  }
+}
+
+@media screen and (max-width: 682px) {
+  .heading {
+    padding-bottom: 16px;
+  }
+
+  .content {
+    margin-bottom: 56px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .heading {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .content {
+    font-size: 11px;
+    line-height: 16px;
   }
 }

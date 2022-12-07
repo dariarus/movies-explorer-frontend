@@ -16,10 +16,20 @@
   margin-bottom: 10px;
 }
 
-@media screen and (max-width: 1140px) {
+@media screen and (max-width: 1141px) {
   .movies {
     grid-template-columns: repeat(2, auto);
     gap: 35px 24px;
     margin-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 641px) {
+  .movies-wrapper {
+    padding: 40px 10px 0;
+  }
+  .movies {
+    grid-template-columns: 1fr;
+    gap: 30px;
   }
 }

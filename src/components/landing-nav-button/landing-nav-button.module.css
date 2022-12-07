@@ -25,3 +25,15 @@
   line-height: 16px;
   color: #fff;
 }
+
+@media screen and (max-width: 337px) {
+  .button {
+    padding: 5px 16px;
+    border-radius: 6px;
+  }
+
+  .button__name {
+    font-size: 10px;
+    line-height: 16px;
+  }
+}
