@@ -8,6 +8,7 @@ import {MoreMoviesButton} from '../more-movies-button/more-movies-button';
 import {Preloader} from '../preloader/preloader';
 import {convertSeconds, getWindowWidth} from '../../utils/functions';
 import {TButtonView} from '../../services/types/data';
+import {Popup} from '../popup/popup';
 
 export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView }> = (props) => {
   // const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -17,6 +18,9 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView }> = (p
   const [itemsToShow, setItemsToShow] = useState<number>(0);
   const [moreItemsToShow, setMoreItemsToShow] = useState<number>(0);
 
+  // const [popupIsOpen, setPopupIsOpen] = useState(true);
+  const [popupIsOpen, setPopupIsOpen] = useState(false);
+
   const itemsToShowArray = tmpMoviesArray.slice(0, itemsToShow);
 
   const onClickMoreMoviesButton = () => {
@@ -24,6 +28,16 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView }> = (p
   }
 
   const moreButtonDisabled = itemsToShowArray.length === tmpMoviesArray.length;
+
+  const handleOnOpen =  () => {
+    setPopupIsOpen(true);
+    document.body.classList.toggle(moviesListStyles['body-overlay']);
+  }
+
+  // TODO: Перенести состояние попапа в хранилище
+  const handleOnClose = () => {
+    setPopupIsOpen(false);
+  }
 
   useEffect(() => {
     const handleScreenWidth = () => setScreenWidth(getWindowWidth())
@@ -63,6 +77,10 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView }> = (p
         isLoading
           ? <Preloader/>
           : <MoreMoviesButton onClick={() => onClickMoreMoviesButton()} disabled={moreButtonDisabled}/>
+      }
+      {
+        popupIsOpen &&
+        <Popup primaryText="Поиск не дал результатов" secondaryText="Попробуйте поискать другой фильм" onClose={handleOnClose} />
       }
     </section>
   )

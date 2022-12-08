@@ -1,3 +1,7 @@
+.body-overlay {
+  overflow: hidden;
+}
+
 .movies-wrapper {
   display: flex;
   flex-direction: column;

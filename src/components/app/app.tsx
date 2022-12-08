@@ -10,6 +10,7 @@ import {Register} from '../../pages/register/register';
 import {Login} from '../../pages/login/login';
 import {Profile} from '../../pages/profile/profile';
 import {NotFound404} from '../../pages/not-found-404/not-found-404';
+import {Popup} from '../popup/popup';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           </Route>
         </Switch>
       </main>
+      {/*<Popup primaryText="Что-то пошло не так :(" secondaryText="Попробуйте повторить действие" />*/}
     </BrowserRouter>
   );
 }
