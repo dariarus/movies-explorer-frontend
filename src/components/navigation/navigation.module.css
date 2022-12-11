@@ -59,16 +59,14 @@
   align-items: center;
   padding: 10px 3px 10px 11px;
   background: #202020;
-  box-shadow: 0 0 16px 3px rgba(66, 133, 244, .5);
   border-radius: 40px;
   cursor: pointer;
   text-decoration: none;
-  transition: box-shadow .2s ease, text-decoration .2s ease;
+  transition-duration: .3s;
 }
 
 .nav__button_account:hover {
-  box-shadow: 0 0 16px 3px rgba(66, 133, 244, .8), 0 0 20px 10px rgba(66, 133, 244, .5);
-  text-decoration: underline;
+  transform: scale(1.2, 1.2);
 }
 
 .nav__button-icon {
