@@ -7,10 +7,10 @@ import {Footer} from '../../components/footer/footer';
 export const SavedMovies: FunctionComponent = () => {
   return (
     <>
-      <Header/>
+      {/*<Header/>*/}
       <SearchForm />
       <MoviesCardList buttonView='delete'/>
-      <Footer/>
+      {/*<Footer/>*/}
     </>
   )
 }

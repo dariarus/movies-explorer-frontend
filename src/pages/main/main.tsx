@@ -20,12 +20,12 @@ export const Main: FunctionComponent = () => {
 
   return (
     <>
-      <Header/>
+      {/*<Header/>*/}
       <Promo refs={combinedRef}/>
       <AboutProject ref={aboutProjectRef}/>
       <Techs ref={techsRef}/>
       <AboutMe ref={aboutMeRef}/>
-      <Footer/>
+      {/*<Footer/>*/}
     </>
   )
 }

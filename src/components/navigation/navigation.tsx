@@ -22,10 +22,18 @@ export const Navigation: FunctionComponent<THeaderNavigation> = (props) => {
     };
   }, [])
 
+  useEffect(() => {
+    if (menuIsOpen) {
+      setIsBurgerButtonActive(true);
+      document.body.classList.add(navigationStyles['body-overlay']);
+    } else {
+      setIsBurgerButtonActive(false);
+      document.body.classList.remove(navigationStyles['body-overlay']);
+    }
+  }, [menuIsOpen])
+
   const handleOpenMenu = () => {
     setMenuIsOpen(!menuIsOpen);
-    setIsBurgerButtonActive(!isBurgerButtonActive);
-    document.body.classList.toggle(navigationStyles['body-overlay']);
   }
 
   return (
@@ -61,6 +69,7 @@ export const Navigation: FunctionComponent<THeaderNavigation> = (props) => {
                 <BurgerMenuIcon onClick={handleOpenMenu} isOpen={menuIsOpen} isActive={isBurgerButtonActive}/>
                 <Menu right width={screenWidth.innerWidth <= 481 ? '100%' : '68%'} customBurgerIcon={false} customCrossIcon={false}
                       isOpen={menuIsOpen}
+                      onClose={handleOpenMenu}
                       className={navigationStyles['nav__burger-menu-wrapper']}
                       itemListClassName={navigationStyles['nav__burger-menu']}
                       overlayClassName={navigationStyles['nav__overlay']}>

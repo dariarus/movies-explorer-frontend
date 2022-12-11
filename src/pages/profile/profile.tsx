@@ -19,7 +19,7 @@ export const Profile: FunctionComponent = () => {
 
   return (
     <>
-      <Header/>
+      {/*<Header/>*/}
       <section className={profileStyles.wrapper}>
         <form className={profileStyles.form} onSubmit={handleSubmit(onSubmit)}>
           <h3 className={profileStyles['form__header']}>{`Привет, ${tmpAccountData.name}!`}</h3>

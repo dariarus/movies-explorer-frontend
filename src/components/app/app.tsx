@@ -11,10 +11,13 @@ import {Login} from '../../pages/login/login';
 import {Profile} from '../../pages/profile/profile';
 import {NotFound404} from '../../pages/not-found-404/not-found-404';
 import {Popup} from '../popup/popup';
+import {Footer} from '../footer/footer';
+import {Header} from '../header/header';
 
 function App() {
   return (
     <BrowserRouter basename="/movies-explorer">
+      <Header/>
       <main className={appStyles.main}>
         <Switch>
           <Route path="/movies" exact={true}>
@@ -35,11 +38,12 @@ function App() {
           <Route path="/" exact={true}>
             <Main/>
           </Route>
-          <Route>
+          <Route path="*">
             <NotFound404/>
           </Route>
         </Switch>
       </main>
+      <Footer/>
       {/*<Popup primaryText="Что-то пошло не так :(" secondaryText="Попробуйте повторить действие" />*/}
     </BrowserRouter>
   );

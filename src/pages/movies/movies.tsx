@@ -10,14 +10,14 @@ export const Movies: FunctionComponent = () => {
 
   return (
     <>
-      <Header/>
+      {/*<Header/>*/}
       <SearchForm/>
       {
         isSearching
           ? <Preloader/>
           : <MoviesCardList buttonView='add'/>
       }
-      <Footer/>
+      {/*<Footer/>*/}
     </>
   )
 }
