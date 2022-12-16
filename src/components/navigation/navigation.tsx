@@ -60,7 +60,7 @@ export const Navigation: FunctionComponent<THeaderNavigation> = (props) => {
                   history.push('/profile')
                 }}
                         className={`${navigationStyles['nav__button']} ${navigationStyles['nav__button_account']}`}>
-                    Аккаунт
+                  Аккаунт
                 </button>
               </div>
             </>
@@ -91,26 +91,23 @@ export const Navigation: FunctionComponent<THeaderNavigation> = (props) => {
                     </NavLink>
                   </div>
                   <div className={navigationStyles['nav-wrapper']}>
-                    <Link to="/profile" className={navigationStyles['nav__button-link']}>
-                      <button type="button"
-                              className={`${navigationStyles['nav__button']} ${navigationStyles['nav__button_account']}`}>
-                        <p
-                          className={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_account']}`}>
-                          Аккаунт
-                        </p>
-                        <div className={navigationStyles['nav__button-icon']}></div>
-                      </button>
-                    </Link>
+                    <button type="button" onClick={() => {
+                      history.push('/profile')
+                    }}
+                            className={`${navigationStyles['nav__button']} ${navigationStyles['nav__button_account']}`}>
+                      Аккаунт
+                    </button>
                   </div>
                 </Menu>
               </>
               : <div>
                 <Link to="/signup" className={navigationStyles['nav__item']}>Регистрация</Link>
-                <Link to="/signin" className={navigationStyles['nav__button-link']}>
-                  <button
-                    className={`${navigationStyles['nav__button']} ${navigationStyles['nav__button_enter']}`}>Войти
-                  </button>
-                </Link>
+                <button
+                  onClick={() => {
+                    history.push('/signin')
+                  }}
+                  className={`${navigationStyles['nav__button']} ${navigationStyles['nav__button_enter']}`}>Войти
+                </button>
               </div>
         }
       </nav>
