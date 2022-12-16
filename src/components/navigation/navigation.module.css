@@ -50,31 +50,36 @@
   all: unset;
 }
 
-.nav__button-link {
-  text-decoration: none;
-}
-
 .nav__button_account {
   display: flex;
   align-items: center;
   padding: 10px 3px 10px 11px;
   background: #202020;
   border-radius: 40px;
-  cursor: pointer;
+  margin: 0;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 12px;
+  text-align: center;
   text-decoration: none;
+  color: #fff;
+  cursor: pointer;
   transition-duration: .3s;
 }
 
-.nav__button_account:hover {
-  transform: scale(1.2, 1.2);
-}
-
-.nav__button-icon {
+.nav__button_account::after {
+  content: '';
   margin-left: 7px;
   width: 26px;
   height: 26px;
   background: url(../../images/account-icon.svg) center center no-repeat #313131;
   border-radius: 50%;
+}
+
+.nav__button_account:hover {
+  transform: scale(1.2, 1.2);
 }
 
 .nav__button_enter {
@@ -136,8 +141,7 @@
 }
 
 .nav__burger-menu-item_account {
-  font-size: 13px;
-  line-height: 12px;
+
 }
 
 .nav__burger-menu-item_default {

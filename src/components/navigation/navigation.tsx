@@ -1,8 +1,9 @@
 import React, {FunctionComponent, useEffect, useState} from 'react';
-import {Link, NavLink} from 'react-router-dom';
+import {Link, NavLink, useHistory} from 'react-router-dom';
 import {slide as Menu} from 'react-burger-menu';
 
 import navigationStyles from './navigation.module.css';
+import accountIcon from '../../images/account-icon.svg';
 
 import {THeaderNavigation} from '../../services/types/data';
 import {BurgerMenuIcon} from '../burger-menu-icon/burger-menu-icon';
@@ -12,6 +13,8 @@ export const Navigation: FunctionComponent<THeaderNavigation> = (props) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [screenWidth, setScreenWidth] = useState(getWindowWidth())
   const [isBurgerButtonActive, setIsBurgerButtonActive] = useState(false)
+
+  const history = useHistory();
 
   useEffect(() => {
     const handleScreenWidth = () => setScreenWidth(getWindowWidth())
@@ -40,7 +43,7 @@ export const Navigation: FunctionComponent<THeaderNavigation> = (props) => {
     <>
       <nav className={navigationStyles.nav}>
         {
-          props.isAuthorized && screenWidth.innerWidth >= 1000
+          props.isAuthorized && screenWidth.innerWidth >= 769
             ? <>
               <div className={navigationStyles['nav__films']}>
                 <NavLink to="/movies"
@@ -53,21 +56,19 @@ export const Navigation: FunctionComponent<THeaderNavigation> = (props) => {
                 </NavLink>
               </div>
               <div className={navigationStyles['nav-wrapper']}>
-                <Link to="/profile" className={navigationStyles['nav__button-link']}>
-                  <button type="button"
-                          className={`${navigationStyles['nav__button']} ${navigationStyles['nav__button_account']}`}>
-                    <p className={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_account']}`}>
-                      Аккаунт
-                    </p>
-                    <div className={navigationStyles['nav__button-icon']}></div>
-                  </button>
-                </Link>
+                <button type="button" onClick={() => {
+                  history.push('/profile')
+                }}
+                        className={`${navigationStyles['nav__button']} ${navigationStyles['nav__button_account']}`}>
+                    Аккаунт
+                </button>
               </div>
             </>
-            : props.isAuthorized && screenWidth.innerWidth < 1000
+            : props.isAuthorized && screenWidth.innerWidth < 769
               ? <>
                 <BurgerMenuIcon onClick={handleOpenMenu} isOpen={menuIsOpen} isActive={isBurgerButtonActive}/>
-                <Menu right width={screenWidth.innerWidth <= 481 ? '100%' : '68%'} customBurgerIcon={false} customCrossIcon={false}
+                <Menu right width={screenWidth.innerWidth <= 481 ? '100%' : '68%'} customBurgerIcon={false}
+                      customCrossIcon={false}
                       isOpen={menuIsOpen}
                       onClose={handleOpenMenu}
                       className={navigationStyles['nav__burger-menu-wrapper']}
@@ -93,7 +94,8 @@ export const Navigation: FunctionComponent<THeaderNavigation> = (props) => {
                     <Link to="/profile" className={navigationStyles['nav__button-link']}>
                       <button type="button"
                               className={`${navigationStyles['nav__button']} ${navigationStyles['nav__button_account']}`}>
-                        <p className={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_account']}`}>
+                        <p
+                          className={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_account']}`}>
                           Аккаунт
                         </p>
                         <div className={navigationStyles['nav__button-icon']}></div>

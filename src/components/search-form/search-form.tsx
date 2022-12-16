@@ -9,7 +9,7 @@ export const SearchForm: FunctionComponent = () => {
   return (
     <section className={searchFormStyles.wrapper}>
       <form className={searchFormStyles['search-form']}>
-        <input type="text" className={searchFormStyles['search-form__input']} placeholder="Фильм"/>
+        <input type="text" className={searchFormStyles['search-form__input']} placeholder="Фильм" required/>
         <FormButton name="Поиск" needSearchMod={true}/>
       </form>
       <FilterCheckbox/>

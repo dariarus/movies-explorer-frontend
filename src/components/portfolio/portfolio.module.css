@@ -12,6 +12,11 @@
   color: #8b8b8b;
 }
 
+.portfolio-link-list {
+  margin: 0;
+  padding: 0;
+}
+
 @media screen and (max-width: 321px) {
   .portfolio {
     padding-top: 70px;

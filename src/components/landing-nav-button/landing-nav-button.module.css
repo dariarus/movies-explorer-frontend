@@ -4,6 +4,12 @@
   background-color: #303030;
   border-radius: 10px;
   padding: 10px 17px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #fff;
   cursor: pointer;
   transition-duration: 0.4s; /* скорость наступления эффекта hover */
 }
@@ -14,16 +20,6 @@
 
 .button:hover {
   transform: scale(1.2, 1.2);
-}
-
-.button__name {
-  margin: 0;
-  font-family: 'Inter', 'Arial', sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 16px;
-  color: #fff;
 }
 
 @media screen and (max-width: 337px) {

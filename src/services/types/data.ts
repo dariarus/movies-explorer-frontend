@@ -1,4 +1,5 @@
 import React, {RefObject} from 'react';
+import {UseFormRegister} from 'react-hook-form';
 
 export type TSection = {
   header: string,
@@ -70,6 +71,7 @@ export type TProfileInput = {
   isLastOfType: boolean,
   inputName: 'name' | 'email' | 'password',
   value: string,
+  // inputId: string
 }
 
 export type THeaderNavigation = {

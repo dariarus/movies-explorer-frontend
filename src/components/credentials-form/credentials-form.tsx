@@ -27,10 +27,10 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
           <div>
             {
               props.pageType === 'register' &&
-              <Input label="Имя" autocomplete="your-name" type="text" inputName="name" isLastOfType={false} registerInput={register} required
+              <Input label="Имя" autocomplete="name" type="text" inputName="name" isLastOfType={false} registerInput={register} required
                      errors={errors}/>
             }
-            <Input label="E-mail" autocomplete="your-email" type="text" inputName="email" isLastOfType={false} registerInput={register} required
+            <Input label="E-mail" autocomplete="email" type="text" inputName="email" isLastOfType={false} registerInput={register} required
                    errors={errors}/>
             <Input label="Пароль" autocomplete="new-password" type="password" inputName="password" isLastOfType={true} registerInput={register}
                    required errors={errors}/>

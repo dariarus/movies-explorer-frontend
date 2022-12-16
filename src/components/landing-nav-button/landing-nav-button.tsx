@@ -17,7 +17,7 @@ export const LandingNavButton = React.forwardRef<HTMLDivElement, { tabName: stri
     <button type="button" className={navButtonStyles.button} onClick={() => {
       scrollToSection(sectionRef.current);
     }}>
-      <p className={navButtonStyles['button__name']}>{props.tabName}</p>
+      {props.tabName}
     </button>
   )
 })

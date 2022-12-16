@@ -29,7 +29,7 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView }> = (p
 
   const moreButtonDisabled = itemsToShowArray.length === tmpMoviesArray.length;
 
-  const handleOnOpen =  () => {
+  const handleOnOpen = () => {
     setPopupIsOpen(true);
     document.body.classList.toggle(moviesListStyles['body-overlay']);
   }
@@ -61,7 +61,7 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView }> = (p
 
   return (
     <section className={moviesListStyles['movies-wrapper']}>
-      <div className={moviesListStyles.movies}>
+      <ul className={moviesListStyles.movies}>
         {
           itemsToShowArray.map((movie, index) => {
               const durationConversion = convertSeconds(movie.duration);
@@ -72,7 +72,7 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView }> = (p
             }
           )
         }
-      </div>
+      </ul>
       {
         isLoading
           ? <Preloader/>
@@ -80,7 +80,8 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView }> = (p
       }
       {
         popupIsOpen &&
-        <Popup primaryText="Поиск не дал результатов" secondaryText="Попробуйте поискать другой фильм" onClose={handleOnClose} />
+        <Popup primaryText="Поиск не дал результатов" secondaryText="Попробуйте поискать другой фильм"
+               onClose={handleOnClose}/>
       }
     </section>
   )

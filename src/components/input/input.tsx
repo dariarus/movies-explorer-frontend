@@ -11,17 +11,17 @@ export const Input: FunctionComponent<TInput & { registerInput: UseFormRegister<
 
   return (
     <>
-      <label className={inputStyles.label}>
-        <p className={inputStyles['label__input-name']}>{props.label}</p>
-        <input type={props.type}
-               className={props.errors[props.inputName]
-                 ? `${inputStyles.input} ${inputStyles['input_errored']}`
-                 : `${inputStyles.input} ${inputStyles['input_default']}`}
-               autoComplete={props.autocomplete}
-               {...props.registerInput(props.inputName, setOptionsForInputValidation(props.inputName))} // валидация
-               onChange={event => setInputValue(event.target.value)}
-        />
-      </label>
+      <div className={inputStyles['input-wrapper']}>
+          <label htmlFor={props.inputName} className={inputStyles.label}>{props.label}</label>
+          <input type={props.type} id={props.inputName}
+                 className={props.errors[props.inputName]
+                   ? `${inputStyles.input} ${inputStyles['input_errored']}`
+                   : `${inputStyles.input} ${inputStyles['input_default']}`}
+                 autoComplete={props.autocomplete}
+                 {...props.registerInput(props.inputName, setOptionsForInputValidation(props.inputName))} // валидация
+                 onChange={event => setInputValue(event.target.value)}
+          />
+      </div>
       {
         props.errors[props.inputName] &&
         <p className={inputStyles['input__error-message']}>{props.errors[props.inputName]?.message}</p>

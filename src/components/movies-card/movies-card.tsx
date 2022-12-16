@@ -8,7 +8,7 @@ import {AddFilmButton} from '../add-film-button/add-film-button';
 export const MoviesCard: FunctionComponent<TMovie> = (props) => {
 
   return (
-    <div className={moviesCardStyles.movie}>
+    <li className={moviesCardStyles.movie}>
       <div className={moviesCardStyles['movie__info']}>
         <h5 className={moviesCardStyles['movie__text']}>{props.name}</h5>
         <p
@@ -16,6 +16,6 @@ export const MoviesCard: FunctionComponent<TMovie> = (props) => {
       </div>
       <img src={props.image} alt="Обложка фильма" className={moviesCardStyles['movie__image']}/>
       <AddFilmButton buttonView={props.buttonView} />
-    </div>
+    </li>
   )
 }
