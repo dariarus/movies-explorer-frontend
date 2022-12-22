@@ -3,7 +3,6 @@ import {Link, NavLink, useHistory} from 'react-router-dom';
 import {slide as Menu} from 'react-burger-menu';
 
 import navigationStyles from './navigation.module.css';
-import accountIcon from '../../images/account-icon.svg';
 
 import {THeaderNavigation} from '../../services/types/data';
 import {BurgerMenuIcon} from '../burger-menu-icon/burger-menu-icon';
