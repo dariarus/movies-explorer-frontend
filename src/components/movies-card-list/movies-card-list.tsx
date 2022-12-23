@@ -44,13 +44,13 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView }> = (p
 
     if (screenWidth.innerWidth >= 1200) {
       setItemsToShow(12);
-      setMoreItemsToShow(12);
+      setMoreItemsToShow(3);
     } else if (screenWidth.innerWidth < 1200 && screenWidth.innerWidth >= 641) {
       setItemsToShow(8);
-      setMoreItemsToShow(8);
+      setMoreItemsToShow(2);
     } else if (screenWidth.innerWidth < 641) {
       setItemsToShow(5);
-      setMoreItemsToShow(5);
+      setMoreItemsToShow(2);
     }
 
     window.addEventListener('resize', handleScreenWidth);

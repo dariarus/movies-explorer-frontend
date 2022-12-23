@@ -2,8 +2,9 @@ import React, {FunctionComponent, useState} from 'react';
 import ReactDOM from "react-dom";
 
 import popupStyles from './popup.module.css';
+import {Overlay} from '../overlay/overlay';
 
-export const Popup: FunctionComponent<{primaryText: string, secondaryText: string, onClose?: () => void }> = (props) => {
+export const Popup: FunctionComponent<{primaryText: string, secondaryText: string, onClose: () => void }> = (props) => {
   const popupRoot = document.getElementById("popup");
 
   const handleEscClose = React.useCallback((evt: KeyboardEvent): void => {
@@ -23,7 +24,7 @@ export const Popup: FunctionComponent<{primaryText: string, secondaryText: strin
     return ReactDOM.createPortal(
       (
         <>
-          <div className={popupStyles['popup-overlay']} onClick={props.onClose}></div>
+          <Overlay onClose={props.onClose}/>
           <div className={popupStyles['popup']}>
             <button type="button" className={popupStyles.cross} onClick={props.onClose}></button>
             <p className={popupStyles.text}>

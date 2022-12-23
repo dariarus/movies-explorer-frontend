@@ -1,12 +1,12 @@
 import React, {FunctionComponent, useEffect, useState} from 'react';
 import {Link, NavLink, useHistory} from 'react-router-dom';
-import {slide as Menu} from 'react-burger-menu';
 
 import navigationStyles from './navigation.module.css';
 
 import {THeaderNavigation} from '../../services/types/data';
 import {BurgerMenuIcon} from '../burger-menu-icon/burger-menu-icon';
 import {getWindowWidth} from '../../utils/functions';
+import {MenuBurger} from '../menu-burger/menu-burger';
 
 export const Navigation: FunctionComponent<THeaderNavigation> = (props) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -66,38 +66,39 @@ export const Navigation: FunctionComponent<THeaderNavigation> = (props) => {
             : props.isAuthorized && screenWidth.innerWidth < 769
               ? <>
                 <BurgerMenuIcon onClick={handleOpenMenu} isOpen={menuIsOpen} isActive={isBurgerButtonActive}/>
-                <Menu right width={screenWidth.innerWidth <= 481 ? '100%' : '68%'} customBurgerIcon={false}
-                      customCrossIcon={false}
-                      isOpen={menuIsOpen}
-                      onClose={handleOpenMenu}
-                      className={navigationStyles['nav__burger-menu-wrapper']}
-                      itemListClassName={navigationStyles['nav__burger-menu']}
-                      overlayClassName={navigationStyles['nav__overlay']}>
-                  <div className={navigationStyles['nav__burger-menu-films']}>
-                    <NavLink to="/"
-                             exact
-                             className={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_default']}`}
-                             activeClassName={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_active']}`}>Главная</NavLink>
-                    <NavLink to="/movies"
-                             exact
-                             className={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_default']}`}
-                             activeClassName={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_active']}`}>Фильмы</NavLink>
-                    <NavLink to="/saved-movies"
-                             exact
-                             className={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_default']}`}
-                             activeClassName={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_active']}`}>
-                      Сохраненные фильмы
-                    </NavLink>
+                <MenuBurger menuIsOpen={menuIsOpen} onClose={handleOpenMenu}>
+                  <div className={navigationStyles['nav__burger-menu']}>
+                    <div className={navigationStyles['nav__burger-menu-films']}>
+                      <NavLink to="/"
+                               exact
+                               onClick={handleOpenMenu}
+                               className={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_default']}`}
+                               activeClassName={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_active']}`}>Главная</NavLink>
+                      <NavLink to="/movies"
+                               exact
+                               onClick={handleOpenMenu}
+                               className={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_default']}`}
+                               activeClassName={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_active']}`}>Фильмы</NavLink>
+                      <NavLink to="/saved-movies"
+                               exact
+                               onClick={handleOpenMenu}
+                               className={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_default']}`}
+                               activeClassName={`${navigationStyles['nav__burger-menu-item']} ${navigationStyles['nav__burger-menu-item_active']}`}>
+                        Сохраненные фильмы
+                      </NavLink>
+                    </div>
+
+                    <div className={navigationStyles['nav__button-wrapper']}>
+                      <button type="button" onClick={() => {
+                        history.push('/profile');
+                        handleOpenMenu();
+                      }}
+                              className={`${navigationStyles['nav__button']} ${navigationStyles['nav__button_account']}`}>
+                        Аккаунт
+                      </button>
+                    </div>
                   </div>
-                  <div className={navigationStyles['nav-wrapper']}>
-                    <button type="button" onClick={() => {
-                      history.push('/profile')
-                    }}
-                            className={`${navigationStyles['nav__button']} ${navigationStyles['nav__button_account']}`}>
-                      Аккаунт
-                    </button>
-                  </div>
-                </Menu>
+                </MenuBurger>
               </>
               : <div>
                 <Link to="/signup" className={navigationStyles['nav__item']}>Регистрация</Link>

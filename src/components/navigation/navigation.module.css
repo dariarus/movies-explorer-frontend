@@ -46,6 +46,11 @@
   text-decoration: underline;
 }
 
+.nav__button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
 .nav__button {
   all: unset;
 }
@@ -101,28 +106,18 @@
   transform: scale(1.2, 1.2);
 }
 
-.nav__burger-menu-wrapper {
-  /*position: fixed; свойства есть в стилях библиотеки
-  right: 0; */
-  top: 0;
-  height: 100%;
-  background-color: #202020;
-  transition: left .3s ease 0s;
-  z-index: 5000;
-  overflow: auto;
-}
-
 .nav__burger-menu {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  min-height: 100%;
   padding: 159px 0 90px;
   color: inherit;
 }
 
 .nav__burger-menu-films {
-  display: flex !important; /* без important не перезаписываются стили библиотеки */
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -140,21 +135,12 @@
   color: #fff;
 }
 
-.nav__burger-menu-item_account {
-
-}
-
 .nav__burger-menu-item_default {
   text-decoration: none;
 }
 
 .nav__burger-menu-item_active {
   text-decoration: underline;
-}
-
-.nav__overlay {
-  top: 0;
-  left: 0;
 }
 
 @media screen and (max-width: 481px) {

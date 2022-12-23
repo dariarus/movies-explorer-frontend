@@ -1,0 +1,29 @@
+.menu-body {
+  position: fixed;
+  top: 0;
+  right: -68%;
+  width: 68%;
+  height: 100%;
+  background-color: #202020;
+  transition: right .3s ease 0s;
+  z-index: 4;
+  overflow: auto;
+}
+
+.menu-body_opened {
+  right: 0;
+}
+
+@media screen and (max-width: 482px){
+  .menu-body {
+    top: -100%;
+    right: 0;
+    width: 100%;
+    transition: top .3s ease 0s;
+  }
+
+  .menu-body_opened {
+    top: 0;
+  }
+}
+

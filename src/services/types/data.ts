@@ -1,5 +1,4 @@
 import React, {RefObject} from 'react';
-import {UseFormRegister} from 'react-hook-form';
 
 export type TSection = {
   header: string,
@@ -76,4 +75,10 @@ export type TProfileInput = {
 
 export type THeaderNavigation = {
   isAuthorized: boolean,
+}
+
+export type TBurgerMenu = {
+  onClose: () => void,
+  menuIsOpen: boolean,
+  children: React.ReactNode
 }
