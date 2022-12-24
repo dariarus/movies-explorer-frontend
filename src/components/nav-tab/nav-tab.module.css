@@ -1,0 +1,10 @@
+.navigation {
+  display: flex;
+  max-width: 308px;
+}
+
+@media screen and (max-width: 337px) {
+  .navigation {
+    max-width: 258px;
+  }
+}

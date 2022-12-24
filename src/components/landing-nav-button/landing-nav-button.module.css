@@ -1,0 +1,35 @@
+.button  {
+  all: unset;
+  margin-right: 10px;
+  background-color: #303030;
+  border-radius: 10px;
+  padding: 10px 17px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #fff;
+  cursor: pointer;
+  transition-duration: 0.4s; /* скорость наступления эффекта hover */
+}
+
+.button:last-child {
+  margin-right: 0;
+}
+
+.button:hover {
+  transform: scale(1.2, 1.2);
+}
+
+@media screen and (max-width: 337px) {
+  .button {
+    padding: 5px 16px;
+    border-radius: 6px;
+  }
+
+  .button__name {
+    font-size: 10px;
+    line-height: 16px;
+  }
+}

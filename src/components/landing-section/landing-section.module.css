@@ -1,0 +1,37 @@
+.section {
+  margin: auto;
+  padding: 110px 70px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  color: #fff;
+}
+
+.section_techs {
+  padding: 100px 70px;
+  background-color: #272727;
+}
+
+.section__content-wrapper {
+  box-sizing: border-box;
+  margin: auto;
+  max-width: 1140px;
+}
+
+@media screen and (max-width: 769px) {
+  .section {
+    padding: 90px 50px;
+  }
+
+  .section_techs {
+    padding: 90px 50px;
+  }
+}
+
+@media screen and (max-width: 321px) {
+  .section {
+    padding: 70px 18px;
+  }
+
+  .section_techs {
+    padding: 70px 18px;
+  }
+}

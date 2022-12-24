@@ -1,0 +1,69 @@
+.menu-icon {
+  all: unset;
+  display: none;
+  position: relative;
+  width: 28px;
+  height: 23px;
+  z-index: 5000;
+  cursor: pointer;
+}
+
+.menu-icon::before,
+.menu-icon::after,
+.menu-icon__span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 10%;
+  background-color: #fff;
+  transition: all .3s ease 0s;
+}
+
+.menu-icon::before,
+.menu-icon::after {
+  content: "";
+}
+
+.menu-icon::before {
+  top: 0;
+}
+
+.menu-icon::after {
+  bottom: 0;
+}
+
+.menu-icon_active {
+
+}
+
+.menu-icon_active::before {
+  top: 50%;
+  transform: rotate(-45deg) translate(0, -50%);
+}
+
+.menu-icon_active::after {
+  bottom: 50%;
+  transform: rotate(45deg) translate(0, 50%);
+}
+
+.menu-icon__span {
+  top: 50%;
+  transform: scale(1) translate(0, -50%);
+}
+
+.menu-icon__span_active {
+  transform: scale(0) translate(0, -50%);
+}
+
+@media screen and (max-width: 1000px) {
+  .menu-icon {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 481px) {
+  .menu-icon {
+    width: 22px;
+    height: 20px;
+  }
+}

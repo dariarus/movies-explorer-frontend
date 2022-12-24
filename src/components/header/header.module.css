@@ -1,0 +1,19 @@
+.header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  max-width: 1280px;
+  margin: auto;
+  padding: 18px 70px;
+  background-color: #202020;
+  z-index: 1;
+}
+
+@media screen and (max-width: 769px){
+  .header {
+    padding: 18px 30px;
+  }
+}

@@ -1,0 +1,29 @@
+.portfolio {
+  padding-top: 100px;
+}
+
+.portfolio__header {
+  margin: 0 0 50px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: #8b8b8b;
+}
+
+.portfolio-link-list {
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 321px) {
+  .portfolio {
+    padding-top: 70px;
+  }
+
+  .portfolio__header {
+    margin-bottom: 40px;
+    font-size: 14px;
+  }
+}

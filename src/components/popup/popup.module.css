@@ -1,0 +1,76 @@
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  box-sizing: border-box;
+  display: block;
+  padding: 30px 40px;
+  background: #222;
+  /*box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);*/
+  border-radius: 10px;
+  text-align: center;
+  z-index: 4;
+  transform: translate(-50%, -50%); /* смещение элемента модалки относительно закрепленной через top и left позиции -> оба окна по центру */
+}
+
+.cross {
+  all: unset;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 30px;
+  height: 30px;
+  background: url(../../images/cross.svg) center center no-repeat #313131;
+  box-shadow: 0 0 3px 5px rgba(0, 0, 0, .5), 0 0 10px 5px rgba(0, 0, 0, .3);
+  border-radius: 50%;
+  cursor: pointer;
+  transition-duration: 0.4s; /* скорость наступления эффекта hover */
+}
+
+.cross:hover {
+  transform: scale(1.2, 1.2);
+}
+
+.text {
+  margin: 0;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 52px;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+.text_secondary {
+  margin-top: 25px;
+  font-size: 20px;
+  line-height: 25px;
+  color:  #8b8b8b;
+}
+
+@media screen and (max-width: 634px) {
+  .popup {
+    min-width: 500px;
+  }
+
+  .cross {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media screen and (max-width: 534px) {
+  .popup {
+    min-width: 250px;
+  }
+
+  .text {
+    font-size: 30px;
+    line-height: 45px;
+  }
+
+  .text_secondary {
+    font-size: 15px;
+    line-height: 25px;
+  }
+}
+
