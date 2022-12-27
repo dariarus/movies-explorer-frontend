@@ -2,6 +2,7 @@
   list-style: none;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   margin: 0;
   padding: 0;
   background-color: #222;
@@ -25,6 +26,7 @@
 }
 
 .movie__text {
+  max-width: 246px;
   margin: 0;
   font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
@@ -32,6 +34,9 @@
   font-size: 15px;
   line-height: 18px;
   color: #fff;
+  overflow: hidden;
+  white-space: nowrap; /* запретить перенос сроки */
+  text-overflow: ellipsis;
 }
 
 .movie__text_secondary {

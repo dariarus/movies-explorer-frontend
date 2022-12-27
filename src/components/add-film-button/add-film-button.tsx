@@ -1,6 +1,6 @@
 import React, {FunctionComponent, useState} from 'react';
 import addFilmButtonStyles from './add-film-button.module.css';
-import {ButtonView, TButtonView} from '../../services/types/data';
+import {ButtonView, TButtonView} from '../../services/types/props-types';
 
 export const AddFilmButton: FunctionComponent<{buttonView: TButtonView}> = (props) => {
   const [buttonView, setButtonView] = useState<TButtonView>(props.buttonView);

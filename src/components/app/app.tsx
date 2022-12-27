@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import appStyles from './app.module.css';
@@ -13,8 +13,16 @@ import {NotFound404} from '../../pages/not-found-404/not-found-404';
 import {Popup} from '../popup/popup';
 import {Footer} from '../footer/footer';
 import {Header} from '../header/header';
+import {getMoviesDataFromSideApi} from '../../services/actions/movies-api';
+import {useAppDispatch} from '../../services/types/hooks';
 
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getMoviesDataFromSideApi());
+  }, [])
+
   return (
     <BrowserRouter basename="/movies-explorer">
       <Header/>

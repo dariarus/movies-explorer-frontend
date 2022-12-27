@@ -4,7 +4,7 @@ import {useForm} from 'react-hook-form';
 import credentialsFormStyles from './credentials-form.module.css';
 
 import {Input} from '../input/input';
-import {IFormValues, TCredentialsForm} from '../../services/types/data';
+import {IFormValues, TCredentialsForm} from '../../services/types/props-types';
 import {FormButton} from '../form-button/form-button';
 import {Logo} from '../logo/logo';
 import {Link} from 'react-router-dom';

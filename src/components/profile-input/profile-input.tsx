@@ -3,7 +3,7 @@ import {UseFormRegister} from 'react-hook-form';
 
 import profileInputStyles from './profile-input.module.css';
 
-import {IFormValues, TProfileInput} from '../../services/types/data';
+import {IFormValues, TProfileInput} from '../../services/types/props-types';
 import {setOptionsForInputValidation} from '../../utils/functions';
 import inputStyles from '../input/input.module.css';
 

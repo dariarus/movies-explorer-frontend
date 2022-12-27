@@ -7,7 +7,7 @@ import {ProfileInput} from '../../components/profile-input/profile-input';
 import {tmpAccountData} from '../../utils/constants';
 import {Header} from '../../components/header/header';
 import {Link} from 'react-router-dom';
-import {IFormValues} from '../../services/types/data';
+import {IFormValues} from '../../services/types/props-types';
 import profileInputStyles from '../../components/profile-input/profile-input.module.css';
 
 export const Profile: FunctionComponent = () => {

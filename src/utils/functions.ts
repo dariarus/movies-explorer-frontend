@@ -40,13 +40,12 @@ export const combineMinutesString = (min: number) => {
                 : min + ' минут'}`;
 }
 
-export const convertSeconds = (seconds: string) => {
-  const sec = parseInt(seconds);
-  const minutes = Math.floor(sec / 60);
-  const hours = Math.floor(sec / 60 / 60);
-  const minutesHourRest = Math.floor(sec / 60) - (hours * 60); // остаток минут от часа
+export const convertSeconds = (seconds: number) => {
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(seconds / 60 / 60);
+  const minutesHourRest = Math.floor(seconds / 60) - (hours * 60); // остаток минут от часа
 
-  if (sec < 3600) {
+  if (seconds < 3600) {
    return combineMinutesString(minutes);
   }
 
@@ -89,4 +88,8 @@ export const setOptionsForInputValidation = (inputName: string) => {
 export const getWindowWidth = () => {
   const {innerWidth} = window;
   return {innerWidth};
+}
+
+export const setFoundFilms = () => {
+
 }

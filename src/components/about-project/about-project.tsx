@@ -3,7 +3,7 @@ import {LandingSection} from '../landing-section/landing-section';
 
 import aboutProjectStyles from './about-project.module.css';
 import {LandingArticle} from '../landing-article/landing-article';
-import {TSection} from '../../services/types/data';
+import {TSection} from '../../services/types/props-types';
 
 export const AboutProject = React.forwardRef<HTMLDivElement>((props, ref) => {
   return (

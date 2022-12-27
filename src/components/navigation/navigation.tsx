@@ -3,7 +3,7 @@ import {Link, NavLink, useHistory} from 'react-router-dom';
 
 import navigationStyles from './navigation.module.css';
 
-import {THeaderNavigation} from '../../services/types/data';
+import {THeaderNavigation} from '../../services/types/props-types';
 import {BurgerMenuIcon} from '../burger-menu-icon/burger-menu-icon';
 import {getWindowWidth} from '../../utils/functions';
 import {MenuBurger} from '../menu-burger/menu-burger';

@@ -3,7 +3,7 @@ import {useForm, UseFormRegister} from 'react-hook-form';
 
 import inputStyles from './input.module.css';
 
-import {IFormValues, TInput} from '../../services/types/data';
+import {IFormValues, TInput} from '../../services/types/props-types';
 import {setOptionsForInputValidation} from '../../utils/functions';
 
 export const Input: FunctionComponent<TInput & { registerInput: UseFormRegister<IFormValues>, required: boolean, errors: any }> = (props) => {

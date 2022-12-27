@@ -91,3 +91,5 @@ export const tmpAccountData = {
   email: "test1@mail.ru",
 }
 
+export const beatfilmMoviesApi = 'https://api.nomoreparties.co/beatfilm-movies';
+export const beatfilmMoviesPath = 'https://api.nomoreparties.co';

@@ -2,7 +2,7 @@ import React, {FunctionComponent} from 'react';
 import {LandingSection} from '../landing-section/landing-section';
 
 import techsStyles from './techs.module.css';
-import {TCombinedRef} from '../../services/types/data';
+import {TCombinedRef} from '../../services/types/props-types';
 
 export const Techs = React.forwardRef<HTMLDivElement>((props, ref)  => {
   return (

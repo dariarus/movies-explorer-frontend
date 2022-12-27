@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react';
 import {SectionHeader} from '../section-header/section-header';
-import {TSection} from '../../services/types/data';
+import {TSection} from '../../services/types/props-types';
 
 import sectionStyles from './landing-section.module.css';
 
