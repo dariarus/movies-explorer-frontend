@@ -15,12 +15,19 @@ import {Footer} from '../footer/footer';
 import {Header} from '../header/header';
 import {getMoviesDataFromSideApi} from '../../services/actions/movies-api';
 import {useAppDispatch} from '../../services/types/hooks';
+import {moviesDataSlice} from '../../services/state-slices/movies-data';
 
 function App() {
   const dispatch = useAppDispatch();
 
+  const actionsMoviesData = moviesDataSlice.actions;
+
   useEffect(() => {
     dispatch(getMoviesDataFromSideApi());
+  }, [])
+
+  useEffect(() => {
+    dispatch(actionsMoviesData.setLastFoundMovies(JSON.parse(localStorage.getItem('lastFoundMovies') || '[]')))
   }, [])
 
   return (

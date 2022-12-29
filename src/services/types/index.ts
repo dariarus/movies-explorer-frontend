@@ -14,7 +14,7 @@ export interface IMoviesDataSliceState {
   hasError: boolean,
   error: TErrorState,
   moviesData: Array<TMovieItem>,
-  foundMovies: Array<TMovieItem>
+  lastFoundMovies: Array<TMovieItem>
 }
 
 export interface ISearchFormSliceState {

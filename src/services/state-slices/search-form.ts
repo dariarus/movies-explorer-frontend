@@ -26,6 +26,12 @@ export const searchFormSlice = createSlice({
         isSearching: false,
       }
     },
+    setIsSearchingSuccess: (state) => {
+      return {
+        ...state,
+        isSearching: false,
+      }
+    },
     // setSearchingIsFailed: (state, action: PayloadAction<TErrorState>) => {
     //   return {
     //     ...state,

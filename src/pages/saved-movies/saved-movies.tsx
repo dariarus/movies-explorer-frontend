@@ -9,7 +9,7 @@ export const SavedMovies: FunctionComponent = () => {
     <>
       {/*<Header/>*/}
       <SearchForm />
-      <MoviesCardList buttonView='delete'/>
+      <MoviesCardList buttonView='delete' movies={[]}/>
       {/*<Footer/>*/}
     </>
   )

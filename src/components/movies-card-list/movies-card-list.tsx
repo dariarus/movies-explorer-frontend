@@ -1,6 +1,6 @@
 import React, {FunctionComponent, useEffect, useState} from 'react';
 
-import {useAppDispatch, useSelector} from "../../services/types/hooks";
+import {useSelector} from "../../services/types/hooks";
 
 import moviesListStyles from './movies-card-list.module.css';
 
@@ -10,11 +10,9 @@ import {Preloader} from '../preloader/preloader';
 import {convertSeconds, getWindowWidth} from '../../utils/functions';
 import {TButtonView} from '../../services/types/props-types';
 import {Popup} from '../popup/popup';
-import {getMoviesDataFromSideApi} from '../../services/actions/movies-api';
-import {moviesDataSlice} from '../../services/state-slices/movies-data';
 import {TMovieItem} from '../../services/types/data';
 
-export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView }> = (props) => {
+export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView, movies: Array<TMovieItem> }> = (props) => {
   const {moviesDataState} = useSelector(state => {
     return state
   });
@@ -25,17 +23,9 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView }> = (p
   const [screenWidth, setScreenWidth] = useState(getWindowWidth())
   const [countItemsToShow, setCountItemsToShow] = useState<number>(0);
   const [countMoreItemsToShow, setCountMoreItemsToShow] = useState<number>(0);
-  const [itemsToShowArray, setItemsToShowArray] = useState<Array<TMovieItem>>([]);
 
   // const [popupIsOpen, setPopupIsOpen] = useState(true);
   const [popupIsOpen, setPopupIsOpen] = useState(false);
-
-  useEffect(() => {
-    const storedFoundMovies = JSON.parse(localStorage.getItem('moviesHasBeenFound') || ''); // без пустой строки - оибка TS
-    if (storedFoundMovies) {
-      setItemsToShowArray(storedFoundMovies.slice(0, countItemsToShow));
-    }
-  }, [])
 
   useEffect(() => {
     const handleScreenWidth = () => setScreenWidth(getWindowWidth())
@@ -57,7 +47,7 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView }> = (p
     };
   }, [])
 
-  const moreButtonDisabled = itemsToShowArray.length === moviesDataState.moviesData.length;
+  const moreButtonDisabled = props.movies.length === moviesDataState.moviesData.length;
 
   const onClickMoreMoviesButton = () => {
     setCountItemsToShow(countItemsToShow + countMoreItemsToShow)
@@ -77,7 +67,7 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView }> = (p
     <section className={moviesListStyles['movies-wrapper']}>
       <ul className={moviesListStyles.movies}>
         {
-          itemsToShowArray.map((movie, index) => {
+          props.movies.map((movie, index) => {
               const durationConversion = convertSeconds(movie.duration);
               return (
                 <MoviesCard key={index} name={movie.nameRU} duration={durationConversion} image={movie.image.url}

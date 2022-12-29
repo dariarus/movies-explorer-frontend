@@ -11,7 +11,7 @@ export const moviesDataSlice = createSlice({
     hasError: false,
     error: {},
     moviesData: [],
-    foundMovies: []
+    lastFoundMovies: []
   } as IMoviesDataSliceState,
   reducers: {
     getMoviesDataSuccess: (state, action: PayloadAction<Array<TMovieItem>>) => {
@@ -37,12 +37,12 @@ export const moviesDataSlice = createSlice({
         error: action.payload
       }
     },
-    setFoundMovies: (state, action: PayloadAction<Array<TMovieItem>>) => {
+    setLastFoundMovies: (state, action: PayloadAction<Array<TMovieItem>>) => {
       return {
         ...state,
         isLoading: false,
         hasError: false,
-        foundMovies: action.payload
+        lastFoundMovies: action.payload
       }
     }
   }
@@ -53,7 +53,8 @@ export default moviesDataSlice.reducer
 export const {
   getMoviesDataSuccess,
   getMoviesData,
-  getMoviesDataFailed
+  getMoviesDataFailed,
+  setLastFoundMovies
 } = moviesDataSlice.actions
 
 export const moviesDataActions: IMoviesDataActions = {

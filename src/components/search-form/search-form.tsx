@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FunctionComponent, useCallback, useEffect, useState} from 'react';
+import React, {ChangeEvent, FunctionComponent, useCallback, useState} from 'react';
 
 import searchFormStyles from './search-form.module.css';
 
@@ -27,22 +27,21 @@ export const SearchForm: FunctionComponent = () => {
   }, [dispatch, value]);
 
   const handleSubmit = useCallback(() => {
-    const foundMovies = moviesDataState.moviesData.filter(movie => {
-        return movie.nameRU.toLowerCase().includes(value) || movie.nameEN.toLowerCase().includes(value)
+    const lastFoundMovies = moviesDataState.moviesData.filter(movie => {
+        return movie.nameRU.includes(value) || movie.nameEN.includes(value)
       }
     )
-    dispatch(actionsMoviesData.setFoundMovies(foundMovies));
-  }, [dispatch, moviesDataState.moviesData, value])
-
-  useEffect(() => {
-    localStorage.setItem('moviesHasBeenFound', JSON.stringify(moviesDataState.foundMovies));
-  }, [moviesDataState.foundMovies])
+    localStorage.setItem('lastFoundMovies', JSON.stringify(lastFoundMovies));
+    dispatch(actionsMoviesData.setLastFoundMovies(lastFoundMovies));
+    actionsSearchForm.setIsSearchingSuccess();
+  }, [value])
 
   return (
     <section className={searchFormStyles.wrapper}>
       <form className={searchFormStyles['search-form']}>
         <input type="text" className={searchFormStyles['search-form__input']} placeholder="Фильм" required
                value={value} onChange={(e) => {
+          e.stopPropagation();
           handleChange(e);
         }}/>
         <FormButton name="Поиск" needSearchMod={true} onClick={handleSubmit}/>
