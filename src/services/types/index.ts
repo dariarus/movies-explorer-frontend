@@ -21,3 +21,7 @@ export interface ISearchFormSliceState {
   value: string,
   isSearching: boolean
 }
+
+export interface IPopupState {
+  isOpen: boolean
+}

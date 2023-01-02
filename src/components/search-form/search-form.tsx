@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FunctionComponent, useCallback, useState} from 'react';
+import React, {ChangeEvent, FunctionComponent, useCallback, useEffect, useState} from 'react';
 
 import searchFormStyles from './search-form.module.css';
 
@@ -7,10 +7,12 @@ import {FilterCheckbox} from '../filter-checkbox/filter-checkbox';
 
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {searchFormSlice} from '../../services/state-slices/search-form';
-import {moviesDataSlice} from '../../services/state-slices/movies-data';
+import {moviesDataSlice, setLastFoundMovies} from '../../services/state-slices/movies-data';
+import {setRenderingTimer} from '../../utils/functions';
+import {popupSlice} from '../../services/state-slices/popup';
 
 export const SearchForm: FunctionComponent = () => {
-  const {moviesDataState} = useSelector((state) => {
+  const {moviesDataState, searchFormState} = useSelector((state) => {
     return state;
   })
 
@@ -20,20 +22,29 @@ export const SearchForm: FunctionComponent = () => {
 
   const actionsMoviesData = moviesDataSlice.actions;
   const actionsSearchForm = searchFormSlice.actions;
+  const actionsPopup = popupSlice.actions;
 
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     dispatch(actionsSearchForm.setValue(event.target.value));
   }, [dispatch, value]);
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
+    dispatch(actionsSearchForm.setIsSearching());
+    await setRenderingTimer(1000);
     const lastFoundMovies = moviesDataState.moviesData.filter(movie => {
         return movie.nameRU.includes(value) || movie.nameEN.includes(value)
       }
     )
-    localStorage.setItem('lastFoundMovies', JSON.stringify(lastFoundMovies));
-    dispatch(actionsMoviesData.setLastFoundMovies(lastFoundMovies));
-    actionsSearchForm.setIsSearchingSuccess();
+    if (lastFoundMovies.length === 0) {
+      dispatch(actionsPopup.setIsOpen());
+    } else {
+      dispatch(actionsPopup.setIsClosed());
+    }
+      localStorage.setItem('lastFoundMovies', JSON.stringify(lastFoundMovies));
+      dispatch(actionsMoviesData.setLastFoundMovies(lastFoundMovies));
+      dispatch(actionsSearchForm.setIsSearchingSuccess())
+
   }, [value])
 
   return (

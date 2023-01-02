@@ -6,14 +6,14 @@ import moviesListStyles from './movies-card-list.module.css';
 
 import {MoviesCard} from '../movies-card/movies-card';
 import {MoreMoviesButton} from '../more-movies-button/more-movies-button';
-import {Preloader} from '../preloader/preloader';
 import {convertSeconds, getWindowWidth} from '../../utils/functions';
 import {TButtonView} from '../../services/types/props-types';
 import {Popup} from '../popup/popup';
 import {TMovieItem} from '../../services/types/data';
+import {Preloader} from '../preloader/preloader';
 
 export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView, movies: Array<TMovieItem> }> = (props) => {
-  const {moviesDataState} = useSelector(state => {
+  const {moviesDataState, searchFormState} = useSelector(state => {
     return state
   });
 
@@ -23,9 +23,6 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView, movies
   const [screenWidth, setScreenWidth] = useState(getWindowWidth())
   const [countItemsToShow, setCountItemsToShow] = useState<number>(0);
   const [countMoreItemsToShow, setCountMoreItemsToShow] = useState<number>(0);
-
-  // const [popupIsOpen, setPopupIsOpen] = useState(true);
-  const [popupIsOpen, setPopupIsOpen] = useState(false);
 
   useEffect(() => {
     const handleScreenWidth = () => setScreenWidth(getWindowWidth())
@@ -53,16 +50,6 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView, movies
     setCountItemsToShow(countItemsToShow + countMoreItemsToShow)
   }
 
-  const handleOnOpen = () => {
-    setPopupIsOpen(true);
-    document.body.classList.toggle(moviesListStyles['body-overlay']);
-  }
-
-  // TODO: Перенести состояние попапа в хранилище
-  const handleOnClose = () => {
-    setPopupIsOpen(false);
-  }
-
   return (
     <section className={moviesListStyles['movies-wrapper']}>
       <ul className={moviesListStyles.movies}>
@@ -78,11 +65,6 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView, movies
         }
       </ul>
       <MoreMoviesButton onClick={() => onClickMoreMoviesButton()} disabled={moreButtonDisabled}/>
-      {
-        popupIsOpen &&
-        <Popup primaryText="Поиск не дал результатов" secondaryText="Попробуйте поискать другой фильм"
-               onClose={handleOnClose}/>
-      }
     </section>
   )
 }

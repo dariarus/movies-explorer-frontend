@@ -1,8 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ISearchFormSliceState} from '../types';
-import {IMoviesDataActions, ISearchFormActions} from '../types/action-type';
-import {moviesDataSlice} from './movies-data';
-import {TErrorState} from '../types/data';
+import {ISearchFormActions} from '../types/action-type';
 
 export const searchFormSlice = createSlice({
   name: 'searchForm',
@@ -48,9 +46,11 @@ export default searchFormSlice.reducer
 export const {
   setIsSearching,
   setValue,
+  setIsSearchingSuccess
 } = searchFormSlice.actions
 
 export const searchFormActions: ISearchFormActions = {
   setIsSearching: setIsSearching,
-  setValue: setValue
+  setValue: setValue,
+  setIsSearchingSuccess: setIsSearchingSuccess,
 }

@@ -90,6 +90,6 @@ export const getWindowWidth = () => {
   return {innerWidth};
 }
 
-export const setFoundFilms = () => {
-
+export const setRenderingTimer = async (ms: number) => {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
