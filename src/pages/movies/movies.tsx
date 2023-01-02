@@ -8,39 +8,62 @@ import {MoviesCardList} from '../../components/movies-card-list/movies-card-list
 
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {Popup} from '../../components/popup/popup';
-import moviesListStyles from '../../components/movies-card-list/movies-card-list.module.css';
-import {popupSlice} from '../../services/state-slices/popup';
+
+import {popupActions} from '../../services/state-slices/popup';
+import {searchFormActions} from '../../services/state-slices/search-form';
 
 export const Movies: FunctionComponent = () => {
   const {moviesDataState, searchFormState, popupState} = useSelector((state) => {
     return state;
   });
 
-  const [popupIsOpen, setPopupIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  // const actionsPopup = popupSlice.actions;
+  // const actionsSearchForm = searchFormSlice.actions;
 
-  const handleOnOpenPopup = () => {
-    setPopupIsOpen(true);
-    document.body.classList.add(moviesListStyles['body-overlay']);
+  // const [popupIsOpen, setPopupIsOpen] = useState(false);
+
+  const handleOnOpenPopup = (popupType: string) => {
+    // setPopupIsOpen(true);
+    dispatch(popupActions.setIsOpen({
+      [popupType]: true
+    }));
+    document.body.classList.add(moviesPageStyles['body-overlay']);
   }
 
   const handleOnClosePopup = () => {
-    setPopupIsOpen(false);
-    document.body.classList.remove(moviesListStyles['body-overlay']);
+    // setPopupIsOpen(false);
+    dispatch(popupActions.setIsClosed());
+    document.body.classList.remove(moviesPageStyles['body-overlay']);
   }
+
+  useEffect(() => {
+    dispatch(searchFormActions.setSearchingIsFailed());
+    // dispatch(popupActions.setIsOpen({
+    //   errorPopupIsOpened: true
+    // }));
+  }, [moviesDataState.hasError])
 
   return (
     <>
       {
-        popupIsOpen &&
+        popupState.popupTypesToOpen.nothingFoundPopupIsOpened &&
         <Popup primaryText="Поиск не дал результатов" secondaryText="Попробуйте поискать другой фильм"
                onClose={handleOnClosePopup}/>
       }
       {
-        moviesDataState.hasError &&
+        popupState.popupTypesToOpen.errorPopupIsOpened &&
         <Popup primaryText="Что-то пошло не так :(" secondaryText="Попробуйте повторить действие" onClose={handleOnClosePopup}/>
       }
 
-      <SearchForm handleOpenPopup={handleOnOpenPopup}/>
+      <SearchForm handleOpenPopup={() => {
+        if (searchFormState.hasError) {
+          handleOnOpenPopup('errorPopupIsOpened')
+        }
+        if (moviesDataState.lastFoundMovies.length === 0) {
+          handleOnOpenPopup('nothingFoundPopupIsOpened')
+        }
+      }}/>
       {
         searchFormState.isSearching
           ? <Preloader/>

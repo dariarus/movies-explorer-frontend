@@ -1,23 +1,23 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {IPopupState} from '../types';
 import {IPopupActions} from '../types/action-type';
 
 export const popupSlice = createSlice({
   name: 'popup',
   initialState: {
-    isOpen: false,
+    popupTypesToOpen: {}
   } as IPopupState,
   reducers: {
-    setIsOpen: (state) => {
+    setIsOpen: (state, action: PayloadAction<{ [index: string]: boolean }>) => {
       return {
         ...state,
-        isOpen: true,
+        popupTypesToOpen: action.payload
       }
     },
     setIsClosed: (state) => {
       return {
         ...state,
-        isOpen: false,
+        popupTypesToOpen: {}
       }
     }
   }

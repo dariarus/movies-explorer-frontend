@@ -19,9 +19,13 @@ export interface IMoviesDataSliceState {
 
 export interface ISearchFormSliceState {
   value: string,
-  isSearching: boolean
+  isSearching: boolean,
+  hasError: boolean
 }
 
 export interface IPopupState {
-  isOpen: boolean
+  popupTypesToOpen: {
+    nothingFoundPopupIsOpened?: string,
+    errorPopupIsOpened?: string
+  }
 }

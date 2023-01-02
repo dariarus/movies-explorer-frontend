@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ISearchFormSliceState} from '../types';
 import {ISearchFormActions} from '../types/action-type';
+import {TErrorState} from '../types/data';
 
 export const searchFormSlice = createSlice({
   name: 'searchForm',
@@ -8,7 +9,7 @@ export const searchFormSlice = createSlice({
     value: '',
     isSearching: false,
     hasError: false,
-    error: {}
+    // error: {}
   } as ISearchFormSliceState,
   reducers: {
     setIsSearching: (state) => {
@@ -30,14 +31,13 @@ export const searchFormSlice = createSlice({
         isSearching: false,
       }
     },
-    // setSearchingIsFailed: (state, action: PayloadAction<TErrorState>) => {
-    //   return {
-    //     ...state,
-    //     isSearching: false,
-    //     hasError: true,
-    //     error: action.payload
-    //   }
-    // },
+    setSearchingIsFailed: (state) => {
+      return {
+        ...state,
+        isSearching: false,
+        hasError: true
+      }
+    },
   }
 })
 
@@ -46,11 +46,13 @@ export default searchFormSlice.reducer
 export const {
   setIsSearching,
   setValue,
-  setIsSearchingSuccess
+  setIsSearchingSuccess,
+  setSearchingIsFailed
 } = searchFormSlice.actions
 
 export const searchFormActions: ISearchFormActions = {
   setIsSearching: setIsSearching,
   setValue: setValue,
   setIsSearchingSuccess: setIsSearchingSuccess,
+  setSearchingIsFailed: setSearchingIsFailed,
 }

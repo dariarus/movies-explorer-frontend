@@ -60,5 +60,6 @@ export const {
 export const moviesDataActions: IMoviesDataActions = {
   getMoviesDataSuccess: getMoviesDataSuccess,
   getMoviesData: getMoviesData,
-  getMoviesDataFailed: getMoviesDataFailed
+  getMoviesDataFailed: getMoviesDataFailed,
+  setLastFoundMovies: setLastFoundMovies
 }
