@@ -14,12 +14,15 @@ import {Popup} from '../popup/popup';
 import {Footer} from '../footer/footer';
 import {Header} from '../header/header';
 import {getMoviesDataFromSideApi} from '../../services/actions/movies-api';
-import {useAppDispatch} from '../../services/types/hooks';
+import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {moviesDataSlice} from '../../services/state-slices/movies-data';
 
 function App() {
-  const dispatch = useAppDispatch();
+  const {moviesDataState} = useSelector((state) => {
+    return state;
+  })
 
+  const dispatch = useAppDispatch();
   const actionsMoviesData = moviesDataSlice.actions;
 
   useEffect(() => {
@@ -59,7 +62,6 @@ function App() {
         </Switch>
       </main>
       <Footer/>
-      {/*<Popup primaryText="Что-то пошло не так :(" secondaryText="Попробуйте повторить действие" />*/}
     </BrowserRouter>
   );
 }

@@ -11,8 +11,8 @@ import {moviesDataSlice, setLastFoundMovies} from '../../services/state-slices/m
 import {setRenderingTimer} from '../../utils/functions';
 import {popupSlice} from '../../services/state-slices/popup';
 
-export const SearchForm: FunctionComponent = () => {
-  const {moviesDataState, searchFormState} = useSelector((state) => {
+export const SearchForm: FunctionComponent<{handleOpenPopup: () => void}> = (props) => {
+  const {moviesDataState, searchFormState, popupState} = useSelector((state) => {
     return state;
   })
 
@@ -37,9 +37,7 @@ export const SearchForm: FunctionComponent = () => {
       }
     )
     if (lastFoundMovies.length === 0) {
-      dispatch(actionsPopup.setIsOpen());
-    } else {
-      dispatch(actionsPopup.setIsClosed());
+      props.handleOpenPopup()
     }
       localStorage.setItem('lastFoundMovies', JSON.stringify(lastFoundMovies));
       dispatch(actionsMoviesData.setLastFoundMovies(lastFoundMovies));
