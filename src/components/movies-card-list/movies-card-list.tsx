@@ -6,12 +6,13 @@ import moviesListStyles from './movies-card-list.module.css';
 
 import {MoviesCard} from '../movies-card/movies-card';
 import {MoreMoviesButton} from '../more-movies-button/more-movies-button';
-import {convertSeconds, getWindowWidth} from '../../utils/functions';
+import {convertSeconds, getMoviesToShow, getWindowWidth} from '../../utils/functions';
 import {TButtonView} from '../../services/types/props-types';
 import {TMovieItem} from '../../services/types/data';
+import {tmpMoviesArray} from '../../utils/constants';
 
 export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView, movies: Array<TMovieItem> }> = (props) => {
-  const {moviesDataState} = useSelector(state => {
+  const {moviesDataState, filterCheckboxState} = useSelector(state => {
     return state
   });
 
@@ -19,7 +20,8 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView, movies
   const [countItemsToShow, setCountItemsToShow] = useState<number>(0);
   const [countMoreItemsToShow, setCountMoreItemsToShow] = useState<number>(0);
 
-  const moviesToShow = props.movies.slice(0, countItemsToShow)
+  // отрисовка нужного кол-ва карточек + фильтрация короткометражек
+  const moviesToShow = getMoviesToShow(filterCheckboxState.isChecked, props.movies, countItemsToShow);
 
   useEffect(() => {
     const handleScreenWidth = () => setScreenWidth(getWindowWidth())
@@ -48,7 +50,7 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView, movies
   }
 
   return (
-    <section className={moviesListStyles['movies-wrapper']}>
+    <section className={moviesListStyles['movies-container']}>
       <ul className={moviesListStyles.movies}>
         {
           moviesToShow.map((movie, index) => {

@@ -2,11 +2,12 @@
   overflow: hidden;
 }
 
-.movies-wrapper {
+.movies-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: auto;
+  /*box-sizing: border-box;*/
+  margin: 0 auto;
   padding: 70px;
   max-width: 1140px;
 }
@@ -16,13 +17,14 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, auto);
   gap: 32px;
-  box-sizing: border-box;
+  /*box-sizing: border-box;*/
   margin: 0 0 10px 0;
   padding: 0;
 }
 
 @media screen and (max-width: 1141px) {
   .movies {
+    /*max-width: 1135px;*/
     grid-template-columns: repeat(2, 1fr);
     gap: 35px 24px;
     margin-bottom: 30px;

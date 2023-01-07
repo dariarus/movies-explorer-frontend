@@ -17,6 +17,10 @@ export interface IMoviesDataSliceState {
   lastFoundMovies: Array<TMovieItem>
 }
 
+export interface ISavedMoviesDataState {
+  savedMovies: Array<TMovieItem>
+}
+
 export interface ISearchFormSliceState {
   value: string,
   isSearching: boolean,
@@ -28,4 +32,8 @@ export interface IPopupState {
     nothingFoundPopupIsOpened?: string,
     errorPopupIsOpened?: string
   }
+}
+
+export interface IFilterCheckbox {
+  isChecked: boolean
 }

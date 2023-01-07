@@ -1,4 +1,5 @@
 import {ForwardedRef, useEffect, useRef} from 'react';
+import {TMovieItem} from '../services/types/data';
 
 /* Модифицированный код нового хука в React-е более поздней версии:
 https://stackoverflow.com/questions/62238716/using-ref-current-in-react-forwardref */
@@ -92,4 +93,12 @@ export const getWindowWidth = () => {
 
 export const setRenderingTimer = async (ms: number) => {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export const getMoviesToShow = (isShortFilm: boolean, originalMoviesArray: Array<TMovieItem>, sliceEnd: number) => {
+  if (isShortFilm) {
+    return originalMoviesArray.filter(movie => movie.duration <= 2400).slice(0, sliceEnd)
+  } else {
+    return originalMoviesArray.slice(0, sliceEnd)
+  }
 }

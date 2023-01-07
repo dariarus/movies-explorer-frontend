@@ -77,6 +77,11 @@
   font-size: 13px;
   line-height: 18px;
   color: #fff;
+  transition: color .3s ease;
+}
+
+.checkbox__name_inactive {
+  color: #8b8b8b;
 }
 
 @media screen and (max-width: 321px) {

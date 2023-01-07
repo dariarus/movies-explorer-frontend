@@ -19,6 +19,7 @@
 
 .movie__image {
   width: 100%;
+  /*min-width: 360px;*/
   height: 200px;
   object-fit: contain;
   object-position: center center;
@@ -26,8 +27,8 @@
 }
 
 .movie__text {
-  max-width: 246px;
-  margin: 0;
+  max-height: 18px;
+  margin: 0 5px 0 0;
   font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -35,11 +36,16 @@
   line-height: 18px;
   color: #fff;
   overflow: hidden;
-  white-space: nowrap; /* запретить перенос сроки */
   text-overflow: ellipsis;
 }
 
+.movie__text_primary {
+  max-width: 230px;
+  white-space: nowrap; /* запретить перенос сроки */
+}
+
 .movie__text_secondary {
+  margin: 0;
   font-weight: 400;
   font-size: 13px;
   line-height: 18px;

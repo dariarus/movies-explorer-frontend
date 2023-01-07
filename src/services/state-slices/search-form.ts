@@ -1,15 +1,13 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ISearchFormSliceState} from '../types';
 import {ISearchFormActions} from '../types/action-type';
-import {TErrorState} from '../types/data';
 
 export const searchFormSlice = createSlice({
   name: 'searchForm',
   initialState: {
     value: '',
     isSearching: false,
-    hasError: false,
-    // error: {}
+    hasError: false
   } as ISearchFormSliceState,
   reducers: {
     setIsSearching: (state) => {

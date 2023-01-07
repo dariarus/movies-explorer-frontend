@@ -11,7 +11,7 @@ export const moviesDataSlice = createSlice({
     hasError: false,
     error: {},
     moviesData: [],
-    lastFoundMovies: []
+    lastFoundMovies: [],
   } as IMoviesDataSliceState,
   reducers: {
     getMoviesDataSuccess: (state, action: PayloadAction<Array<TMovieItem>>) => {

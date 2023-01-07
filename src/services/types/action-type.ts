@@ -21,6 +21,10 @@ export interface IPopupActions {
   setIsClosed: ActionCreatorWithoutPayload<string>
 }
 
+export interface IFilterCheckboxActions {
+  toggleIsChecked: ActionCreatorWithoutPayload<string>
+}
+
 type TMoviesActions =
   IMoviesDataActions
 
@@ -30,7 +34,11 @@ type TSearchFormActions =
 type TPopupActions =
   IPopupActions
 
+type TFilterCheckboxActions =
+  IFilterCheckboxActions
+
 export type TApplicationActions =
   TMoviesActions
   | TSearchFormActions
   | TPopupActions
+  | TFilterCheckboxActions

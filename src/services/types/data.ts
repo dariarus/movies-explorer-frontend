@@ -11,8 +11,9 @@ export type TMovieItem = {
   image: { url: string },
   trailerLink: string,
   thumbnail: string,
-  owner: string, //?
   movieId: number,
   nameRU: string,
   nameEN: string,
 }
+
+export type TSavedMovieItem = TMovieItem & {owner: string}
