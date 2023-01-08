@@ -6,13 +6,18 @@ import {FormButton} from '../form-button/form-button';
 import {FilterCheckbox} from '../filter-checkbox/filter-checkbox';
 
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
-import {searchFormSlice} from '../../services/state-slices/search-form';
-import {moviesDataSlice, setLastFoundMovies} from '../../services/state-slices/movies-data';
-import {setRenderingTimer} from '../../utils/functions';
-import {popupSlice} from '../../services/state-slices/popup';
+import {searchFormActions} from '../../services/state-slices/search-form';
+import {moviesDataActions} from '../../services/state-slices/movies-data';
+import {isSavedMovie, setRenderingTimer} from '../../utils/functions';
+import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
+import {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
 
-export const SearchForm: FunctionComponent<{handleOpenPopup: () => void}> = (props) => {
-  const {moviesDataState, searchFormState, popupState} = useSelector((state) => {
+export const SearchForm: FunctionComponent<{
+  moviesArray: Array<TMovieItem> | Array<TSavedMovieItem>,
+  handleOpenPopup: () => void
+}> = (props) => {
+
+  const {moviesDataState} = useSelector((state) => {
     return state;
   })
 
@@ -20,30 +25,42 @@ export const SearchForm: FunctionComponent<{handleOpenPopup: () => void}> = (pro
 
   const dispatch = useAppDispatch();
 
-  const actionsMoviesData = moviesDataSlice.actions;
-  const actionsSearchForm = searchFormSlice.actions;
-  const actionsPopup = popupSlice.actions;
-
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
-    dispatch(actionsSearchForm.setValue(event.target.value));
+    dispatch(searchFormActions.setValue(event.target.value));
   }, [dispatch, value]);
 
   const handleSubmit = useCallback(async () => {
-    dispatch(actionsSearchForm.setIsSearching());
+    dispatch(searchFormActions.setIsSearching());
+
     await setRenderingTimer(1000);
-    const lastFoundMovies = moviesDataState.moviesData.filter(movie => {
+
+    const lastFoundMovies = props.moviesArray.filter(movie => {
         return movie.nameRU.includes(value) || movie.nameEN.includes(value)
       }
     )
     if (lastFoundMovies.length === 0) {
       props.handleOpenPopup()
     }
-      localStorage.setItem('lastFoundMovies', JSON.stringify(lastFoundMovies));
-      dispatch(actionsMoviesData.setLastFoundMovies(lastFoundMovies));
-      dispatch(actionsSearchForm.setIsSearchingSuccess())
 
+    props.moviesArray.map(movie => {
+      // проверка типа входящего массива: сохраненные фильмы или все
+      if (isSavedMovie(movie)) {
+        dispatch(savedMoviesDataActions.setLastFoundSavedMovies(lastFoundMovies as Array<TSavedMovieItem>));
+      } else {
+        localStorage.setItem('lastFoundMovies', JSON.stringify(lastFoundMovies));
+        dispatch(moviesDataActions.setLastFoundMovies(lastFoundMovies));
+      }
+    })
+
+    dispatch(searchFormActions.setIsSearchingSuccess())
   }, [value])
+
+  useEffect(() => {
+    if (moviesDataState.hasError) {
+      dispatch(searchFormActions.setSearchingIsFailed());
+    }
+  }, [moviesDataState.hasError])
 
   return (
     <section className={searchFormStyles.wrapper}>

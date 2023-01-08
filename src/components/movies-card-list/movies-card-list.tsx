@@ -20,6 +20,8 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView, movies
   const [countItemsToShow, setCountItemsToShow] = useState<number>(0);
   const [countMoreItemsToShow, setCountMoreItemsToShow] = useState<number>(0);
 
+  const [moreButtonDisabled, setMoreButtonDisabled] = useState<boolean>(false);
+
   // отрисовка нужного кол-ва карточек + фильтрация короткометражек
   const moviesToShow = getMoviesToShow(filterCheckboxState.isChecked, props.movies, countItemsToShow);
 
@@ -43,7 +45,12 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView, movies
     };
   }, [])
 
-  const moreButtonDisabled = moviesToShow.length === moviesDataState.moviesData.length;
+  useEffect(() => {
+    if (moviesToShow.length === moviesDataState.moviesData.length
+      || moviesToShow.length <= countItemsToShow) {
+      setMoreButtonDisabled(true);
+    }
+  }, [moviesToShow.length, countItemsToShow])
 
   const onClickMoreMoviesButton = () => {
     setCountItemsToShow(countItemsToShow + countMoreItemsToShow)

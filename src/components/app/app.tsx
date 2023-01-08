@@ -10,12 +10,11 @@ import {Register} from '../../pages/register/register';
 import {Login} from '../../pages/login/login';
 import {Profile} from '../../pages/profile/profile';
 import {NotFound404} from '../../pages/not-found-404/not-found-404';
-import {Popup} from '../popup/popup';
 import {Footer} from '../footer/footer';
 import {Header} from '../header/header';
 import {getMoviesDataFromSideApi} from '../../services/actions/movies-api';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
-import {moviesDataActions, moviesDataSlice} from '../../services/state-slices/movies-data';
+import {moviesDataActions} from '../../services/state-slices/movies-data';
 
 function App() {
   const {moviesDataState} = useSelector((state) => {

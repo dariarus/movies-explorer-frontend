@@ -1,7 +1,7 @@
 import {Action, AnyAction} from '@reduxjs/toolkit';
 import {ThunkDispatch, ThunkAction} from 'redux-thunk';
 
-import {TErrorState, TMovieItem} from './data';
+import {TErrorState, TMovieItem, TSavedMovieItem} from './data';
 import {rootReducer} from '../state-slices';
 import {TApplicationActions} from './action-type';
 
@@ -18,7 +18,15 @@ export interface IMoviesDataSliceState {
 }
 
 export interface ISavedMoviesDataState {
-  savedMovies: Array<TMovieItem>
+  isLoading: boolean,
+  hasError: boolean,
+  error: TErrorState,
+  savedMoviesData: Array<TSavedMovieItem>,
+  lastFoundSavedMovies: Array<TSavedMovieItem>
+}
+
+export interface ISavedMovieState {
+  wasSaved: boolean,
 }
 
 export interface ISearchFormSliceState {

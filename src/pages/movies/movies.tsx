@@ -31,20 +31,16 @@ export const Movies: FunctionComponent = () => {
     document.body.classList.remove(moviesPageStyles['body-overlay']);
   }
 
-  useEffect(() => {
-    dispatch(searchFormActions.setSearchingIsFailed());
-  }, [moviesDataState.hasError])
-
   return (
     <>
-      <SearchForm handleOpenPopup={() => {
-        if (searchFormState.hasError) {
-          handleOnOpenPopup('errorPopupIsOpened')
-        }
-        if (moviesDataState.lastFoundMovies.length === 0) {
-          handleOnOpenPopup('nothingFoundPopupIsOpened')
-        }
-      }}/>
+      <SearchForm moviesArray={moviesDataState.moviesData}
+                  handleOpenPopup={() => {
+                    if (searchFormState.hasError) {
+                      handleOnOpenPopup('errorPopupIsOpened');
+                    } else if (moviesDataState.lastFoundMovies.length === 0) {
+                      handleOnOpenPopup('nothingFoundPopupIsOpened');
+                    }
+                  }}/>
       {
         searchFormState.isSearching
           ? <Preloader/>
@@ -61,7 +57,8 @@ export const Movies: FunctionComponent = () => {
       }
       {
         popupState.popupTypesToOpen.errorPopupIsOpened &&
-        <Popup primaryText="Что-то пошло не так :(" secondaryText="Попробуйте повторить действие" onClose={handleOnClosePopup}/>
+        <Popup primaryText="Что-то пошло не так :(" secondaryText="Попробуйте повторить действие"
+               onClose={handleOnClosePopup}/>
       }
     </>
   )

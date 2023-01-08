@@ -1,13 +1,13 @@
 import {AppDispatch, AppThunk} from "../types";
-import {moviesDataActions} from '../state-slices/movies-data';
 import {moviesApi} from '../../utils/constants';
 import {getResponseData} from './json-verifiction';
-import {TMovieItem} from '../types/data';
+import {TSavedMovieItem} from '../types/data';
+import {savedMoviesDataActions} from '../state-slices/saved-movies-data';
 
 export const getSavedMoviesData = (): AppThunk => {
   return function (dispatch: AppDispatch) {
 
-    dispatch(moviesDataActions.getMoviesData());
+    dispatch(savedMoviesDataActions.getSavedMoviesData());
 
     fetch(`${moviesApi}/movies`, {
       method: 'GET',
@@ -15,12 +15,12 @@ export const getSavedMoviesData = (): AppThunk => {
         'Content-Type': 'application/json'
       }
     })
-      .then(res => getResponseData<Array<TMovieItem>>(res))
+      .then(res => getResponseData<Array<TSavedMovieItem>>(res))
       .then(res => {
-        dispatch(moviesDataActions.getMoviesDataSuccess(res))
+        dispatch(savedMoviesDataActions.getSavedMoviesDataSuccess(res))
       })
       .catch(error => {
-        dispatch(moviesDataActions.getMoviesDataFailed({message: error.message}))
+        dispatch(savedMoviesDataActions.getSavedMoviesDataFailed({message: error.message}))
       })
   }
 }
@@ -28,7 +28,7 @@ export const getSavedMoviesData = (): AppThunk => {
 // export const saveMovie = (): AppThunk => {
 //   return function (dispatch: AppDispatch) {
 //
-//     dispatch(moviesDataActions.getMoviesData());
+//     dispatch(savedMoviesDataActions.getSavedMoviesData());
 //
 //     fetch(`${moviesApi}/movies`, {
 //       method: 'GET',

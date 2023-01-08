@@ -1,5 +1,5 @@
 import {ForwardedRef, useEffect, useRef} from 'react';
-import {TMovieItem} from '../services/types/data';
+import {TMovieItem, TSavedMovieItem} from '../services/types/data';
 
 /* Модифицированный код нового хука в React-е более поздней версии:
 https://stackoverflow.com/questions/62238716/using-ref-current-in-react-forwardref */
@@ -101,4 +101,9 @@ export const getMoviesToShow = (isShortFilm: boolean, originalMoviesArray: Array
   } else {
     return originalMoviesArray.slice(0, sliceEnd)
   }
+}
+
+// использую type predicate для определения типа массива из пропсов для сохранения найденных фильмов в нужный slice
+export const isSavedMovie = (movie: TSavedMovieItem | TMovieItem): movie is TSavedMovieItem => {
+ return (movie as TSavedMovieItem).owner !== undefined;
 }
