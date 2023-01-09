@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect, useState} from 'react';
+import React, {FunctionComponent, useCallback, useEffect, useState} from 'react';
 
 import {useSelector} from "../../services/types/hooks";
 
@@ -8,10 +8,13 @@ import {MoviesCard} from '../movies-card/movies-card';
 import {MoreMoviesButton} from '../more-movies-button/more-movies-button';
 import {convertSeconds, getMoviesToShow, getWindowWidth} from '../../utils/functions';
 import {TButtonView} from '../../services/types/props-types';
-import {TMovieItem} from '../../services/types/data';
+import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
 import {tmpMoviesArray} from '../../utils/constants';
 
-export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView, movies: Array<TMovieItem> }> = (props) => {
+export const MoviesCardList: FunctionComponent<{
+  buttonView: TButtonView,
+  movies: Array<TMovieItem> | Array<TSavedMovieItem>
+}> = (props) => {
   const {moviesDataState, filterCheckboxState} = useSelector(state => {
     return state
   });
@@ -20,10 +23,13 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView, movies
   const [countItemsToShow, setCountItemsToShow] = useState<number>(0);
   const [countMoreItemsToShow, setCountMoreItemsToShow] = useState<number>(0);
 
-  const [moreButtonDisabled, setMoreButtonDisabled] = useState<boolean>(false);
-
   // отрисовка нужного кол-ва карточек + фильтрация короткометражек
   const moviesToShow = getMoviesToShow(filterCheckboxState.isChecked, props.movies, countItemsToShow);
+  const moreButtonDisabled = moviesToShow.length === props.movies.length || moviesToShow.length < countItemsToShow;
+
+  const onClickMoreMoviesButton = () => {
+    setCountItemsToShow(countItemsToShow + countMoreItemsToShow)
+  }
 
   useEffect(() => {
     const handleScreenWidth = () => setScreenWidth(getWindowWidth())
@@ -45,17 +51,6 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView, movies
     };
   }, [])
 
-  useEffect(() => {
-    if (moviesToShow.length === moviesDataState.moviesData.length
-      || moviesToShow.length <= countItemsToShow) {
-      setMoreButtonDisabled(true);
-    }
-  }, [moviesToShow.length, countItemsToShow])
-
-  const onClickMoreMoviesButton = () => {
-    setCountItemsToShow(countItemsToShow + countMoreItemsToShow)
-  }
-
   return (
     <section className={moviesListStyles['movies-container']}>
       <ul className={moviesListStyles.movies}>
@@ -70,7 +65,7 @@ export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView, movies
           )
         }
       </ul>
-      <MoreMoviesButton onClick={() => onClickMoreMoviesButton()} disabled={moreButtonDisabled}/>
+      <MoreMoviesButton onClick={onClickMoreMoviesButton} disabled={moreButtonDisabled}/>
     </section>
   )
 }
