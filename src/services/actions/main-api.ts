@@ -47,3 +47,24 @@ export const saveMovie = (movie: TMovieItem): AppThunk => {
       })
   }
 }
+
+export const unsaveMovie = (id: number): AppThunk => {
+  return function (dispatch: AppDispatch) {
+
+    dispatch(savedMoviesDataActions.getSavedMoviesData());
+
+    fetch(`${moviesApi}/movies/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => getResponseData<TMovieItem>(res))
+      .then(() => {
+        dispatch(savingMovieActions.unsaveMovie(id));
+      })
+      .catch(error => {
+        dispatch(savedMoviesDataActions.getSavedMoviesDataFailed({message: error.message}))
+      })
+  }
+}

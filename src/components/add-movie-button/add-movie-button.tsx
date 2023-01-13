@@ -4,9 +4,7 @@ import addFilmButtonStyles from './add-movie-button.module.css';
 
 import {ButtonView, TButtonView} from '../../services/types/props-types';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
-import {saveMovie} from '../../services/actions/main-api';
-import savedMoviesData, {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
-import {savingMovieActions, unsaveMovie} from '../../services/state-slices/saving-movie';
+import {saveMovie, unsaveMovie} from '../../services/actions/main-api';
 import {TMovieItem} from '../../services/types/data';
 
 export const AddMovieButton: FunctionComponent<{ buttonView: TButtonView, movieToSave: TMovieItem }> = (props) => {
@@ -40,13 +38,13 @@ export const AddMovieButton: FunctionComponent<{ buttonView: TButtonView, movieT
           : buttonView === ButtonView.added && wasSaved
             ? <button className={`${addFilmButtonStyles.button} ${addFilmButtonStyles['button_active']}`}
                       onClick={() => {
+                        dispatch(unsaveMovie(props.movieToSave.id));
                         setButtonView(ButtonView.add);
-
                       }}></button>
             // крестик
             : <button className={`${addFilmButtonStyles.button} ${addFilmButtonStyles['button_delete']}`}
                       onClick={() => {
-
+                        dispatch(unsaveMovie(props.movieToSave.id));
                       }}></button>
       }
     </>
