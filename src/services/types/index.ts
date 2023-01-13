@@ -25,8 +25,9 @@ export interface ISavedMoviesDataState {
   lastFoundSavedMovies: Array<TSavedMovieItem>
 }
 
-export interface ISavedMovieState {
+export interface ISavingMovieState {
   wasSaved: boolean,
+  savingMovie: TMovieItem
 }
 
 export interface ISearchFormSliceState {

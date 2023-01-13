@@ -10,10 +10,14 @@ export interface IMoviesDataActions {
 }
 
 export interface ISavedMoviesDataActions {
-  getSavedMoviesDataSuccess:ActionCreatorWithPayload<Array<TSavedMovieItem>>,
+  getSavedMoviesDataSuccess: ActionCreatorWithPayload<Array<TSavedMovieItem>>,
   getSavedMoviesData: ActionCreatorWithoutPayload<string>,
   getSavedMoviesDataFailed: ActionCreatorWithPayload<TErrorState>,
   setLastFoundSavedMovies: ActionCreatorWithPayload<Array<TSavedMovieItem>>
+}
+
+export interface ISavingMovieActions {
+  saveMovie: ActionCreatorWithPayload<TMovieItem>
 }
 
 export interface ISearchFormActions {
@@ -38,6 +42,9 @@ type TMoviesDataActions =
 type TSavedMoviesDataActions =
   ISavedMoviesDataActions
 
+type TSavingMovieActions =
+  ISavingMovieActions
+
 type TSearchFormActions =
   ISearchFormActions
 
@@ -51,5 +58,6 @@ export type TApplicationActions =
   TMoviesDataActions
   | TSavedMoviesDataActions
   | TSearchFormActions
+  | TSavingMovieActions
   | TPopupActions
   | TFilterCheckboxActions

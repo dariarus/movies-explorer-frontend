@@ -36,8 +36,7 @@ export const SavedMovies: FunctionComponent = () => {
 
   return (
     <>
-      {/*<SearchForm moviesArray={savedMoviesDataState.savedMoviesData}*/}
-      <SearchForm moviesArray={tmpMoviesArray}
+      <SearchForm moviesArray={savedMoviesDataState.savedMoviesData}
                   handleOpenPopup={() => {
                     if (searchFormState.hasError) {
                       handleOnOpenPopup('errorPopupIsOpened')
@@ -50,11 +49,9 @@ export const SavedMovies: FunctionComponent = () => {
       {
         searchFormState.isSearching
           ? <Preloader/>
-          // : savedMoviesDataState.savedMoviesData.length === 0
-          //   ? <p className={savedMoviesPageStyles.text}>Вы пока ничего не сохранили</p>
-
-          //вернуть обратно массив
-            : <MoviesCardList buttonView='delete' movies={tmpMoviesArray}/>
+          : savedMoviesDataState.savedMoviesData.length === 0
+            ? <p className={savedMoviesPageStyles.text}>Вы пока ничего не сохранили</p>
+            : <MoviesCardList buttonView='delete' movies={savedMoviesDataState.savedMoviesData}/>
 
       }
 

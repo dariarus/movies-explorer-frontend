@@ -1,17 +1,32 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {ISavedMovieState} from '../types';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-export const savedMovieSlice = createSlice({
-  name: 'savedMoviesData',
+import {ISavingMovieState} from '../types';
+import {TMovieItem} from '../types/data';
+import {ISavingMovieActions} from '../types/action-type';
+
+export const savingMovieSlice = createSlice({
+  name: 'savingMovie',
   initialState: {
-    wasSaved: false,
-  } as ISavedMovieState,
+    savingMovie: {},
+    wasSaved: false
+  } as ISavingMovieState,
   reducers: {
-    saveMovie: (state) => {
+    saveMovie: (state, action: PayloadAction<TMovieItem>) => {
       return {
         ...state,
+        savingMovie: action.payload,
         wasSaved: true
       }
     },
   }
 })
+
+export default savingMovieSlice.reducer
+
+export const {
+  saveMovie
+} = savingMovieSlice.actions
+
+export const savingMovieActions: ISavingMovieActions = {
+  saveMovie: saveMovie
+}

@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useCallback, useEffect, useState} from 'react';
+import React, {FunctionComponent, useEffect, useState} from 'react';
 
 import {useSelector} from "../../services/types/hooks";
 
@@ -9,13 +9,12 @@ import {MoreMoviesButton} from '../more-movies-button/more-movies-button';
 import {convertSeconds, getMoviesToShow, getWindowWidth} from '../../utils/functions';
 import {TButtonView} from '../../services/types/props-types';
 import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
-import {tmpMoviesArray} from '../../utils/constants';
 
 export const MoviesCardList: FunctionComponent<{
   buttonView: TButtonView,
   movies: Array<TMovieItem> | Array<TSavedMovieItem>
 }> = (props) => {
-  const {moviesDataState, filterCheckboxState} = useSelector(state => {
+  const {filterCheckboxState} = useSelector(state => {
     return state
   });
 
@@ -23,7 +22,7 @@ export const MoviesCardList: FunctionComponent<{
   const [countItemsToShow, setCountItemsToShow] = useState<number>(0);
   const [countMoreItemsToShow, setCountMoreItemsToShow] = useState<number>(0);
 
-  // отрисовка нужного кол-ва карточек + фильтрация короткометражек
+  // отрисовка нужного кол-ва карточек с учетом фильтрации короткометражек
   const moviesToShow = getMoviesToShow(filterCheckboxState.isChecked, props.movies, countItemsToShow);
   const moreButtonDisabled = moviesToShow.length === props.movies.length || moviesToShow.length < countItemsToShow;
 
@@ -58,7 +57,7 @@ export const MoviesCardList: FunctionComponent<{
           moviesToShow.map((movie, index) => {
               const durationConversion = convertSeconds(movie.duration);
               return (
-                <MoviesCard key={index} name={movie.nameRU} duration={durationConversion} image={movie.image.url}
+                <MoviesCard key={index} itemToSave={movie} name={movie.nameRU} duration={durationConversion} image={movie.image.url}
                             buttonView={props.buttonView}/>
               )
             }

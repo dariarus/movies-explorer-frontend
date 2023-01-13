@@ -10,6 +10,7 @@ export const savedMoviesDataSlice = createSlice({
     hasError: false,
     error: {},
     savedMoviesData: [],
+    savingMovie: {},
     lastFoundSavedMovies: []
   } as ISavedMoviesDataState,
   reducers: {

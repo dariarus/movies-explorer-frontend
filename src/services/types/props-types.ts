@@ -1,4 +1,5 @@
 import React, {RefObject} from 'react';
+import {TMovieItem} from './data';
 
 export type TSection = {
   header: string,
@@ -37,6 +38,8 @@ export enum ButtonView {
 export type TButtonView = 'add' | 'added' | 'delete';
 
 export type TMovie = {
+  // установка сохраняемого фильма для проброса в кнопку лайка
+  itemToSave: TMovieItem,
   name: string
   duration: string,
   image: string,
