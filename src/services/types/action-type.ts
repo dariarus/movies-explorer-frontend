@@ -17,7 +17,8 @@ export interface ISavedMoviesDataActions {
 }
 
 export interface ISavingMovieActions {
-  saveMovie: ActionCreatorWithPayload<TMovieItem>
+  saveMovie: ActionCreatorWithPayload<number>,
+  unsaveMovie: ActionCreatorWithPayload<number>
 }
 
 export interface ISearchFormActions {

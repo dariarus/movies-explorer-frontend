@@ -26,8 +26,8 @@ export interface ISavedMoviesDataState {
 }
 
 export interface ISavingMovieState {
-  wasSaved: boolean,
-  savingMovie: TMovieItem
+  // wasSaved: boolean,
+  idSavedMoviesArray: Array<number>
 }
 
 export interface ISearchFormSliceState {

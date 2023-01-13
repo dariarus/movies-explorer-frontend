@@ -5,7 +5,7 @@ import {searchFormSlice} from './search-form';
 import {popupSlice} from './popup';
 import {filterCheckboxSlice} from './filter-checkbox';
 import {savedMoviesDataSlice} from './saved-movies-data';
-import {savingMovieSlice} from './saved-movie';
+import {savingMovieSlice} from './saving-movie';
 
 export const rootReducer = combineReducers({
   moviesDataState: moviesDataSlice.reducer,

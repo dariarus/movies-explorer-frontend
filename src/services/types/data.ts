@@ -3,6 +3,7 @@ export type TErrorState = {
 };
 
 export type TMovieItem = {
+  id: number,
   country: string,
   director: string,
   duration: number,
