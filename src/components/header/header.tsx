@@ -20,8 +20,8 @@ export const Header: FunctionComponent = () => {
   return (
     <header className={headerStyles.header}>
       <Logo/>
-      <Navigation isAuthorized={true}/>
-      {/*<Navigation isAuthorized={false}/>*/}
+      {/*<Navigation isAuthorized={true}/>*/}
+      <Navigation isAuthorized={false}/>
     </header>
   )
 }

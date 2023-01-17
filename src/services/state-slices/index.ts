@@ -6,6 +6,8 @@ import {popupSlice} from './popup';
 import {filterCheckboxSlice} from './filter-checkbox';
 import {savedMoviesDataSlice} from './saved-movies-data';
 import {savingMovieSlice} from './saving-movie';
+import {userDataSlice} from './user-data';
+import {inputValuesSlice} from './input-values';
 
 export const rootReducer = combineReducers({
   moviesDataState: moviesDataSlice.reducer,
@@ -13,5 +15,7 @@ export const rootReducer = combineReducers({
   savingMovieState: savingMovieSlice.reducer,
   searchFormState: searchFormSlice.reducer,
   popupState: popupSlice.reducer,
-  filterCheckboxState: filterCheckboxSlice.reducer
+  filterCheckboxState: filterCheckboxSlice.reducer,
+  userDataState: userDataSlice.reducer,
+  inputValuesState: inputValuesSlice.reducer
 });

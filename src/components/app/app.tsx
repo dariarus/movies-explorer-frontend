@@ -17,10 +17,6 @@ import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {moviesDataActions} from '../../services/state-slices/movies-data';
 
 function App() {
-  const {moviesDataState} = useSelector((state) => {
-    return state;
-  })
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {

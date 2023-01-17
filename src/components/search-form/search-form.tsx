@@ -70,7 +70,7 @@ export const SearchForm: FunctionComponent<{
           e.stopPropagation();
           handleChange(e);
         }}/>
-        <FormButton name="Поиск" needSearchMod={true} onClick={handleSubmit}/>
+        <FormButton name="Поиск" disabled={value !== '' ? false : true} needSearchMod={true} onClick={handleSubmit}/>
       </form>
       <FilterCheckbox/>
       <hr className={searchFormStyles.decor}/>

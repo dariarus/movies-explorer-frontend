@@ -17,4 +17,16 @@ export type TMovieItem = {
   nameEN: string,
 }
 
-export type TSavedMovieItem = TMovieItem & {owner: string}
+export type TSavedMovieItem = TMovieItem & { owner: string }
+
+export type TInputValues = {
+  email: string,
+  password: string,
+  name?: string
+}
+
+export type TUser = {
+  _id: string,
+  name: string,
+  email: string
+}

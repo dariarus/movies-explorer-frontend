@@ -26,7 +26,6 @@ export interface ISavedMoviesDataState {
 }
 
 export interface ISavingMovieState {
-  // wasSaved: boolean,
   idSavedMoviesArray: Array<number>
 }
 
@@ -43,6 +42,25 @@ export interface IPopupState {
   }
 }
 
-export interface IFilterCheckbox {
+export interface IFilterCheckboxState {
   isChecked: boolean
+}
+
+export interface IInputValuesState {
+  inputValues: {
+    email?: string,
+    password?: string,
+    name?: string
+  }
+}
+
+export interface IUserDataState {
+  isLoading: boolean,
+  hasError: boolean,
+  error: TErrorState,
+  userData: {
+    _id: string,
+    name: string,
+    email: string
+  },
 }

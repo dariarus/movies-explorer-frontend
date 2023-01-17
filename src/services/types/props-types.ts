@@ -26,7 +26,9 @@ export type TProjectLink = {
 
 export type TFormButton = {
   name: string,
-  needSearchMod: boolean
+  needSearchMod: boolean,
+  disabled: boolean,
+  onClick: () => void
 }
 
 export enum ButtonView {
@@ -54,7 +56,7 @@ export type TCredentialsForm = {
   commentLinkPath: string,
 }
 
-export interface IFormValues {
+export interface IFormInputs {
   name: string;
   email: string;
   password: string;

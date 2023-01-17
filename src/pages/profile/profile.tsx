@@ -5,13 +5,11 @@ import profileStyles from './profile.module.css';
 
 import {ProfileInput} from '../../components/profile-input/profile-input';
 import {tmpAccountData} from '../../utils/constants';
-import {Header} from '../../components/header/header';
 import {Link} from 'react-router-dom';
-import {IFormValues} from '../../services/types/props-types';
-import profileInputStyles from '../../components/profile-input/profile-input.module.css';
+import {IFormInputs} from '../../services/types/props-types';
 
 export const Profile: FunctionComponent = () => {
-  const {handleSubmit, register, formState: {errors}} = useForm<IFormValues>();
+  const {handleSubmit, register, formState: {errors}} = useForm<IFormInputs>();
 
   const onSubmit = () => {
     console.log('форма отправлена');
@@ -19,7 +17,6 @@ export const Profile: FunctionComponent = () => {
 
   return (
     <>
-      {/*<Header/>*/}
       <section className={profileStyles.wrapper}>
         <form className={profileStyles.form} onSubmit={handleSubmit(onSubmit)}>
           <h3 className={profileStyles['form__header']}>{`Привет, ${tmpAccountData.name}!`}</h3>

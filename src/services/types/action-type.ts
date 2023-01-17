@@ -1,6 +1,6 @@
 import {ActionCreatorWithoutPayload, ActionCreatorWithPayload} from '@reduxjs/toolkit';
 
-import {TErrorState, TMovieItem, TSavedMovieItem} from './data';
+import {TErrorState, TInputValues, TMovieItem, TSavedMovieItem, TUser} from './data';
 
 export interface IMoviesDataActions {
   getMoviesDataSuccess: ActionCreatorWithPayload<Array<TMovieItem>>,
@@ -37,6 +37,17 @@ export interface IFilterCheckboxActions {
   toggleIsChecked: ActionCreatorWithoutPayload<string>
 }
 
+export interface IInputValuesActions {
+  setInputValues: ActionCreatorWithPayload<{ [index: string]: string }>
+}
+
+export interface IUserDataActions {
+  setUserData: ActionCreatorWithPayload<TUser>,
+  getUserData: ActionCreatorWithoutPayload<string>,
+  getUserDataFailed: ActionCreatorWithPayload<TErrorState>,
+  deleteUserData: ActionCreatorWithoutPayload<string>,
+}
+
 type TMoviesDataActions =
   IMoviesDataActions
 
@@ -55,6 +66,12 @@ type TPopupActions =
 type TFilterCheckboxActions =
   IFilterCheckboxActions
 
+type TInputValuesActions =
+  IInputValuesActions
+
+type TUserDataActions =
+  IUserDataActions
+
 export type TApplicationActions =
   TMoviesDataActions
   | TSavedMoviesDataActions
@@ -62,3 +79,5 @@ export type TApplicationActions =
   | TSavingMovieActions
   | TPopupActions
   | TFilterCheckboxActions
+  | TInputValuesActions
+  | TUserDataActions

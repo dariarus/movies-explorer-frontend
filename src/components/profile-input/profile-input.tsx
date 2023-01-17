@@ -3,12 +3,11 @@ import {UseFormRegister} from 'react-hook-form';
 
 import profileInputStyles from './profile-input.module.css';
 
-import {IFormValues, TProfileInput} from '../../services/types/props-types';
-import {setOptionsForInputValidation} from '../../utils/functions';
-import inputStyles from '../input/input.module.css';
+import {IFormInputs, TProfileInput} from '../../services/types/props-types';
+import {setOptionsForInputValidation} from '../../utils/functions';;
 
 export const ProfileInput:
-  FunctionComponent<TProfileInput & { registerInput: UseFormRegister<IFormValues>, required: boolean, errors: any }> = (props) => {
+  FunctionComponent<TProfileInput & { registerInput: UseFormRegister<IFormInputs>, required: boolean, errors: any }> = (props) => {
   const [value, setValue] = useState(props.value);
 
   return (
