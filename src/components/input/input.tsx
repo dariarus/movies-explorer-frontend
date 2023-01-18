@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect, useState} from 'react';
+import React, {FunctionComponent, useCallback, useEffect, useState} from 'react';
 import {UseFormRegister,} from 'react-hook-form';
 
 import inputStyles from './input.module.css';
@@ -6,12 +6,23 @@ import inputStyles from './input.module.css';
 import {IFormInputs, TInput} from '../../services/types/props-types';
 import {setOptionsForInputValidation} from '../../utils/functions';
 import {inputValuesActions} from '../../services/state-slices/input-values';
-import {useAppDispatch} from '../../services/types/hooks';
+import {useAppDispatch, useSelector} from '../../services/types/hooks';
 
 export const Input: FunctionComponent<TInput & { registerInput: UseFormRegister<IFormInputs>, required: boolean, errors: any }> = (props) => {
+  const {inputValuesState} = useSelector((state) => {
+    return state;
+  })
+
   const [inputValue, setInputValue] = useState('');
 
   const dispatch = useAppDispatch();
+
+  const handleSetInputValues = useCallback((value: string) => {
+    dispatch(inputValuesActions.setInputValues({
+      ...inputValuesState.inputValues,
+      [props.inputName]: value
+    }))
+  }, [inputValuesState.inputValues, props.inputName])
 
   return (
     <>
@@ -24,9 +35,7 @@ export const Input: FunctionComponent<TInput & { registerInput: UseFormRegister<
                {...props.registerInput(props.inputName, setOptionsForInputValidation(props.inputName))} // валидация
                onChange={(event) => {
                  setInputValue(event.target.value);
-                 dispatch(inputValuesActions.setInputValues({
-                   [props.inputName]: event.target.value
-                 }))
+                 handleSetInputValues(event.target.value);
                }}
         />
       </div>

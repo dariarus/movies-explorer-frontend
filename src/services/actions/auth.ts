@@ -20,9 +20,9 @@ export const signup = (name?: string, email?: string, password?: string): AppThu
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
       body: JSON.stringify({
-        name,
-        email,
-        password
+        "name": name,
+        "email": email,
+        "password": password
       })
     })
       .then(res => getResponseData<TUser>(res))

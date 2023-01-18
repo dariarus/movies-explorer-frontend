@@ -56,7 +56,8 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
           <FormButton name={props.buttonName} disabled={
             errors.name || errors.email || errors.password
               ? true
-              : false} needSearchMod={false} onClick={handleSubmit(onSubmit)}/>
+              : false
+          } needSearchMod={false} onClick={handleSubmit(onSubmit)}/>
         </div>
       </form>
       <div className={credentialsFormStyles['form-wrapper__text-wrapper']}>

@@ -1,8 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IInputValuesState, IUserDataState} from '../types';
-import {TInputValues, TUser} from '../types/data';
-import {IInputValuesActions, IUserDataActions} from '../types/action-type';
-import {userDataSlice} from './user-data';
+import {IInputValuesState} from '../types';
+import {IInputValuesActions} from '../types/action-type';
 
 export const inputValuesSlice = createSlice({
   name: 'inputValues',
