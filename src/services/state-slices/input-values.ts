@@ -14,15 +14,23 @@ export const inputValuesSlice = createSlice({
         inputValues: action.payload
       }
     },
+    clearInputValuesState: (state) => {
+      return {
+        ...state,
+        inputValues: {},
+      }
+    }
   }
 })
 
 export default inputValuesSlice.reducer
 
 export const {
-  setInputValues
+  setInputValues,
+  clearInputValuesState
 } = inputValuesSlice.actions
 
 export const inputValuesActions: IInputValuesActions = {
-  setInputValues: setInputValues
+  setInputValues: setInputValues,
+  clearInputValuesState: clearInputValuesState
 }

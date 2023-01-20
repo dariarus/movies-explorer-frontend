@@ -59,8 +59,8 @@ export interface IUserDataState {
   hasError: boolean,
   error: TErrorState,
   userData: {
-    _id: string,
     name: string,
-    email: string
+    email: string,
+    _id?: string,
   },
 }

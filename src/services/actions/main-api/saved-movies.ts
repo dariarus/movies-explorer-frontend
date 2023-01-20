@@ -1,9 +1,9 @@
-import {AppDispatch, AppThunk} from "../types";
-import {moviesApi} from '../../utils/constants';
-import {getResponseData} from './json-verifiction';
-import {TMovieItem, TSavedMovieItem} from '../types/data';
-import {savedMoviesDataActions} from '../state-slices/saved-movies-data';
-import {savingMovieActions} from '../state-slices/saving-movie';
+import {AppDispatch, AppThunk} from "../../types";
+import {moviesApi} from '../../../utils/constants';
+import {getResponseData} from '../json-verifiction';
+import {TMovieItem, TSavedMovieItem} from '../../types/data';
+import {savedMoviesDataActions} from '../../state-slices/saved-movies-data';
+import {savingMovieActions} from '../../state-slices/saving-movie';
 
 export const getSavedMoviesData = (): AppThunk => {
   return function (dispatch: AppDispatch) {

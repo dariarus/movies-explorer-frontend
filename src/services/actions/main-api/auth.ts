@@ -1,9 +1,9 @@
-import {AppDispatch, AppThunk} from '../types';
-import {getResponseData} from './json-verifiction';
-import {userDataActions} from '../state-slices/user-data';
-import {moviesApi} from '../../utils/constants';
-import {TUser} from '../types/data';
-import {deleteCookie, setCookie} from '../../utils/cookie';
+import {AppDispatch, AppThunk} from '../../types';
+import {getResponseData} from '../json-verifiction';
+import {userDataActions} from '../../state-slices/user-data';
+import {moviesApi} from '../../../utils/constants';
+import {TUser} from '../../types/data';
+import {deleteCookie, setCookie} from '../../../utils/cookie';
 
 export const signup = (name?: string, email?: string, password?: string): AppThunk => {
   return function (dispatch: AppDispatch) {
@@ -82,15 +82,11 @@ export const signout = (): AppThunk => {
       },
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
-      // body: JSON.stringify({
-      //   "token": getCookie('refreshToken')
-      // })
     })
       .then(res => getResponseData<{ success: boolean, message: string }>(res))
       .then(() => {
         deleteCookie('accessToken')
         dispatch(userDataActions.deleteUserData());
-
       })
       .catch((error) => {
         console.log(error);

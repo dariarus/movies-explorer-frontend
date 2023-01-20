@@ -38,13 +38,15 @@ export interface IFilterCheckboxActions {
 }
 
 export interface IInputValuesActions {
-  setInputValues: ActionCreatorWithPayload<{ [index: string]: string }>
+  setInputValues: ActionCreatorWithPayload<{ [index: string]: string }>,
+  clearInputValuesState: ActionCreatorWithoutPayload<string>
 }
 
 export interface IUserDataActions {
   setUserData: ActionCreatorWithPayload<TUser>,
   getUserData: ActionCreatorWithoutPayload<string>,
   getUserDataFailed: ActionCreatorWithPayload<TErrorState>,
+  updateUserData: ActionCreatorWithPayload<TUser>,
   deleteUserData: ActionCreatorWithoutPayload<string>,
 }
 

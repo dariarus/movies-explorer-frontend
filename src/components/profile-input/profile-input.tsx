@@ -1,14 +1,30 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent, useCallback, useState} from 'react';
 import {UseFormRegister} from 'react-hook-form';
 
 import profileInputStyles from './profile-input.module.css';
 
 import {IFormInputs, TProfileInput} from '../../services/types/props-types';
-import {setOptionsForInputValidation} from '../../utils/functions';;
+import {setOptionsForInputValidation} from '../../utils/functions';
+import {inputValuesActions} from '../../services/state-slices/input-values';
+import {useAppDispatch, useSelector} from '../../services/types/hooks';
+
+;
 
 export const ProfileInput:
   FunctionComponent<TProfileInput & { registerInput: UseFormRegister<IFormInputs>, required: boolean, errors: any }> = (props) => {
+  const {inputValuesState} = useSelector((state) => {
+    return state;
+  })
   const [value, setValue] = useState(props.value);
+
+  const dispatch = useAppDispatch();
+
+  const handleSetInputValues = useCallback((value: string) => {
+    dispatch(inputValuesActions.setInputValues({
+      ...inputValuesState.inputValues,
+      [props.inputName]: value
+    }))
+  }, [inputValuesState.inputValues, props.inputName])
 
   return (
     <div className={props.isLastOfType
@@ -20,7 +36,10 @@ export const ProfileInput:
                ? `${profileInputStyles.input} ${profileInputStyles['input_errored']}`
                : `${profileInputStyles.input} ${profileInputStyles['input_default']}`}
              {...props.registerInput(props.inputName, setOptionsForInputValidation(props.inputName))}
-             onChange={event => setValue(event.target.value)}/>
+             onChange={(event) => {
+               setValue(event.target.value);
+               handleSetInputValues(event.target.value);
+             }}/>
     </div>
   )
 }

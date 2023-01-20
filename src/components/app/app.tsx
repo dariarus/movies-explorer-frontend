@@ -13,14 +13,17 @@ import {NotFound404} from '../../pages/not-found-404/not-found-404';
 import {Footer} from '../footer/footer';
 import {Header} from '../header/header';
 import {getMoviesDataFromSideApi} from '../../services/actions/movies-api';
-import {useAppDispatch, useSelector} from '../../services/types/hooks';
+import {useAppDispatch} from '../../services/types/hooks';
 import {moviesDataActions} from '../../services/state-slices/movies-data';
+import {getUser} from '../../services/actions/main-api/user';
+import {getCookie} from '../../utils/cookie';
 
 function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getMoviesDataFromSideApi());
+    dispatch(getUser(getCookie('accessToken'), 3));
   }, [])
 
   useEffect(() => {

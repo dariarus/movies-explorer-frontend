@@ -39,10 +39,21 @@ export const userDataSlice = createSlice({
         error: action.payload
       }
     },
+    updateUserData: (state, action: PayloadAction<TUser>) => {
+      return {
+        ...state,
+        isLoading: false,
+        userData: {
+          ...state.userData,
+          name: action.payload.name,
+          email: action.payload.email
+        }
+      }
+    },
     deleteUserData: (state) => {
       return {
         ...state,
-        user: {
+        userData: {
           email: '',
           name: ''
         }
@@ -57,6 +68,7 @@ export const {
   setUserData,
   getUserData,
   getUserDataFailed,
+  updateUserData,
   deleteUserData
 } = userDataSlice.actions
 
@@ -64,5 +76,6 @@ export const userDataActions: IUserDataActions = {
   setUserData: setUserData,
   getUserData: getUserData,
   getUserDataFailed: getUserDataFailed,
+  updateUserData: updateUserData,
   deleteUserData: deleteUserData
 }

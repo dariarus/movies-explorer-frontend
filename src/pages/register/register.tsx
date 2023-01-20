@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {CredentialsForm} from '../../components/credentials-form/credentials-form';
 import {userDataActions} from '../../services/state-slices/user-data';
-import {signup} from '../../services/actions/auth';
+import {signup} from '../../services/actions/main-api/auth';
 import {useAppDispatch} from '../../services/types/hooks';
 
 export const Register: FunctionComponent = () => {

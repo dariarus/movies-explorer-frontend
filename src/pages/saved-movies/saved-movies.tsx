@@ -4,7 +4,7 @@ import savedMoviesPageStyles from './saved-movies.module.css';
 
 import {SearchForm} from '../../components/search-form/search-form';
 import {MoviesCardList} from '../../components/movies-card-list/movies-card-list';
-import {getSavedMoviesData} from '../../services/actions/main-api';
+import {getSavedMoviesData} from '../../services/actions/main-api/saved-movies';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {popupActions} from '../../services/state-slices/popup';
 import {Preloader} from '../../components/preloader/preloader';

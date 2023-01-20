@@ -4,7 +4,7 @@ import addFilmButtonStyles from './add-movie-button.module.css';
 
 import {ButtonView, TButtonView} from '../../services/types/props-types';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
-import {saveMovie, unsaveMovie} from '../../services/actions/main-api';
+import {saveMovie, unsaveMovie} from '../../services/actions/main-api/saved-movies';
 import {TMovieItem} from '../../services/types/data';
 
 export const AddMovieButton: FunctionComponent<{ buttonView: TButtonView, movieToSave: TMovieItem }> = (props) => {
