@@ -5,7 +5,7 @@ import {getResponseData} from '../json-verifiction';
 import {TUser} from '../../types/data';
 import {getCookie} from '../../../utils/cookie';
 
-export const getUser = (accessToken: string | undefined, retryOnErrorCount?: number): AppThunk => {
+export const getUser = (jwt: string | undefined, retryOnErrorCount?: number): AppThunk => {
   return function (dispatch: AppDispatch) {
 
     dispatch(userDataActions.getUserData());
@@ -14,10 +14,12 @@ export const getUser = (accessToken: string | undefined, retryOnErrorCount?: num
       method: 'GET',
       mode: 'cors',
       cache: 'no-cache',
-      // credentials: 'same-origin',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': accessToken ? `${accessToken}` : ''
+        // 'Access-Control-Allow-Origin': moviesApi,
+        // 'Origin': moviesApi
+        // 'Authorization': jwt ? jwt : ''
       },
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
@@ -32,7 +34,7 @@ export const getUser = (accessToken: string | undefined, retryOnErrorCount?: num
           // есть только n попыток повторно вызвать getUser ниже - чтобы вызов getUser не зациклился до бесконечности
           return
         }
-        return dispatch(getUser(getCookie('accessToken'), (retryOnErrorCount - 1)))
+        return dispatch(getUser(getCookie('jwt'), (retryOnErrorCount - 1)))
       })
       .catch((error) => {
         console.log(error);
@@ -41,7 +43,7 @@ export const getUser = (accessToken: string | undefined, retryOnErrorCount?: num
   }
 }
 
-export const updateUserData = (accessToken: string | undefined,
+export const updateUserData = (jwt: string | undefined,
                                 name: string, email: string,
                                 password: string): AppThunk => {
   return function (dispatch: AppDispatch) {
@@ -54,7 +56,7 @@ export const updateUserData = (accessToken: string | undefined,
       // credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json',
-        'authorization': accessToken ? accessToken : ''
+        'authorization': jwt ? jwt : ''
       },
       redirect: 'follow',
       referrerPolicy: 'no-referrer',

@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getMoviesDataFromSideApi());
-    dispatch(getUser(getCookie('accessToken'), 3));
+    dispatch(getUser(getCookie('jwt'), 3));
   }, [])
 
   useEffect(() => {

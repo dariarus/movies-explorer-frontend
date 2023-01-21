@@ -3,7 +3,7 @@ import {getResponseData} from '../json-verifiction';
 import {userDataActions} from '../../state-slices/user-data';
 import {moviesApi} from '../../../utils/constants';
 import {TUser} from '../../types/data';
-import {deleteCookie, setCookie} from '../../../utils/cookie';
+import {deleteCookie, getCookie, setCookie} from '../../../utils/cookie';
 
 export const signup = (name?: string, email?: string, password?: string): AppThunk => {
   return function (dispatch: AppDispatch) {
@@ -13,7 +13,7 @@ export const signup = (name?: string, email?: string, password?: string): AppThu
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
-      // credentials: 'same-origin',
+      // credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -46,9 +46,10 @@ export const signin = (email?: string, password?: string): AppThunk => {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
-      // credentials: 'same-origin',
+      // credentials: 'include',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        // 'Access-Control-Allow-Origin': 'http://localhost:3001',
       },
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
@@ -60,7 +61,7 @@ export const signin = (email?: string, password?: string): AppThunk => {
       .then(res => getResponseData<{ token: string }>(res))
       .then(data => {
         if (data) {
-          setCookie('accessToken', data.token);
+          setCookie('jwt', data.token);
         }
       })
       .catch((error) => {
@@ -76,7 +77,7 @@ export const signout = (): AppThunk => {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
-      // credentials: 'same-origin',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -85,7 +86,7 @@ export const signout = (): AppThunk => {
     })
       .then(res => getResponseData<{ success: boolean, message: string }>(res))
       .then(() => {
-        deleteCookie('accessToken')
+        deleteCookie('jwt')
         dispatch(userDataActions.deleteUserData());
       })
       .catch((error) => {
