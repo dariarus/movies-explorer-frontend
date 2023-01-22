@@ -10,10 +10,10 @@ export const getUser = (jwt: string | undefined, retryOnErrorCount?: number): Ap
 
     dispatch(userDataActions.getUserData());
 
+    console.log('get user is working');
+
     return fetch(`${moviesApi}/users/me`, {
       method: 'GET',
-      mode: 'cors',
-      cache: 'no-cache',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
@@ -21,8 +21,6 @@ export const getUser = (jwt: string | undefined, retryOnErrorCount?: number): Ap
         // 'Origin': moviesApi
         // 'Authorization': jwt ? jwt : ''
       },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
     })
       .then(res => getResponseData<TUser>(res))
       .then(data => {
