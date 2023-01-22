@@ -39,6 +39,17 @@
   box-shadow: none;
 }
 
+.error {
+  margin: 0 0 10px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: #EE3465;
+}
+
 @media screen and (max-width: 371px) {
   .button_search {
     right: 8px; /* С учетом границы у формы, = 2px */

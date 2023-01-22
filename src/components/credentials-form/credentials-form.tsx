@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect, useState} from 'react';
+import React, {FunctionComponent, useCallback, useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
 
 import credentialsFormStyles from './credentials-form.module.css';
@@ -25,7 +25,7 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
 
   const dispatch = useAppDispatch();
 
-  const onSubmit = () => {
+  const onSubmit = useCallback(() => {
     if (inputValuesState.inputValues.email || inputValuesState.inputValues.password || inputValuesState.inputValues.name) {
       if (props.pageType === 'register') {
         dispatch(signup(inputValuesState.inputValues.name, inputValuesState.inputValues.email, inputValuesState.inputValues.password));
@@ -34,7 +34,7 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
       }
     }
     dispatch(inputValuesActions.clearInputValuesState())
-  }
+  }, []);
 
     return (
       <div className={credentialsFormStyles['form-wrapper']}>

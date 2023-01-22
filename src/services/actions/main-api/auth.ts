@@ -11,14 +11,10 @@ export const signup = (name?: string, email?: string, password?: string): AppThu
 
     fetch(`${moviesApi}/signup`, {
       method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      // credentials: 'include',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
       body: JSON.stringify({
         "name": name,
         "email": email,
@@ -44,26 +40,16 @@ export const signin = (email?: string, password?: string): AppThunk => {
 
     return fetch(`${moviesApi}/signin`, {
       method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      // credentials: 'include',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        // 'Access-Control-Allow-Origin': 'http://localhost:3001',
       },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
       body: JSON.stringify({
         email,
         password
       })
     })
       .then(res => getResponseData<{ token: string }>(res))
-      .then(data => {
-        if (data) {
-          setCookie('jwt', data.token);
-        }
-      })
       .catch((error) => {
         console.log(error)
         dispatch(userDataActions.getUserDataFailed({message: error.message}))
@@ -75,14 +61,10 @@ export const signout = (): AppThunk => {
   return function (dispatch: AppDispatch) {
     return fetch(`${moviesApi}/signout`, {
       method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
     })
       .then(res => getResponseData<{ success: boolean, message: string }>(res))
       .then(() => {

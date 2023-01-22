@@ -29,6 +29,7 @@ export type TFormButton = {
   needSearchMod: boolean,
   disabled: boolean,
   onClick: () => void
+  errorText?: string,
 }
 
 export enum ButtonView {
@@ -53,7 +54,7 @@ export type TCredentialsForm = {
   buttonName: string,
   commentQuestion: string,
   commentLink: string,
-  commentLinkPath: string,
+  commentLinkPath: string
 }
 
 export interface IFormInputs {
