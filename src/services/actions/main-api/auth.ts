@@ -2,7 +2,7 @@ import {AppDispatch, AppThunk} from '../../types';
 import {getResponseData} from '../json-verifiction';
 import {userDataActions} from '../../state-slices/user-data';
 import {moviesApi} from '../../../utils/constants';
-import {TUser} from '../../types/data';
+import {ErrorType, TUser} from '../../types/data';
 import {deleteCookie, getCookie, setCookie} from '../../../utils/cookie';
 
 export const signup = (name?: string, email?: string, password?: string): AppThunk => {
@@ -50,9 +50,15 @@ export const signin = (email?: string, password?: string): AppThunk => {
       })
     })
       .then(res => getResponseData<{ token: string }>(res))
+      .then(() => {
+        dispatch(userDataActions.setIsAuthorized());
+      })
       .catch((error) => {
         console.log(error)
-        dispatch(userDataActions.getUserDataFailed({message: error.message}))
+        dispatch(userDataActions.getUserDataFailed({
+          message: error.message,
+          type: ErrorType.SIGNIN
+        }))
       });
   }
 }

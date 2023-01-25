@@ -33,9 +33,9 @@ export type TFormButton = {
 }
 
 export enum ButtonView {
-  add = 'add',
-  added = 'added',
-  delete = 'delete',
+  ADD = 'add',
+  ADDED = 'added',
+  DELETE = 'delete',
 }
 
 export type TButtonView = 'add' | 'added' | 'delete';

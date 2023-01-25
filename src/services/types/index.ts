@@ -58,6 +58,7 @@ export interface IUserDataState {
   isLoading: boolean,
   hasError: boolean,
   error: TErrorState,
+  isAuthorized: boolean,
   userData: {
     name: string,
     email: string,

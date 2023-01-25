@@ -28,18 +28,18 @@ export const AddMovieButton: FunctionComponent<{ buttonView: TButtonView, movieT
     <>
       {
         // "Сохранить"
-        buttonView === ButtonView.add
+        buttonView === ButtonView.ADD
           ? <button className={`${addFilmButtonStyles.button} ${addFilmButtonStyles['button_default']}`}
                     onClick={() => {
                       dispatch(saveMovie(props.movieToSave));
-                      setButtonView(ButtonView.added);
+                      setButtonView(ButtonView.ADDED);
                     }}>Сохранить</button>
           // галочка
-          : buttonView === ButtonView.added && wasSaved
+          : buttonView === ButtonView.ADDED && wasSaved
             ? <button className={`${addFilmButtonStyles.button} ${addFilmButtonStyles['button_active']}`}
                       onClick={() => {
                         dispatch(unsaveMovie(props.movieToSave.id));
-                        setButtonView(ButtonView.add);
+                        setButtonView(ButtonView.ADD);
                       }}></button>
             // крестик
             : <button className={`${addFilmButtonStyles.button} ${addFilmButtonStyles['button_delete']}`}

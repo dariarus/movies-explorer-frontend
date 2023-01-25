@@ -4,6 +4,7 @@ import formButtonStyles from './form-button.module.css';
 
 import {TFormButton} from '../../services/types/props-types';
 import {useSelector} from '../../services/types/hooks';
+import {ErrorType} from '../../services/types/data';
 
 export const FormButton: FunctionComponent<TFormButton> = (props) => {
   const {userDataState} = useSelector((state) => {
@@ -13,7 +14,7 @@ export const FormButton: FunctionComponent<TFormButton> = (props) => {
   return (
     <div>
       {
-       userDataState.hasError &&
+       userDataState.hasError && userDataState.error.type === ErrorType.SIGNIN &&
         <p className={formButtonStyles.error}>{`${userDataState.error.message}. Повторите попытку`}</p>
       }
       <button type="submit"

@@ -8,7 +8,6 @@ import {tmpAccountData} from '../../utils/constants';
 import {Link} from 'react-router-dom';
 import {IFormInputs} from '../../services/types/props-types';
 import {useAppDispatch} from '../../services/types/hooks';
-import {updateUserData} from '../../services/actions/main-api/user';
 
 export const Profile: FunctionComponent = () => {
   const {handleSubmit, register, formState: {errors}} = useForm<IFormInputs>();
@@ -16,7 +15,7 @@ export const Profile: FunctionComponent = () => {
   const dispatch = useAppDispatch();
 
   const onSubmit = () => {
-    // dispatch(updateUserData());
+   console.log('okok')
   }
 
   //TODO: вставить настоящего юзера на вывод вместо временного

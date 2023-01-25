@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {IUserDataState} from '../types/index';
-import {TErrorState, TUser} from '../types/data'
+import {TErrorState, TUser} from '../types/data';
 import {IUserDataActions} from '../types/action-type';
 
 export const userDataSlice = createSlice({
@@ -9,6 +9,7 @@ export const userDataSlice = createSlice({
   initialState: {
     isLoading: false,
     hasError: false,
+    isAuthorized: false,
     error: {},
     userData: {
       email: '',
@@ -21,7 +22,14 @@ export const userDataSlice = createSlice({
         ...state,
         isLoading: false,
         hasError: false,
+        // isAuthorized: true,
         userData: action.payload
+      }
+    },
+    setIsAuthorized: (state) => {
+      return {
+        ...state,
+        isAuthorized: true,
       }
     },
     getUserData: (state) => {
@@ -66,6 +74,7 @@ export default userDataSlice.reducer
 
 export const {
   setUserData,
+  setIsAuthorized,
   getUserData,
   getUserDataFailed,
   updateUserData,
@@ -74,6 +83,7 @@ export const {
 
 export const userDataActions: IUserDataActions = {
   setUserData: setUserData,
+  setIsAuthorized: setIsAuthorized,
   getUserData: getUserData,
   getUserDataFailed: getUserDataFailed,
   updateUserData: updateUserData,

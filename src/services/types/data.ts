@@ -1,5 +1,6 @@
 export type TErrorState = {
-  message?: string
+  message?: string,
+  type?: ErrorType
 };
 
 export type TMovieItem = {
@@ -29,4 +30,9 @@ export type TUser = {
   _id: string,
   name: string,
   email: string
+}
+
+export enum ErrorType {
+  SIGNIN = 'signin',
+  GENERAL = 'general'
 }

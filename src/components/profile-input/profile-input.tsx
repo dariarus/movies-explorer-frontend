@@ -8,8 +8,6 @@ import {setOptionsForInputValidation} from '../../utils/functions';
 import {inputValuesActions} from '../../services/state-slices/input-values';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
 
-;
-
 export const ProfileInput:
   FunctionComponent<TProfileInput & { registerInput: UseFormRegister<IFormInputs>, required: boolean, errors: any }> = (props) => {
   const {inputValuesState} = useSelector((state) => {

@@ -44,6 +44,7 @@ export interface IInputValuesActions {
 
 export interface IUserDataActions {
   setUserData: ActionCreatorWithPayload<TUser>,
+  setIsAuthorized: ActionCreatorWithoutPayload<string>,
   getUserData: ActionCreatorWithoutPayload<string>,
   getUserDataFailed: ActionCreatorWithPayload<TErrorState>,
   updateUserData: ActionCreatorWithPayload<TUser>,

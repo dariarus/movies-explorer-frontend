@@ -13,21 +13,25 @@ import {NotFound404} from '../../pages/not-found-404/not-found-404';
 import {Footer} from '../footer/footer';
 import {Header} from '../header/header';
 import {getMoviesDataFromSideApi} from '../../services/actions/movies-api';
-import {useAppDispatch} from '../../services/types/hooks';
+import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {moviesDataActions} from '../../services/state-slices/movies-data';
 import {getUser} from '../../services/actions/main-api/user';
+import {userDataActions} from '../../services/state-slices/user-data';
 import {getCookie} from '../../utils/cookie';
 
 function App() {
+  const {userDataState} = useSelector((state) => {
+    return state;
+  })
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getMoviesDataFromSideApi());
-    dispatch(getUser(getCookie('jwt'), 3));
+    dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('lastFoundMovies') || '[]')))
   }, [])
 
   useEffect(() => {
-    dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('lastFoundMovies') || '[]')))
+    dispatch(getUser());
   }, [])
 
   return (
