@@ -16,55 +16,82 @@ import {getMoviesDataFromSideApi} from '../../services/actions/movies-api';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {moviesDataActions} from '../../services/state-slices/movies-data';
 import {getUser} from '../../services/actions/main-api/user';
-import {userDataActions} from '../../services/state-slices/user-data';
-import {getCookie} from '../../utils/cookie';
+import {ProtectedRoute} from '../protected-route/protected-route';
+import {popupActions} from '../../services/state-slices/popup';
+
+
+import moviesPageStyles from '../../pages/movies/movies.module.css';
 
 function App() {
-  const {userDataState} = useSelector((state) => {
+  const {userDataState, moviesDataState} = useSelector((state) => {
     return state;
   })
   const dispatch = useAppDispatch();
 
+  const handleOnClosePopup = () => {
+    dispatch(popupActions.setIsClosed());
+    document.body.classList.remove(moviesPageStyles['body-overlay']);
+  }
+
+  useEffect(() => {
+    dispatch(popupActions.setIsOpen({
+      errorPopupIsOpened: true
+    }));
+  }, [moviesDataState.hasError, userDataState.hasError])
+
   useEffect(() => {
     dispatch(getMoviesDataFromSideApi());
-    dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('lastFoundMovies') || '[]')))
-  }, [])
-
-  useEffect(() => {
     dispatch(getUser());
+    dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('lastFoundMovies') || '[]')));
   }, [])
 
-  return (
-    <BrowserRouter basename="/movies-explorer">
-      <Header/>
-      <main className={appStyles.main}>
-        <Switch>
-          <Route path="/movies" exact={true}>
-            <Movies/>
-          </Route>
-          <Route path="/saved-movies" exact={true}>
-            <SavedMovies/>
-          </Route>
-          <Route path="/signup" exact={true}>
-            <Register/>
-          </Route>
-          <Route path="/signin" exact={true}>
-            <Login/>
-          </Route>
-          <Route path="/profile" exact={true}>
-            <Profile/>
-          </Route>
-          <Route path="/" exact={true}>
-            <Main/>
-          </Route>
-          <Route path="*">
-            <NotFound404/>
-          </Route>
-        </Switch>
-      </main>
-      <Footer/>
-    </BrowserRouter>
-  );
+  // if (moviesDataState.hasError || (userDataState.hasError && userDataState.error.message !== 'Ошибка авторизации')) {
+  //   return (
+  //     <Popup primaryText="Не удалось загрузить данные" secondaryText="Попробуйте обновить страницу"
+  //            onClose={handleOnClosePopup}/>
+  //   )
+  // } else if (moviesDataState.isLoading || userDataState.isLoading) {
+  //   return (
+  //     <div className={appStyles.preloader}>
+  //       <Preloader/>
+  //     </div>
+  //   )
+  // } else {
+    return (
+      <BrowserRouter basename="/movies-explorer">
+        <Header/>
+        <main className={appStyles.main}>
+          <Switch>
+
+            <ProtectedRoute path="/movies" exact={true}>
+              <Movies/>
+            </ProtectedRoute>
+            <ProtectedRoute path="/saved-movies" exact={true}>
+              <SavedMovies/>
+            </ProtectedRoute>
+            <ProtectedRoute path="/profile" exact={true}>
+              <Profile/>
+            </ProtectedRoute>
+
+            <Route path="/signup" exact={true}>
+              <Register/>
+            </Route>
+            <Route path="/signin" exact={true}>
+              <Login/>
+            </Route>
+            <Route path="/" exact={true}>
+              <Main/>
+            </Route>
+            <Route path="*">
+              <NotFound404/>
+            </Route>
+
+          </Switch>
+        </main>
+        <Footer/>
+      </BrowserRouter>
+    )
+  // }
 }
 
 export default App;

@@ -22,7 +22,7 @@ export const userDataSlice = createSlice({
         ...state,
         isLoading: false,
         hasError: false,
-        // isAuthorized: true,
+        isAuthorized: true,
         userData: action.payload
       }
     },
@@ -51,16 +51,14 @@ export const userDataSlice = createSlice({
       return {
         ...state,
         isLoading: false,
-        userData: {
-          ...state.userData,
-          name: action.payload.name,
-          email: action.payload.email
-        }
+        hasError: false,
+        userData: action.payload
       }
     },
     deleteUserData: (state) => {
       return {
         ...state,
+        isAuthorized: false,
         userData: {
           email: '',
           name: ''

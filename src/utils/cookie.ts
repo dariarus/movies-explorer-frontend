@@ -1,4 +1,4 @@
-export const setCookie = (cookieName: string, tokenValue: string | number | boolean | null, props: any = {}) => {
+const setCookie = (cookieName: string, tokenValue: string | number | boolean | null, props: any = {}) => {
   props = {
     path: '/',
     ...props
@@ -24,13 +24,6 @@ export const setCookie = (cookieName: string, tokenValue: string | number | bool
     }
   }
   document.cookie = updatedCookie;
-}
-
-export const getCookie = (cookieName: string) => {
-  const matches = document.cookie.match(
-    new RegExp('(?:^|; )' + cookieName.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
-  );
-  return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
 export const deleteCookie = (cookieName: string) => {

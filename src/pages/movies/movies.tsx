@@ -10,7 +10,6 @@ import {Popup} from '../../components/popup/popup';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
 
 import {popupActions} from '../../services/state-slices/popup';
-import {searchFormActions} from '../../services/state-slices/search-form';
 
 export const Movies: FunctionComponent = () => {
   const {moviesDataState, searchFormState, popupState} = useSelector((state) => {

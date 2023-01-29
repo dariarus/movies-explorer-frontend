@@ -3,7 +3,7 @@ import {getResponseData} from '../json-verifiction';
 import {userDataActions} from '../../state-slices/user-data';
 import {moviesApi} from '../../../utils/constants';
 import {ErrorType, TUser} from '../../types/data';
-import {deleteCookie, getCookie, setCookie} from '../../../utils/cookie';
+import {deleteCookie} from '../../../utils/cookie';
 
 export const signup = (name?: string, email?: string, password?: string): AppThunk => {
   return function (dispatch: AppDispatch) {
@@ -72,9 +72,9 @@ export const signout = (): AppThunk => {
         'Content-Type': 'application/json'
       },
     })
-      .then(res => getResponseData<{ success: boolean, message: string }>(res))
+      .then(res => getResponseData<string>(res))
       .then(() => {
-        deleteCookie('jwt')
+        // deleteCookie('jwt');
         dispatch(userDataActions.deleteUserData());
       })
       .catch((error) => {

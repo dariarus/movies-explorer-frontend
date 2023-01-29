@@ -10,9 +10,10 @@ import {popupActions} from '../../services/state-slices/popup';
 import {Preloader} from '../../components/preloader/preloader';
 import {Popup} from '../../components/popup/popup';
 import {tmpMoviesArray} from '../../utils/constants';
+import {Redirect, useLocation} from 'react-router-dom';
 
 export const SavedMovies: FunctionComponent = () => {
-  const {searchFormState, savedMoviesDataState, popupState, moviesDataState} = useSelector((state) => {
+  const {userDataState, searchFormState, savedMoviesDataState, popupState, moviesDataState} = useSelector((state) => {
     return state;
   })
 

@@ -87,3 +87,9 @@ export type TBurgerMenu = {
   menuIsOpen: boolean,
   children: React.ReactNode
 }
+
+export type TProtectedRouteProps = {
+  path: string,
+  exact?: boolean,
+  children?: React.ReactNode
+}

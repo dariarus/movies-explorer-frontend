@@ -34,5 +34,6 @@ export type TUser = {
 
 export enum ErrorType {
   SIGNIN = 'signin',
+  UPDATE = 'update',
   GENERAL = 'general'
 }

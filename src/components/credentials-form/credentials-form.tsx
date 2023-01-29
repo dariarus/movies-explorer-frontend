@@ -8,7 +8,6 @@ import {IFormInputs, TCredentialsForm} from '../../services/types/props-types';
 import {FormButton} from '../form-button/form-button';
 import {Logo} from '../logo/logo';
 import {Link} from 'react-router-dom';
-import {tmpAccountData} from '../../utils/constants';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {signin, signup} from '../../services/actions/main-api/auth';
 import {inputValuesActions} from '../../services/state-slices/input-values';
@@ -19,7 +18,7 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
   })
 
   const {register, handleSubmit, formState: {errors}} = useForm<IFormInputs>({
-    mode: 'all',
+    mode: 'onChange',
     reValidateMode: 'onChange'
   });
 

@@ -62,6 +62,10 @@ export const setOptionsForInputValidation = (inputName: string) => {
   if (inputName === 'name') {
     return {
       required: "Необходимо заполнить данное поле",
+      pattern: {
+        value: /[a-zA-Zа-яА-Я -]/,
+        message: "Имя может содержать только кириллицу, латиницу, пробел и дефис",
+      },
       minLength: {
         value: 2,
         message: "Минимальная длина имени - 2 символа",
