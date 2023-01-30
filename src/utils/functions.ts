@@ -111,3 +111,9 @@ export const getMoviesToShow = (isShortFilm: boolean, originalMoviesArray: Array
 export const isSavedMovie = (movie: TSavedMovieItem | TMovieItem): movie is TSavedMovieItem => {
  return (movie as TSavedMovieItem).owner !== undefined;
 }
+
+export const isArrayOfSavedMovies = (movieArray: Array<TSavedMovieItem | TMovieItem>): movieArray is Array<TSavedMovieItem> => {
+  return movieArray.every((movie) => {
+    isSavedMovie(movie);
+  })
+}

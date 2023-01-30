@@ -57,7 +57,7 @@ export const MoviesCardList: FunctionComponent<{
           moviesToShow.map((movie, index) => {
               const durationConversion = convertSeconds(movie.duration);
               return (
-                <MoviesCard key={index} itemToSave={movie} name={movie.nameRU} duration={durationConversion} image={movie.image.url}
+                <MoviesCard key={movie.id} itemToSave={movie} name={movie.nameRU} duration={durationConversion} image={movie.image.url}
                             buttonView={props.buttonView}/>
               )
             }

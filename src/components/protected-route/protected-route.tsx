@@ -14,10 +14,10 @@ export const ProtectedRoute: FunctionComponent<TProtectedRouteProps> = ({childre
       {...rest} // это пропсы path и exact
       // render - пропс компонента Route. Исп-ся как функция, в св.с чем избег-ся лишни рендеринг. Вызыв-ся при совпадении URL
       render={({location}) =>
-        (userDataState.userData.name !== '' && userDataState.userData.email !== '')
+        (userDataState.isAuthorized)
           ? (children)
           : (
-              <Redirect // Если пользователя нет в хранилище, происходит переадресация на роут /login
+              <Redirect // Если пользователь не isAuthorized, происходит переадресация на роут /signin
                 // Передадим в пропс to не строку, а объект.
                 to={{
                   // Маршрут, на который произойдёт переадресация

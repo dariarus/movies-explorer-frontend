@@ -10,7 +10,6 @@ export const Login: FunctionComponent = () => {
 
   const location: { state: { from: Location } } = useLocation();
 
-  // TODO: разобраться, почему не переадресовывает сразу после отправки успешного запроса
   if (userDataState.isAuthorized) {
     return (
       <Redirect

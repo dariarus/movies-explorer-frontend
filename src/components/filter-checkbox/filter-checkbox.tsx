@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent} from 'react';
 
 import checkboxStyles from './filter-checkbox.module.css';
 import {filterCheckboxActions} from '../../services/state-slices/filter-checkbox';

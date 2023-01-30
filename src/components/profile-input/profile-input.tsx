@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useCallback, useEffect, useState} from 'react';
+import React, {FunctionComponent, useCallback, useState} from 'react';
 import {UseFormRegister} from 'react-hook-form';
 
 import profileInputStyles from './profile-input.module.css';

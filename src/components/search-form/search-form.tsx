@@ -8,7 +8,7 @@ import {FilterCheckbox} from '../filter-checkbox/filter-checkbox';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {searchFormActions} from '../../services/state-slices/search-form';
 import {moviesDataActions} from '../../services/state-slices/movies-data';
-import {isSavedMovie, setRenderingTimer} from '../../utils/functions';
+import {isArrayOfSavedMovies, setRenderingTimer} from '../../utils/functions';
 import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
 import {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
 
@@ -25,33 +25,36 @@ export const SearchForm: FunctionComponent<{
 
   const dispatch = useAppDispatch();
 
+  let lastFoundMovies = props.moviesArray.filter(movie => {
+      return movie.nameRU.includes(value) || movie.nameEN.includes(value)
+    }
+  )
+
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     dispatch(searchFormActions.setValue(event.target.value));
   }, [dispatch, value]);
+
+  const setLastFoundMoviesArray = useCallback(() => {
+    // проверка типа входящего массива: сохраненные фильмы или все
+    if (isArrayOfSavedMovies(props.moviesArray)) {
+      dispatch(savedMoviesDataActions.setLastFoundSavedMovies(lastFoundMovies as Array<TSavedMovieItem>));
+    } else {
+      localStorage.setItem('lastFoundMovies', JSON.stringify(lastFoundMovies));
+      dispatch(moviesDataActions.setLastFoundMovies(lastFoundMovies));
+    }
+  }, [dispatch])
 
   const handleSubmit = useCallback(async () => {
     dispatch(searchFormActions.setIsSearching());
 
     await setRenderingTimer(1000);
 
-    const lastFoundMovies = props.moviesArray.filter(movie => {
-        return movie.nameRU.includes(value) || movie.nameEN.includes(value)
-      }
-    )
     if (lastFoundMovies.length === 0) {
       props.handleOpenPopup()
     }
 
-    props.moviesArray.map(movie => {
-      // проверка типа входящего массива: сохраненные фильмы или все
-      if (isSavedMovie(movie)) {
-        dispatch(savedMoviesDataActions.setLastFoundSavedMovies(lastFoundMovies as Array<TSavedMovieItem>));
-      } else {
-        localStorage.setItem('lastFoundMovies', JSON.stringify(lastFoundMovies));
-        dispatch(moviesDataActions.setLastFoundMovies(lastFoundMovies));
-      }
-    })
+    setLastFoundMoviesArray();
 
     dispatch(searchFormActions.setIsSearchingSuccess())
   }, [value])
