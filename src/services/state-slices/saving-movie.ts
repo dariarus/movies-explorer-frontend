@@ -1,12 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {ISavingMovieState} from '../types';
-import {TMovieItem} from '../types/data';
 import {ISavingMovieActions} from '../types/action-type';
 
 export const savingMovieSlice = createSlice({
   name: 'savingMovie',
   initialState: {
+    isLoading: false,
     idSavedMoviesArray: [],
     // wasSaved: false
   } as ISavingMovieState,
@@ -19,6 +19,7 @@ export const savingMovieSlice = createSlice({
 
       return {
         ...state,
+        isLoading: false,
         idSavedMoviesArray: copiedIdSavedMoviesArray,
         // wasSaved: true
       }

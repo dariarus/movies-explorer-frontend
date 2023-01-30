@@ -16,6 +16,8 @@ export type TMovieItem = {
   movieId: number,
   nameRU: string,
   nameEN: string,
+  created_at?: Date,
+  updated_at?: Date,
 }
 
 export type TSavedMovieItem = TMovieItem & { owner: string }

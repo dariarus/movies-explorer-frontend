@@ -1,5 +1,5 @@
 import {AppDispatch, AppThunk} from "../../types";
-import {moviesApi} from '../../../utils/constants';
+import {beatfilmMoviesPath, moviesApi} from '../../../utils/constants';
 import {getResponseData} from '../json-verifiction';
 import {TMovieItem, TSavedMovieItem} from '../../types/data';
 import {savedMoviesDataActions} from '../../state-slices/saved-movies-data';
@@ -12,6 +12,7 @@ export const getSavedMoviesData = (): AppThunk => {
 
     fetch(`${moviesApi}/movies`, {
       method: 'GET',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       }
@@ -33,10 +34,19 @@ export const saveMovie = (movie: TMovieItem): AppThunk => {
 
     fetch(`${moviesApi}/movies`, {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(movie)
+      body: JSON.stringify({
+        ...movie,
+        image: {
+          url: `${beatfilmMoviesPath}` + `${movie.image.url}`
+        },
+        thumbnail: `${beatfilmMoviesPath}` + `${movie.image.url}`,
+        created_at: undefined,
+        updated_at: undefined
+      })
     })
       .then(res => getResponseData<TMovieItem>(res))
       .then((res) => {
@@ -55,6 +65,7 @@ export const unsaveMovie = (id: number): AppThunk => {
 
     fetch(`${moviesApi}/movies/${id}`, {
       method: 'DELETE',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       }

@@ -6,6 +6,7 @@ import {ButtonView, TButtonView} from '../../services/types/props-types';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {saveMovie, unsaveMovie} from '../../services/actions/main-api/saved-movies';
 import {TMovieItem} from '../../services/types/data';
+import {isSavedMovie} from '../../utils/functions';
 
 export const AddMovieButton: FunctionComponent<{ buttonView: TButtonView, movieToSave: TMovieItem }> = (props) => {
   const {savedMoviesDataState, savingMovieState} = useSelector((state) => {
@@ -33,19 +34,22 @@ export const AddMovieButton: FunctionComponent<{ buttonView: TButtonView, movieT
                     onClick={() => {
                       dispatch(saveMovie(props.movieToSave));
                       setButtonView(ButtonView.ADDED);
+                      console.log(props.movieToSave)
+                      console.log(savingMovieState.idSavedMoviesArray)
                     }}>Сохранить</button>
           // галочка
-          : buttonView === ButtonView.ADDED && wasSaved
+          : buttonView === ButtonView.ADDED || wasSaved
             ? <button className={`${addFilmButtonStyles.button} ${addFilmButtonStyles['button_active']}`}
                       onClick={() => {
                         dispatch(unsaveMovie(props.movieToSave.id));
                         setButtonView(ButtonView.ADD);
                       }}></button>
             // крестик
-            : <button className={`${addFilmButtonStyles.button} ${addFilmButtonStyles['button_delete']}`}
-                      onClick={() => {
-                        dispatch(unsaveMovie(props.movieToSave.id));
-                      }}></button>
+            : isSavedMovie(props.movieToSave)
+            && <button className={`${addFilmButtonStyles.button} ${addFilmButtonStyles['button_delete']}`}
+                       onClick={() => {
+                         dispatch(unsaveMovie(props.movieToSave.id));
+                       }}></button>
       }
     </>
   )

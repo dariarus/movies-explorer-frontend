@@ -72,7 +72,7 @@ export const signout = (): AppThunk => {
         'Content-Type': 'application/json'
       },
     })
-      .then(res => getResponseData<string>(res))
+      .then(res => getResponseData<{message: string}>(res))
       .then(() => {
         // deleteCookie('jwt');
         dispatch(userDataActions.deleteUserData());

@@ -18,7 +18,7 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
   })
 
   const {register, handleSubmit, formState: {errors}} = useForm<IFormInputs>({
-    mode: 'onChange',
+    mode: 'all',
     reValidateMode: 'onChange'
   });
 

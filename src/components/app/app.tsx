@@ -34,12 +34,6 @@ function App() {
   }
 
   useEffect(() => {
-    dispatch(popupActions.setIsOpen({
-      errorPopupIsOpened: true
-    }));
-  }, [moviesDataState.hasError, userDataState.hasError])
-
-  useEffect(() => {
     dispatch(getMoviesDataFromSideApi());
     dispatch(getUser());
     dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('lastFoundMovies') || '[]')));

@@ -5,6 +5,7 @@ import moviesCardStyles from './movies-card.module.css';
 import {TMovie} from '../../services/types/props-types';
 import {AddMovieButton} from '../add-movie-button/add-movie-button';
 import {beatfilmMoviesPath} from '../../utils/constants';
+import {isSavedMovie} from '../../utils/functions';
 
 export const MoviesCard: FunctionComponent<TMovie> = (props) => {
 
@@ -18,7 +19,12 @@ export const MoviesCard: FunctionComponent<TMovie> = (props) => {
           {props.duration}
         </p>
       </div>
-      <img src={`${beatfilmMoviesPath}` + `${props.image}`} alt="Обложка фильма" className={moviesCardStyles['movie__image']}/>
+      {
+        isSavedMovie(props.itemToSave)
+          ? <img src={props.image} alt="Обложка фильма" className={moviesCardStyles['movie__image']}/>
+          : <img src={`${beatfilmMoviesPath}` + `${props.image}`} alt="Обложка фильма"
+                 className={moviesCardStyles['movie__image']}/>
+      }
       <AddMovieButton buttonView={props.buttonView} movieToSave={props.itemToSave}/>
     </li>
   )
