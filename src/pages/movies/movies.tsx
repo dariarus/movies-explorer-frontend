@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from 'react';
+import React, {FunctionComponent, useEffect} from 'react';
 
 import moviesPageStyles from './movies.module.css';
 
@@ -10,9 +10,14 @@ import {Popup} from '../../components/popup/popup';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
 
 import {popupActions} from '../../services/state-slices/popup';
+import {ButtonView, MoviesPageType} from '../../services/types/props-types';
+import {getMoviesDataFromSideApi} from '../../services/actions/movies-api';
+import {moviesDataActions} from '../../services/state-slices/movies-data';
+import {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
+import {TMovieItem, TMovieViewModel, TSavedMovieItem} from '../../services/types/data';
 
 export const Movies: FunctionComponent = () => {
-  const {moviesDataState, searchFormState, popupState} = useSelector((state) => {
+  const {moviesDataState, savedMoviesDataState, searchFormState, popupState} = useSelector((state) => {
     return state;
   });
 
@@ -30,6 +35,30 @@ export const Movies: FunctionComponent = () => {
     document.body.classList.remove(moviesPageStyles['body-overlay']);
   }
 
+  // let moviesViewModel: Array<TMovieViewModel> = [];
+  // useEffect(() => {
+  //   moviesDataState.moviesData.map((movie) => {
+  //     const savedMovie = savedMoviesDataState.savedMoviesData.find((savedMovie) => {
+  //       return movie.id === savedMovie.id
+  //     })
+  //     if (savedMovie) {
+  //       return {
+  //         ...movie,
+  //         _id: savedMovie._id,
+  //         isSaved: true
+  //       }
+  //     } else return {
+  //       ...movie,
+  //       _id: null,
+  //       isSaved: false
+  //     }
+  //   })
+  // }, [moviesDataState.moviesData, savedMoviesDataState.savedMoviesData])
+
+  useEffect(() => {
+    dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('lastFoundMovies') || '[]')));
+  }, [])
+
   return (
     <>
       <SearchForm moviesArray={moviesDataState.moviesData}
@@ -45,7 +74,8 @@ export const Movies: FunctionComponent = () => {
           ? <Preloader/>
           : !localStorage.key(0) || JSON.parse(localStorage.getItem('lastFoundMovies') || '[]').length === 0
             ? <p className={moviesPageStyles.text}>Начните поиск по ключевому слову</p>
-            : <MoviesCardList buttonView='add' movies={moviesDataState.lastFoundMovies}/>
+            : <MoviesCardList buttonView={ButtonView.ADD} moviesPageType={MoviesPageType.MOVIES}
+                              movies={moviesDataState.lastFoundMovies}/>
 
       }
 

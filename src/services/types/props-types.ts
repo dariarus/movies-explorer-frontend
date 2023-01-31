@@ -1,5 +1,5 @@
 import React, {RefObject} from 'react';
-import {TMovieItem} from './data';
+import {TMovieItem, TSavedMovieItem} from './data';
 
 export type TSection = {
   header: string,
@@ -32,21 +32,27 @@ export type TFormButton = {
   errorText?: string,
 }
 
+export enum MoviesPageType {
+  MOVIES = 'movies',
+  SAVED_MOVIES = 'saved-movies',
+}
+
 export enum ButtonView {
   ADD = 'add',
   ADDED = 'added',
   DELETE = 'delete',
 }
 
-export type TButtonView = 'add' | 'added' | 'delete';
+// export type TButtonView = 'add' | 'added' | 'delete';
 
 export type TMovie = {
   // установка сохраняемого фильма для проброса в кнопку лайка
-  itemToSave: TMovieItem,
+  itemToSave: TMovieItem | TSavedMovieItem,
   name: string
   duration: string,
   image: string,
-  buttonView: TButtonView,
+  buttonView: ButtonView,
+  moviePageType: MoviesPageType
 }
 
 export type TCredentialsForm = {

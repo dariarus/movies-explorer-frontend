@@ -19,7 +19,7 @@ export const getSavedMoviesData = (): AppThunk => {
     })
       .then(res => getResponseData<Array<TSavedMovieItem>>(res))
       .then(res => {
-        dispatch(savedMoviesDataActions.getSavedMoviesDataSuccess(res))
+        dispatch(savedMoviesDataActions.getSavedMoviesDataSuccess(res));
       })
       .catch(error => {
         dispatch(savedMoviesDataActions.getSavedMoviesDataFailed({message: error.message}))
@@ -49,8 +49,8 @@ export const saveMovie = (movie: TMovieItem): AppThunk => {
       })
     })
       .then(res => getResponseData<TMovieItem>(res))
-      .then((res) => {
-        dispatch(savingMovieActions.saveMovie(res.id));
+      .then(() => {
+        dispatch(getSavedMoviesData());
       })
       .catch(error => {
         dispatch(savedMoviesDataActions.getSavedMoviesDataFailed({message: error.message}))
@@ -58,7 +58,7 @@ export const saveMovie = (movie: TMovieItem): AppThunk => {
   }
 }
 
-export const unsaveMovie = (id: number): AppThunk => {
+export const deleteMovie = (id: string): AppThunk => {
   return function (dispatch: AppDispatch) {
 
     dispatch(savedMoviesDataActions.getSavedMoviesData());
@@ -72,7 +72,7 @@ export const unsaveMovie = (id: number): AppThunk => {
     })
       .then(res => getResponseData<TMovieItem>(res))
       .then(() => {
-        dispatch(savingMovieActions.unsaveMovie(id));
+        dispatch(getSavedMoviesData());
       })
       .catch(error => {
         dispatch(savedMoviesDataActions.getSavedMoviesDataFailed({message: error.message}))

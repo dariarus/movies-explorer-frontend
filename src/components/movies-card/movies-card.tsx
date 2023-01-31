@@ -1,13 +1,41 @@
-import React, {FunctionComponent} from 'react';
+import React, {FunctionComponent, useEffect, useState} from 'react';
 
 import moviesCardStyles from './movies-card.module.css';
 
 import {TMovie} from '../../services/types/props-types';
-import {AddMovieButton} from '../add-movie-button/add-movie-button';
+import {MovieButton} from '../add-movie-button/movie-button';
 import {beatfilmMoviesPath} from '../../utils/constants';
 import {isSavedMovie} from '../../utils/functions';
+import {useSelector} from '../../services/types/hooks';
+import {TSavedMovieItem} from '../../services/types/data';
 
 export const MoviesCard: FunctionComponent<TMovie> = (props) => {
+  const {moviesDataState, savedMoviesDataState} = useSelector((state) => {
+    return state;
+  })
+
+  const [uniqueMovieId, setUniqueMovieId] = useState<string>('');
+  const [isSaved, setIsSaved] = useState<boolean>(false);
+
+  useEffect(() => {
+    // moviesDataState.moviesData.map((movie) => {
+      const savedMovie = savedMoviesDataState.savedMoviesData.find((savedMovie) => {
+        return props.itemToSave.id === savedMovie.id
+      })
+      if (savedMovie) {
+        setUniqueMovieId(savedMovie._id);
+        // setIsSaved(true);
+      }
+  }, [moviesDataState.moviesData, savedMoviesDataState.savedMoviesData])
+
+  useEffect(() => {
+    //
+    //   props.itemToSave: {
+    //     ...props.itemToSave,
+    //     isSaved: true
+    //   }
+    // }
+  }, [])
 
   return (
     <li className={moviesCardStyles.movie}>
@@ -25,7 +53,8 @@ export const MoviesCard: FunctionComponent<TMovie> = (props) => {
           : <img src={`${beatfilmMoviesPath}` + `${props.image}`} alt="Обложка фильма"
                  className={moviesCardStyles['movie__image']}/>
       }
-      <AddMovieButton buttonView={props.buttonView} movieToSave={props.itemToSave}/>
+      <MovieButton buttonView={props.buttonView} moviePageType={props.moviePageType} movieToSave={props.itemToSave}
+                   uniqueMovieId={uniqueMovieId} isSaved={isSaved}/>
     </li>
   )
 }

@@ -7,12 +7,13 @@ import moviesListStyles from './movies-card-list.module.css';
 import {MoviesCard} from '../movies-card/movies-card';
 import {MoreMoviesButton} from '../more-movies-button/more-movies-button';
 import {convertSeconds, getMoviesToShow, getWindowWidth} from '../../utils/functions';
-import {TButtonView} from '../../services/types/props-types';
+import {ButtonView, MoviesPageType} from '../../services/types/props-types';
 import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
 
 export const MoviesCardList: FunctionComponent<{
-  buttonView: TButtonView,
-  movies: Array<TMovieItem> | Array<TSavedMovieItem>
+  buttonView: ButtonView,
+  movies: Array<TMovieItem | TSavedMovieItem>,
+  moviesPageType: MoviesPageType
 }> = (props) => {
   const {filterCheckboxState} = useSelector(state => {
     return state
@@ -58,7 +59,7 @@ export const MoviesCardList: FunctionComponent<{
               const durationConversion = convertSeconds(movie.duration);
               return (
                 <MoviesCard key={movie.id} itemToSave={movie} name={movie.nameRU} duration={durationConversion} image={movie.image.url}
-                            buttonView={props.buttonView}/>
+                            buttonView={props.buttonView} moviePageType={props.moviesPageType}/>
               )
             }
           )

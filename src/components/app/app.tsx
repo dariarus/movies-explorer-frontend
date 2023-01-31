@@ -21,6 +21,7 @@ import {popupActions} from '../../services/state-slices/popup';
 
 
 import moviesPageStyles from '../../pages/movies/movies.module.css';
+import {getSavedMoviesData} from '../../services/actions/main-api/saved-movies';
 
 function App() {
   const {userDataState, moviesDataState} = useSelector((state) => {
@@ -35,8 +36,11 @@ function App() {
 
   useEffect(() => {
     dispatch(getMoviesDataFromSideApi());
+    dispatch(getSavedMoviesData());
     dispatch(getUser());
     dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('lastFoundMovies') || '[]')));
+    dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('savedMoviesArray') || '[]')));
+    // dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('lastFoundSavedMovies') || '[]')));
   }, [])
 
   // if (moviesDataState.hasError || (userDataState.hasError && userDataState.error.message !== 'Ошибка авторизации')) {

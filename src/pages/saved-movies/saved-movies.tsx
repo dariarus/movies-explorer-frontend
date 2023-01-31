@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect, useState} from 'react';
+import React, {FunctionComponent, useEffect} from 'react';
 
 import savedMoviesPageStyles from './saved-movies.module.css';
 
@@ -9,9 +9,15 @@ import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {popupActions} from '../../services/state-slices/popup';
 import {Preloader} from '../../components/preloader/preloader';
 import {Popup} from '../../components/popup/popup';
+import {ButtonView, MoviesPageType} from '../../services/types/props-types';
+import {savingMovieActions} from '../../services/state-slices/saving-movie';
+import {getMoviesDataFromSideApi} from '../../services/actions/movies-api';
+import {getUser} from '../../services/actions/main-api/user';
+import {moviesDataActions} from '../../services/state-slices/movies-data';
+import savedMoviesData from '../../services/state-slices/saved-movies-data';
 
 export const SavedMovies: FunctionComponent = () => {
-  const {searchFormState, savedMoviesDataState, popupState} = useSelector((state) => {
+  const {searchFormState, moviesDataState, savedMoviesDataState, popupState} = useSelector((state) => {
     return state;
   })
 
@@ -30,8 +36,23 @@ export const SavedMovies: FunctionComponent = () => {
   }
 
   useEffect(() => {
-    dispatch(getSavedMoviesData());
+
   }, [])
+
+  // useEffect(() => {
+  //   let savedMoviesArray = Array.from(new Set([
+  //     ...moviesDataState.moviesData,
+  //     ...savedMoviesDataState.savedMoviesData
+  //   ]))
+  //   console.log('savedMoviesArray', savedMoviesArray)
+  // }, [moviesDataState.moviesData, savedMoviesDataState.savedMoviesData])
+
+
+  useEffect(() => {
+    localStorage.setItem('savedMoviesArray', JSON.stringify(savedMoviesDataState.savedMoviesData));
+  }, [savedMoviesDataState.savedMoviesData])
+
+
 
   return (
     <>
@@ -50,7 +71,8 @@ export const SavedMovies: FunctionComponent = () => {
           ? <Preloader/>
           : savedMoviesDataState.savedMoviesData.length === 0
             ? <p className={savedMoviesPageStyles.text}>Вы пока ничего не сохранили</p>
-            : <MoviesCardList buttonView='delete' movies={savedMoviesDataState.savedMoviesData}/>
+            : <MoviesCardList buttonView={ButtonView.DELETE} moviesPageType={MoviesPageType.SAVED_MOVIES}
+                              movies={savedMoviesDataState.savedMoviesData}/>
 
       }
 

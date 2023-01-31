@@ -9,7 +9,7 @@ import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {searchFormActions} from '../../services/state-slices/search-form';
 import {moviesDataActions} from '../../services/state-slices/movies-data';
 import {isArrayOfSavedMovies, setRenderingTimer} from '../../utils/functions';
-import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
+import {TMovieItem, TMovieViewModel, TSavedMovieItem} from '../../services/types/data';
 import {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
 
 export const SearchForm: FunctionComponent<{
@@ -38,6 +38,7 @@ export const SearchForm: FunctionComponent<{
   const setLastFoundMoviesArray = useCallback(() => {
     // проверка типа входящего массива: сохраненные фильмы или все
     if (isArrayOfSavedMovies(props.moviesArray)) {
+      localStorage.setItem('lastFoundSavedMovies', JSON.stringify(lastFoundMovies));
       dispatch(savedMoviesDataActions.setLastFoundSavedMovies(lastFoundMovies as Array<TSavedMovieItem>));
     } else {
       localStorage.setItem('lastFoundMovies', JSON.stringify(lastFoundMovies));
