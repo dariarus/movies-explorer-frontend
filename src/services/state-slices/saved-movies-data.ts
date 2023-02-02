@@ -15,11 +15,6 @@ export const savedMoviesDataSlice = createSlice({
   } as ISavedMoviesDataState,
   reducers: {
     getSavedMoviesDataSuccess: (state, action: PayloadAction<Array<TSavedMovieItem>>) => {
-      // let copiedSavedMoviesData = [
-      //   ...state.savedMoviesData
-      // ]
-      // copiedSavedMoviesData.push(action.payload);
-
       return {
         ...state,
         isLoading: false,

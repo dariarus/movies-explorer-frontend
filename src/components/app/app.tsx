@@ -39,7 +39,8 @@ function App() {
     dispatch(getSavedMoviesData());
     dispatch(getUser());
     dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('lastFoundMovies') || '[]')));
-    dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('savedMoviesArray') || '[]')));
+
+    // dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('savedMoviesArray') || '[]')));
     // dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('lastFoundSavedMovies') || '[]')));
   }, [])
 

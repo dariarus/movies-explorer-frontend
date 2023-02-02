@@ -9,11 +9,11 @@ import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {searchFormActions} from '../../services/state-slices/search-form';
 import {moviesDataActions} from '../../services/state-slices/movies-data';
 import {isArrayOfSavedMovies, setRenderingTimer} from '../../utils/functions';
-import {TMovieItem, TMovieViewModel, TSavedMovieItem} from '../../services/types/data';
+import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
 import {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
 
 export const SearchForm: FunctionComponent<{
-  moviesArray: Array<TMovieItem> | Array<TSavedMovieItem>,
+  moviesArray: Array<TMovieItem | TSavedMovieItem>,
   handleOpenPopup: () => void
 }> = (props) => {
 
@@ -25,17 +25,31 @@ export const SearchForm: FunctionComponent<{
 
   const dispatch = useAppDispatch();
 
-  let lastFoundMovies = props.moviesArray.filter(movie => {
-      return movie.nameRU.includes(value) || movie.nameEN.includes(value)
-    }
-  )
+  const getLastFoundMovies = () => {
+    return props.moviesArray.filter(movie => {
+        return movie.nameRU.includes(value) || movie.nameEN.includes(value)
+      }
+    )
+  }
+
+  let lastFoundMovies = getLastFoundMovies();
 
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     dispatch(searchFormActions.setValue(event.target.value));
   }, [dispatch, value]);
 
-  const setLastFoundMoviesArray = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
+    dispatch(searchFormActions.setIsSearching());
+
+    await setRenderingTimer(1000);
+
+    lastFoundMovies = getLastFoundMovies();
+
+    if (lastFoundMovies.length === 0) {
+      props.handleOpenPopup()
+    }
+
     // проверка типа входящего массива: сохраненные фильмы или все
     if (isArrayOfSavedMovies(props.moviesArray)) {
       localStorage.setItem('lastFoundSavedMovies', JSON.stringify(lastFoundMovies));
@@ -44,18 +58,6 @@ export const SearchForm: FunctionComponent<{
       localStorage.setItem('lastFoundMovies', JSON.stringify(lastFoundMovies));
       dispatch(moviesDataActions.setLastFoundMovies(lastFoundMovies));
     }
-  }, [dispatch])
-
-  const handleSubmit = useCallback(async () => {
-    dispatch(searchFormActions.setIsSearching());
-
-    await setRenderingTimer(1000);
-
-    if (lastFoundMovies.length === 0) {
-      props.handleOpenPopup()
-    }
-
-    setLastFoundMoviesArray();
 
     dispatch(searchFormActions.setIsSearchingSuccess())
   }, [value])

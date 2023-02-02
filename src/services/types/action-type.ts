@@ -1,6 +1,6 @@
 import {ActionCreatorWithoutPayload, ActionCreatorWithPayload} from '@reduxjs/toolkit';
 
-import {TErrorState, TInputValues, TMovieItem, TSavedMovieItem, TUser} from './data';
+import {TErrorState, TMovieItem, TSavedMovieItem, TUser} from './data';
 
 export interface IMoviesDataActions {
   getMoviesDataSuccess: ActionCreatorWithPayload<Array<TMovieItem>>,

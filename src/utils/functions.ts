@@ -47,7 +47,7 @@ export const convertSeconds = (seconds: number) => {
   const minutesHourRest = Math.floor(seconds / 60) - (hours * 60); // остаток минут от часа
 
   if (seconds < 3600) {
-   return combineMinutesString(minutes);
+    return combineMinutesString(minutes);
   }
 
   return `0${hours === 1
@@ -63,7 +63,7 @@ export const setOptionsForInputValidation = (inputName: string) => {
     return {
       required: "Необходимо заполнить данное поле",
       pattern: {
-        value: /[a-zA-Zа-яА-Я -]/,
+        value: /[a-zA-Zа-яА-Я\s-]/,
         message: "Имя может содержать только кириллицу, латиницу, пробел и дефис",
       },
       minLength: {
@@ -99,7 +99,7 @@ export const setRenderingTimer = async (ms: number) => {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export const getMoviesToShow = (isShortFilm: boolean, originalMoviesArray: Array<TMovieItem>, sliceEnd: number) => {
+export const getMoviesToShow = (isShortFilm: boolean, originalMoviesArray: Array<TMovieItem | TSavedMovieItem>, sliceEnd: number) => {
   if (isShortFilm) {
     return originalMoviesArray.filter(movie => movie.duration <= 2400).slice(0, sliceEnd)
   } else {
@@ -109,7 +109,7 @@ export const getMoviesToShow = (isShortFilm: boolean, originalMoviesArray: Array
 
 // использую type predicate для определения типа массива из пропсов для сохранения найденных фильмов в нужный slice
 export const isSavedMovie = (movie: TSavedMovieItem | TMovieItem): movie is TSavedMovieItem => {
- return (movie as TSavedMovieItem).owner !== undefined;
+  return (movie as TSavedMovieItem).owner !== undefined;
 }
 
 export const isArrayOfSavedMovies = (movieArray: Array<TSavedMovieItem | TMovieItem>): movieArray is Array<TSavedMovieItem> => {

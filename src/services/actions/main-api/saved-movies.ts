@@ -45,7 +45,9 @@ export const saveMovie = (movie: TMovieItem): AppThunk => {
         },
         thumbnail: `${beatfilmMoviesPath}` + `${movie.image.url}`,
         created_at: undefined,
-        updated_at: undefined
+        updated_at: undefined,
+        _id: undefined,
+        isSaved: undefined
       })
     })
       .then(res => getResponseData<TMovieItem>(res))
@@ -58,12 +60,14 @@ export const saveMovie = (movie: TMovieItem): AppThunk => {
   }
 }
 
-export const deleteMovie = (id: string): AppThunk => {
+export const deleteMovie = (id: number): AppThunk => {
   return function (dispatch: AppDispatch) {
 
     dispatch(savedMoviesDataActions.getSavedMoviesData());
+    const url = `${moviesApi}/movies/${id}`
+    console.log(url)
 
-    fetch(`${moviesApi}/movies/${id}`, {
+    fetch(url, {
       method: 'DELETE',
       credentials: 'include',
       headers: {

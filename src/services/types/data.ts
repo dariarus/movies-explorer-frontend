@@ -18,11 +18,7 @@ export type TMovieItem = {
   movieId: number,
   nameRU: string,
   nameEN: string,
-  created_at?: Date,
-  updated_at?: Date,
 }
-
-export type TMovieViewModel = TMovieItem & { _id: string | null, isSaved: boolean };
 
 export type TSavedMovieItem = TMovieItem & { _id: string, owner: string }
 
@@ -30,8 +26,6 @@ export type TMovieButton = {
   buttonView: ButtonView,
   movieToSave: TMovieItem | TSavedMovieItem,
   moviePageType: MoviesPageType,
-  uniqueMovieId: string,
-  isSaved: boolean
 }
 
 export type TInputValues = {

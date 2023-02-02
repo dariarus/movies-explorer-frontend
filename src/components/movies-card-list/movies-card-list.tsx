@@ -6,7 +6,7 @@ import moviesListStyles from './movies-card-list.module.css';
 
 import {MoviesCard} from '../movies-card/movies-card';
 import {MoreMoviesButton} from '../more-movies-button/more-movies-button';
-import {convertSeconds, getMoviesToShow, getWindowWidth} from '../../utils/functions';
+import {convertSeconds, getMoviesToShow, getWindowWidth, isSavedMovie} from '../../utils/functions';
 import {ButtonView, MoviesPageType} from '../../services/types/props-types';
 import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
 
@@ -24,7 +24,7 @@ export const MoviesCardList: FunctionComponent<{
   const [countMoreItemsToShow, setCountMoreItemsToShow] = useState<number>(0);
 
   // отрисовка нужного кол-ва карточек с учетом фильтрации короткометражек
-  const moviesToShow = getMoviesToShow(filterCheckboxState.isChecked, props.movies, countItemsToShow);
+  let moviesToShow = getMoviesToShow(filterCheckboxState.isChecked, props.movies, countItemsToShow);
   const moreButtonDisabled = moviesToShow.length === props.movies.length || moviesToShow.length < countItemsToShow;
 
   const onClickMoreMoviesButton = () => {
@@ -58,8 +58,10 @@ export const MoviesCardList: FunctionComponent<{
           moviesToShow.map((movie, index) => {
               const durationConversion = convertSeconds(movie.duration);
               return (
-                <MoviesCard key={movie.id} itemToSave={movie} name={movie.nameRU} duration={durationConversion} image={movie.image.url}
-                            buttonView={props.buttonView} moviePageType={props.moviesPageType}/>
+                <MoviesCard key={movie.id} name={movie.nameRU} duration={durationConversion} image={movie.image.url}
+                            buttonView={props.buttonView}
+                            itemToSave={movie}
+                            moviePageType={props.moviesPageType}/>
               )
             }
           )
