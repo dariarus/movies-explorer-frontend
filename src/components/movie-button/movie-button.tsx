@@ -7,6 +7,7 @@ import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {TMovieButton} from '../../services/types/data';
 import {isSavedMovie} from '../../utils/functions';
 import {deleteMovie, saveMovie} from '../../services/actions/main-api/saved-movies';
+import {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
 
 export const MovieButton: FunctionComponent<TMovieButton> = (props) => {
   const {savedMoviesDataState} = useSelector((state) => {
@@ -23,7 +24,12 @@ export const MovieButton: FunctionComponent<TMovieButton> = (props) => {
           ? savedMoviesDataState.savedMoviesData.find((movie) => movie.id === props.movieToSave.id)
             ? <button className={`${filmButtonStyles.button} ${filmButtonStyles['button_active']}`}
                       onClick={() => {
-                        dispatch(deleteMovie(props.movieToSave.id));
+                        Promise.all([
+                          dispatch(deleteMovie(props.movieToSave.id)),
+                          dispatch(savedMoviesDataActions.deleteLastFoundSavedMovie(props.movieToSave.id))
+                        ]).then(() => {
+                          localStorage.setItem('lastFoundSavedMovies', JSON.stringify(savedMoviesDataState.lastFoundSavedMovies));
+                        })
                       }}></button>
             // "Сохранить"
             : <button className={`${filmButtonStyles.button} ${filmButtonStyles['button_default']}`}
@@ -34,7 +40,18 @@ export const MovieButton: FunctionComponent<TMovieButton> = (props) => {
           : isSavedMovie(props.movieToSave)
           && <button className={`${filmButtonStyles.button} ${filmButtonStyles['button_delete']}`}
                      onClick={() => {
-                       dispatch(deleteMovie(props.movieToSave.id));
+                       // Promise.all([
+                       //   dispatch(deleteMovie(props.movieToSave.id)),
+                       //   dispatch(savedMoviesDataActions.deleteLastFoundSavedMovie(props.movieToSave.id))
+                       // ]).then(() => {
+                       //   localStorage.setItem('lastFoundSavedMovies', JSON.stringify(savedMoviesDataState.lastFoundSavedMovies));
+                       // })
+
+                         dispatch(deleteMovie(props.movieToSave.id));
+                         dispatch(savedMoviesDataActions.deleteLastFoundSavedMovie(props.movieToSave.id))
+
+                         dispatch(savedMoviesDataActions.saveLastFoundSavedMoviesToLocalStorage())
+
                      }}></button>
       }
     </>

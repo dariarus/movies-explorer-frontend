@@ -4,6 +4,7 @@ import {getResponseData} from "./json-verifiction";
 import {moviesDataActions} from '../state-slices/movies-data';
 import {beatfilmMoviesApi} from '../../utils/constants';
 import {TMovieItem} from '../types/data';
+import {errorsActions} from '../state-slices/errors';
 
 export const getMoviesDataFromSideApi = (): AppThunk => {
   return function (dispatch: AppDispatch) {
@@ -21,7 +22,13 @@ export const getMoviesDataFromSideApi = (): AppThunk => {
         dispatch(moviesDataActions.getMoviesDataSuccess(res))
       })
       .catch(error => {
-        dispatch(moviesDataActions.getMoviesDataFailed({message: error.message}))
+        dispatch(moviesDataActions.getMoviesDataFailed({message: error.message}));
+        dispatch(errorsActions.getError({
+          error: {
+            message: error.message,
+            status: error.status
+          }
+        }))
       })
   }
 }

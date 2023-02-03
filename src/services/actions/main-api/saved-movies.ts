@@ -3,7 +3,7 @@ import {beatfilmMoviesPath, moviesApi} from '../../../utils/constants';
 import {getResponseData} from '../json-verifiction';
 import {TMovieItem, TSavedMovieItem} from '../../types/data';
 import {savedMoviesDataActions} from '../../state-slices/saved-movies-data';
-import {savingMovieActions} from '../../state-slices/saving-movie';
+import {errorsActions} from '../../state-slices/errors';
 
 export const getSavedMoviesData = (): AppThunk => {
   return function (dispatch: AppDispatch) {
@@ -22,7 +22,13 @@ export const getSavedMoviesData = (): AppThunk => {
         dispatch(savedMoviesDataActions.getSavedMoviesDataSuccess(res));
       })
       .catch(error => {
-        dispatch(savedMoviesDataActions.getSavedMoviesDataFailed({message: error.message}))
+        dispatch(savedMoviesDataActions.getSavedMoviesDataFailed({message: error.message}));
+        dispatch(errorsActions.getError({
+          error: {
+            message: error.message,
+            status: error.status
+          }
+        }))
       })
   }
 }
@@ -46,8 +52,6 @@ export const saveMovie = (movie: TMovieItem): AppThunk => {
         thumbnail: `${beatfilmMoviesPath}` + `${movie.image.url}`,
         created_at: undefined,
         updated_at: undefined,
-        _id: undefined,
-        isSaved: undefined
       })
     })
       .then(res => getResponseData<TMovieItem>(res))
@@ -55,7 +59,13 @@ export const saveMovie = (movie: TMovieItem): AppThunk => {
         dispatch(getSavedMoviesData());
       })
       .catch(error => {
-        dispatch(savedMoviesDataActions.getSavedMoviesDataFailed({message: error.message}))
+        dispatch(savedMoviesDataActions.getSavedMoviesDataFailed({message: error.message}));
+        dispatch(errorsActions.getError({
+          error: {
+            message: error.message,
+            status: error.status
+          }
+        }))
       })
   }
 }
@@ -77,9 +87,15 @@ export const deleteMovie = (id: number): AppThunk => {
       .then(res => getResponseData<TMovieItem>(res))
       .then(() => {
         dispatch(getSavedMoviesData());
-      })
+    })
       .catch(error => {
-        dispatch(savedMoviesDataActions.getSavedMoviesDataFailed({message: error.message}))
+        dispatch(savedMoviesDataActions.getSavedMoviesDataFailed({message: error.message}));
+        dispatch(errorsActions.getError({
+          error: {
+            message: error.message,
+            status: error.status
+          }
+        }))
       })
   }
 }

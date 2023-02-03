@@ -3,6 +3,7 @@ import {userDataActions} from '../../state-slices/user-data';
 import {moviesApi} from '../../../utils/constants';
 import {getResponseData} from '../json-verifiction';
 import {ErrorType, TUser} from '../../types/data';
+import {errorsActions} from '../../state-slices/errors';
 
 export const getUser = (): AppThunk => {
   return function (dispatch: AppDispatch) {
@@ -24,6 +25,12 @@ export const getUser = (): AppThunk => {
       .catch((error) => {
         console.log(error);
         dispatch(userDataActions.getUserDataFailed({message: error.message}));
+        dispatch(errorsActions.getError({
+          error: {
+            message: error.message,
+            status: error.status
+          }
+        }))
       })
   }
 }
@@ -54,6 +61,12 @@ export const updateUserData = (name?: string, email?: string): AppThunk => {
           message: error.message,
           type: ErrorType.UPDATE
         }));
+        dispatch(errorsActions.getError({
+          error: {
+            message: error.message,
+            status: error.status
+          }
+        }))
       })
   }
 }

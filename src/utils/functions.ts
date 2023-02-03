@@ -63,7 +63,7 @@ export const setOptionsForInputValidation = (inputName: string) => {
     return {
       required: "Необходимо заполнить данное поле",
       pattern: {
-        value: /[a-zA-Zа-яА-Я\s-]/,
+        value: /[a-zA-Zа-яА-Я\s\-]/,
         message: "Имя может содержать только кириллицу, латиницу, пробел и дефис",
       },
       minLength: {
@@ -113,7 +113,5 @@ export const isSavedMovie = (movie: TSavedMovieItem | TMovieItem): movie is TSav
 }
 
 export const isArrayOfSavedMovies = (movieArray: Array<TSavedMovieItem | TMovieItem>): movieArray is Array<TSavedMovieItem> => {
-  return movieArray.every((movie) => {
-    isSavedMovie(movie);
-  })
+  return movieArray.every((movie) => isSavedMovie(movie))
 }

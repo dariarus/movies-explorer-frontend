@@ -32,10 +32,6 @@ export const Movies: FunctionComponent = () => {
     document.body.classList.remove(moviesPageStyles['body-overlay']);
   }
 
-  useEffect(() => {
-    dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('lastFoundMovies') || '[]')));
-  }, [])
-
   return (
     <>
       <SearchForm moviesArray={moviesDataState.moviesData}
@@ -49,7 +45,7 @@ export const Movies: FunctionComponent = () => {
       {
         searchFormState.isSearching
           ? <Preloader/>
-          : !localStorage.key(0) || JSON.parse(localStorage.getItem('lastFoundMovies') || '[]').length === 0
+          : JSON.parse(localStorage.getItem('lastFoundMovies') || '[]').length === 0
             ? <p className={moviesPageStyles.text}>Начните поиск по ключевому слову</p>
             : <MoviesCardList buttonView={ButtonView.ADD} moviesPageType={MoviesPageType.MOVIES}
                               movies={moviesDataState.lastFoundMovies}/>

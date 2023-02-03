@@ -3,7 +3,7 @@ import {getResponseData} from '../json-verifiction';
 import {userDataActions} from '../../state-slices/user-data';
 import {moviesApi} from '../../../utils/constants';
 import {ErrorType, TUser} from '../../types/data';
-import {deleteCookie} from '../../../utils/cookie';
+import {errorsActions} from '../../state-slices/errors';
 
 export const signup = (name?: string, email?: string, password?: string): AppThunk => {
   return function (dispatch: AppDispatch) {
@@ -29,7 +29,13 @@ export const signup = (name?: string, email?: string, password?: string): AppThu
       })
       .catch((error) => {
         console.log(error)
-        dispatch(userDataActions.getUserDataFailed({message: error.message}))
+        dispatch(userDataActions.getUserDataFailed({message: error.message}));
+        dispatch(errorsActions.getError({
+          error: {
+            message: error.message,
+            status: error.status
+          }
+        }))
       });
   }
 }
@@ -58,6 +64,12 @@ export const signin = (email?: string, password?: string): AppThunk => {
         dispatch(userDataActions.getUserDataFailed({
           message: error.message,
           type: ErrorType.SIGNIN
+        }));
+        dispatch(errorsActions.getError({
+          error: {
+            message: error.message,
+            status: error.status
+          }
         }))
       });
   }
@@ -74,12 +86,17 @@ export const signout = (): AppThunk => {
     })
       .then(res => getResponseData<{message: string}>(res))
       .then(() => {
-        // deleteCookie('jwt');
         dispatch(userDataActions.deleteUserData());
       })
       .catch((error) => {
         console.log(error);
-        dispatch(userDataActions.getUserDataFailed({message: error.message}))
+        dispatch(userDataActions.getUserDataFailed({message: error.message}));
+        dispatch(errorsActions.getError({
+          error: {
+            message: error.message,
+            status: error.status
+          }
+        }))
       })
   }
 }

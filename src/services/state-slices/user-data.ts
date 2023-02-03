@@ -29,6 +29,7 @@ export const userDataSlice = createSlice({
     setIsAuthorized: (state) => {
       return {
         ...state,
+        isLoading: false,
         isAuthorized: true,
       }
     },

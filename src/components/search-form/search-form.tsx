@@ -25,14 +25,14 @@ export const SearchForm: FunctionComponent<{
 
   const dispatch = useAppDispatch();
 
+  let lastFoundMovies: Array<TMovieItem | TSavedMovieItem> = [];
+
   const getLastFoundMovies = () => {
     return props.moviesArray.filter(movie => {
         return movie.nameRU.includes(value) || movie.nameEN.includes(value)
       }
     )
   }
-
-  let lastFoundMovies = getLastFoundMovies();
 
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -44,7 +44,7 @@ export const SearchForm: FunctionComponent<{
 
     await setRenderingTimer(1000);
 
-    lastFoundMovies = getLastFoundMovies();
+    lastFoundMovies = getLastFoundMovies()
 
     if (lastFoundMovies.length === 0) {
       props.handleOpenPopup()

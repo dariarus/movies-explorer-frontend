@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import appStyles from './app.module.css';
@@ -22,12 +22,25 @@ import {popupActions} from '../../services/state-slices/popup';
 
 import moviesPageStyles from '../../pages/movies/movies.module.css';
 import {getSavedMoviesData} from '../../services/actions/main-api/saved-movies';
+import savedMoviesData, {
+  savedMoviesDataActions,
+  savedMoviesDataSlice
+} from '../../services/state-slices/saved-movies-data';
+import {Preloader} from '../preloader/preloader';
+import {Popup} from '../popup/popup';
 
 function App() {
-  const {userDataState, moviesDataState} = useSelector((state) => {
+  const {moviesDataState, userDataState, savedMoviesDataState, popupState, errorsState} = useSelector((state) => {
     return state;
   })
   const dispatch = useAppDispatch();
+
+  const handleOnOpenPopup = (popupType: string) => {
+    dispatch(popupActions.setIsOpen({
+      [popupType]: true
+    }));
+    document.body.classList.add(moviesPageStyles['body-overlay']);
+  }
 
   const handleOnClosePopup = () => {
     dispatch(popupActions.setIsClosed());
@@ -39,23 +52,28 @@ function App() {
     dispatch(getSavedMoviesData());
     dispatch(getUser());
     dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('lastFoundMovies') || '[]')));
-
-    // dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('savedMoviesArray') || '[]')));
-    // dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('lastFoundSavedMovies') || '[]')));
   }, [])
 
-  // if (moviesDataState.hasError || (userDataState.hasError && userDataState.error.message !== 'Ошибка авторизации')) {
-  //   return (
-  //     <Popup primaryText="Не удалось загрузить данные" secondaryText="Попробуйте обновить страницу"
-  //            onClose={handleOnClosePopup}/>
-  //   )
-  // } else if (moviesDataState.isLoading || userDataState.isLoading) {
-  //   return (
-  //     <div className={appStyles.preloader}>
-  //       <Preloader/>
-  //     </div>
-  //   )
-  // } else {
+  useEffect(() => {
+    dispatch(savedMoviesDataActions.setLastFoundSavedMovies(JSON.parse(localStorage.getItem('lastFoundSavedMovies') || '[]')));
+  }, [savedMoviesDataState.savedMoviesData])
+
+  useEffect(() => {
+    if ((moviesDataState.hasError
+      || savedMoviesDataState.hasError
+      || userDataState.hasError) && (errorsState.errors.every(error => error.error.message !== "Ошибка авторизации"))) {
+      handleOnOpenPopup('loadingErrorPopupIsOpened');
+    }
+    console.log(errorsState.errors)
+  }, [moviesDataState.hasError, userDataState.hasError, savedMoviesDataState.hasError])
+
+  if (moviesDataState.isLoading || userDataState.isLoading) {
+    return (
+      <div className={appStyles.preloader}>
+        <Preloader/>
+      </div>
+    )
+  } else {
     return (
       <BrowserRouter basename="/movies-explorer">
         <Header/>
@@ -88,9 +106,14 @@ function App() {
           </Switch>
         </main>
         <Footer/>
+        {
+          popupState.popupTypesToOpen.loadingErrorPopupIsOpened &&
+          <Popup primaryText="Не удалось загрузить данные" secondaryText="Попробуйте обновить страницу"
+                 onClose={handleOnClosePopup}/>
+        }
       </BrowserRouter>
     )
-  // }
+  }
 }
 
 export default App;

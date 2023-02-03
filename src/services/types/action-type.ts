@@ -1,6 +1,6 @@
 import {ActionCreatorWithoutPayload, ActionCreatorWithPayload} from '@reduxjs/toolkit';
 
-import {TErrorState, TMovieItem, TSavedMovieItem, TUser} from './data';
+import {TError, TErrorState, TMovieItem, TSavedMovieItem, TUser} from './data';
 
 export interface IMoviesDataActions {
   getMoviesDataSuccess: ActionCreatorWithPayload<Array<TMovieItem>>,
@@ -13,12 +13,13 @@ export interface ISavedMoviesDataActions {
   getSavedMoviesDataSuccess: ActionCreatorWithPayload<Array<TSavedMovieItem>>,
   getSavedMoviesData: ActionCreatorWithoutPayload<string>,
   getSavedMoviesDataFailed: ActionCreatorWithPayload<TErrorState>,
-  setLastFoundSavedMovies: ActionCreatorWithPayload<Array<TSavedMovieItem>>
+  setLastFoundSavedMovies: ActionCreatorWithPayload<Array<TSavedMovieItem>>,
+  deleteLastFoundSavedMovie: ActionCreatorWithPayload<number>,
+  saveLastFoundSavedMoviesToLocalStorage: ActionCreatorWithoutPayload<string>,
 }
 
-export interface ISavingMovieActions {
-  saveMovie: ActionCreatorWithPayload<number>,
-  unsaveMovie: ActionCreatorWithPayload<number>
+export interface IErrorsActions {
+  getError: ActionCreatorWithPayload<TError>,
 }
 
 export interface ISearchFormActions {
@@ -57,8 +58,8 @@ type TMoviesDataActions =
 type TSavedMoviesDataActions =
   ISavedMoviesDataActions
 
-type TSavingMovieActions =
-  ISavingMovieActions
+type TErrorsActions =
+  IErrorsActions
 
 type TSearchFormActions =
   ISearchFormActions
@@ -78,8 +79,8 @@ type TUserDataActions =
 export type TApplicationActions =
   TMoviesDataActions
   | TSavedMoviesDataActions
+  | TErrorsActions
   | TSearchFormActions
-  | TSavingMovieActions
   | TPopupActions
   | TFilterCheckboxActions
   | TInputValuesActions
