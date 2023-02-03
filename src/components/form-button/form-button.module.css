@@ -33,7 +33,7 @@
 }
 
 .button:disabled {
-  background-color: #222;
+  background-color: transparent;
   color: #8b8b8b;
   border: solid 1px #8b8b8b;
   box-shadow: none;

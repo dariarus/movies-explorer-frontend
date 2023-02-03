@@ -9,6 +9,7 @@ export const userDataSlice = createSlice({
   initialState: {
     isLoading: false,
     hasError: false,
+    success: false,
     isAuthorized: false,
     error: {},
     userData: {
@@ -53,6 +54,7 @@ export const userDataSlice = createSlice({
         ...state,
         isLoading: false,
         hasError: false,
+        success: true,
         userData: action.payload
       }
     },

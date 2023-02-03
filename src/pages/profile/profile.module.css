@@ -48,6 +48,11 @@
   color: #3ddC84;
 }
 
+.form__button:disabled {
+  color: #8b8b8b;
+  cursor: auto;
+}
+
 .link {
   margin: 0;
   font-family: 'Inter', 'Arial', sans-serif;

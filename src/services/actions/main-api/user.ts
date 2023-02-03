@@ -52,7 +52,6 @@ export const updateUserData = (name?: string, email?: string): AppThunk => {
     })
       .then(res => getResponseData<TUser>(res))
       .then(data => {
-        console.log(document.cookie)
         dispatch(userDataActions.updateUserData(data));
       })
       .catch((error) => {

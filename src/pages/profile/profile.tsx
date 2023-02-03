@@ -17,19 +17,19 @@ export const Profile: FunctionComponent = () => {
   const {userDataState, inputValuesState} = useSelector((state) => {
     return state;
   })
-  const [changeSuccess, setChangeSuccess] = useState<boolean>(false);
 
-  const {handleSubmit, register, formState: {errors}} = useForm<IFormInputs>();
+  const {handleSubmit, register, formState: {errors}} = useForm<IFormInputs>({
+    mode: 'all',
+    // reValidateMode: 'onChange'
+  });
 
   const dispatch = useAppDispatch();
 
+  const updatingNameValue = inputValuesState.inputValues.name ? inputValuesState.inputValues.name : userDataState.userData.name;
+  const updatingEmailValue = inputValuesState.inputValues.email ? inputValuesState.inputValues.email : userDataState.userData.email;
+
   const onSubmit = () => {
-    const updatingNameValue = inputValuesState.inputValues.name ? inputValuesState.inputValues.name : userDataState.userData.name;
-    const updatingEmailValue = inputValuesState.inputValues.email ? inputValuesState.inputValues.email : userDataState.userData.email;
     dispatch(updateUserData(updatingNameValue, updatingEmailValue));
-    if (!userDataState.hasError) {
-      setChangeSuccess(true);
-    }
     dispatch(inputValuesActions.clearInputValuesState());
   }
 
@@ -60,7 +60,7 @@ export const Profile: FunctionComponent = () => {
               </p>
             }
             {
-              changeSuccess && !userDataState.isLoading && !userDataState.hasError &&
+              userDataState.success && !userDataState.isLoading && !userDataState.hasError &&
               <p
                 className={`${profileStyles['change-response-notification']} ${profileStyles['change-response-notification_success']}`}>
                 Данные успешно изменены
@@ -68,9 +68,16 @@ export const Profile: FunctionComponent = () => {
             }
           </div>
 
-          <button type="submit" className={profileStyles['form__button']}
-                  onClick={() => {
-                    handleSubmit(onSubmit)
+          <button type="submit" disabled={errors.name
+          || errors.email
+          || (updatingNameValue === userDataState.userData.name
+            && updatingEmailValue === userDataState.userData.email)
+            ? true
+            : false}
+                  className={profileStyles['form__button']}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleSubmit(onSubmit)()
                   }}>
             Редактировать
           </button>

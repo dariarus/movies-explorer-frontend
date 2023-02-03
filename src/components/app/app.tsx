@@ -64,7 +64,6 @@ function App() {
       || userDataState.hasError) && (errorsState.errors.every(error => error.error.message !== "Ошибка авторизации"))) {
       handleOnOpenPopup('loadingErrorPopupIsOpened');
     }
-    console.log(errorsState.errors)
   }, [moviesDataState.hasError, userDataState.hasError, savedMoviesDataState.hasError])
 
   if (moviesDataState.isLoading || userDataState.isLoading) {
