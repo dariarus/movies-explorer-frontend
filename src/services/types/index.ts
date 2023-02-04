@@ -35,12 +35,19 @@ export interface ISearchFormSliceState {
   hasError: boolean
 }
 
+
+export type TPopupTypeState = {
+  // type: string
+  show: boolean,
+}
+
 export interface IPopupState {
   popupTypesToOpen: {
     nothingFoundPopupIsOpened?: string,
     errorPopupIsOpened?: string,
     loadingErrorPopupIsOpened?: string
   }
+  foundMovies: TPopupTypeState,
 }
 
 export interface IFilterCheckboxState {

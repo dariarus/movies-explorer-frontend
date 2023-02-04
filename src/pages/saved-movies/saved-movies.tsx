@@ -58,7 +58,7 @@ export const SavedMovies: FunctionComponent = () => {
       }
 
       {
-        popupState.popupTypesToOpen.nothingFoundPopupIsOpened &&
+        popupState.foundMovies.show &&
         <Popup primaryText="Поиск не дал результатов" secondaryText="Попробуйте поискать другой фильм"
                onClose={handleOnClosePopup}/>
       }

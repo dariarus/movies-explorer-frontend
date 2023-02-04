@@ -39,6 +39,7 @@ export const Movies: FunctionComponent = () => {
                     if (searchFormState.hasError) {
                       handleOnOpenPopup('errorPopupIsOpened');
                     } else if (moviesDataState.lastFoundMovies.length === 0) {
+                    // } else if ((JSON.parse(localStorage.getItem('lastFoundMovies') || '[]')) === '[]') {
                       handleOnOpenPopup('nothingFoundPopupIsOpened');
                     }
                   }}/>
@@ -53,7 +54,8 @@ export const Movies: FunctionComponent = () => {
       }
 
       {
-        popupState.popupTypesToOpen.nothingFoundPopupIsOpened &&
+        // popupState.popupTypesToOpen.nothingFoundPopupIsOpened &&
+        popupState.foundMovies.show &&
         <Popup primaryText="Поиск не дал результатов" secondaryText="Попробуйте поискать другой фильм"
                onClose={handleOnClosePopup}/>
       }

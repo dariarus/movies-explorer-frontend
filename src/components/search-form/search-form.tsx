@@ -11,13 +11,14 @@ import {moviesDataActions} from '../../services/state-slices/movies-data';
 import {isArrayOfSavedMovies, setRenderingTimer} from '../../utils/functions';
 import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
 import {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
+import {popupActions} from '../../services/state-slices/popup';
 
 export const SearchForm: FunctionComponent<{
   moviesArray: Array<TMovieItem | TSavedMovieItem>,
   handleOpenPopup: () => void
 }> = (props) => {
 
-  const {moviesDataState} = useSelector((state) => {
+  const {moviesDataState, popupState} = useSelector((state) => {
     return state;
   })
 
@@ -29,10 +30,16 @@ export const SearchForm: FunctionComponent<{
 
   const getLastFoundMovies = () => {
     return props.moviesArray.filter(movie => {
-        return movie.nameRU.includes(value) || movie.nameEN.includes(value)
+        return movie.nameRU.toLowerCase().includes(value.toLowerCase()) || movie.nameEN.toLowerCase().includes(value.toLowerCase())
       }
     )
   }
+
+  // const handleOpenPopup = useCallback(() => {
+  //   if (popupState.lastFoundMovies.length === 0) {
+  //     props.handleOpenPopup();
+  //   }
+  // }, [lastFoundMovies.length === 0])
 
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -45,22 +52,29 @@ export const SearchForm: FunctionComponent<{
     await setRenderingTimer(1000);
 
     lastFoundMovies = getLastFoundMovies()
+    // dispatch(popupActions.getLastFoundMoviesToOpenPopup(lastFoundMovies));
+    // if (popupState.lastFoundMovies.length === 0) {
+    //   props.handleOpenPopup()
+    // }
 
-    if (lastFoundMovies.length === 0) {
-      props.handleOpenPopup()
-    }
+    // if (lastFoundMovies.length === 0) {
+    //   props.handleOpenPopup()
+    // }
+
 
     // проверка типа входящего массива: сохраненные фильмы или все
     if (isArrayOfSavedMovies(props.moviesArray)) {
       localStorage.setItem('lastFoundSavedMovies', JSON.stringify(lastFoundMovies));
       dispatch(savedMoviesDataActions.setLastFoundSavedMovies(lastFoundMovies as Array<TSavedMovieItem>));
+      dispatch(popupActions.getLastFoundMoviesToOpenPopup(lastFoundMovies));
     } else {
       localStorage.setItem('lastFoundMovies', JSON.stringify(lastFoundMovies));
       dispatch(moviesDataActions.setLastFoundMovies(lastFoundMovies));
+      dispatch(popupActions.getLastFoundMoviesToOpenPopup(lastFoundMovies));
     }
 
     dispatch(searchFormActions.setIsSearchingSuccess())
-  }, [value])
+  }, [lastFoundMovies])
 
   useEffect(() => {
     if (moviesDataState.hasError) {
