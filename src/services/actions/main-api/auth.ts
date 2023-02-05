@@ -30,10 +30,9 @@ export const signup = (name?: string, email?: string, password?: string): AppThu
       .catch((error) => {
         console.log(error)
         dispatch(userDataActions.getUserDataFailed({message: error.message}));
-        dispatch(errorsActions.getError({
+        dispatch(errorsActions.setLastError({
           error: {
             message: error.message,
-            status: error.status
           }
         }))
       });
@@ -65,10 +64,9 @@ export const signin = (email?: string, password?: string): AppThunk => {
           message: error.message,
           type: ErrorType.SIGNIN
         }));
-        dispatch(errorsActions.getError({
+        dispatch(errorsActions.setLastError({
           error: {
             message: error.message,
-            status: error.status
           }
         }))
       });
@@ -91,10 +89,9 @@ export const signout = (): AppThunk => {
       .catch((error) => {
         console.log(error);
         dispatch(userDataActions.getUserDataFailed({message: error.message}));
-        dispatch(errorsActions.getError({
+        dispatch(errorsActions.setLastError({
           error: {
             message: error.message,
-            status: error.status
           }
         }))
       })

@@ -6,18 +6,13 @@ import {TError} from '../types/data';
 export const errorsSlice = createSlice({
   name: 'errors',
   initialState: {
-    errors: []
+    lastError: undefined
   } as IErrors,
   reducers: {
-    getError: (state, action: PayloadAction<TError>) => {
-      const copiedErrors = [
-        ...state.errors
-      ];
-      copiedErrors.push(action.payload);
-
-      return {
+    setLastError: (state, action: PayloadAction<TError>) => {
+     return {
         ...state,
-        errors: copiedErrors
+       lastError: action.payload
       }
     }
   }
@@ -26,9 +21,9 @@ export const errorsSlice = createSlice({
 export default errorsSlice.reducer
 
 export const {
-  getError
+  setLastError
 } = errorsSlice.actions
 
 export const errorsActions: IErrorsActions = {
-  getError: getError
+  setLastError: setLastError
 }

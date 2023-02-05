@@ -13,12 +13,9 @@ import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
 import {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
 import {popupActions} from '../../services/state-slices/popup';
 
-export const SearchForm: FunctionComponent<{
-  moviesArray: Array<TMovieItem | TSavedMovieItem>,
-  handleOpenPopup: () => void
-}> = (props) => {
+export const SearchForm: FunctionComponent<{moviesArray: Array<TMovieItem | TSavedMovieItem>}> = (props) => {
 
-  const {moviesDataState, popupState} = useSelector((state) => {
+  const {moviesDataState} = useSelector((state) => {
     return state;
   })
 
@@ -35,12 +32,6 @@ export const SearchForm: FunctionComponent<{
     )
   }
 
-  // const handleOpenPopup = useCallback(() => {
-  //   if (popupState.lastFoundMovies.length === 0) {
-  //     props.handleOpenPopup();
-  //   }
-  // }, [lastFoundMovies.length === 0])
-
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     dispatch(searchFormActions.setValue(event.target.value));
@@ -52,15 +43,6 @@ export const SearchForm: FunctionComponent<{
     await setRenderingTimer(1000);
 
     lastFoundMovies = getLastFoundMovies()
-    // dispatch(popupActions.getLastFoundMoviesToOpenPopup(lastFoundMovies));
-    // if (popupState.lastFoundMovies.length === 0) {
-    //   props.handleOpenPopup()
-    // }
-
-    // if (lastFoundMovies.length === 0) {
-    //   props.handleOpenPopup()
-    // }
-
 
     // проверка типа входящего массива: сохраненные фильмы или все
     if (isArrayOfSavedMovies(props.moviesArray)) {

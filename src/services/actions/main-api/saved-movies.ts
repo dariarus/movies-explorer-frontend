@@ -4,6 +4,7 @@ import {getResponseData} from '../json-verifiction';
 import {TMovieItem, TSavedMovieItem} from '../../types/data';
 import {savedMoviesDataActions} from '../../state-slices/saved-movies-data';
 import {errorsActions} from '../../state-slices/errors';
+import {popupActions} from '../../state-slices/popup';
 
 export const getSavedMoviesData = (): AppThunk => {
   return function (dispatch: AppDispatch) {
@@ -23,10 +24,9 @@ export const getSavedMoviesData = (): AppThunk => {
       })
       .catch(error => {
         dispatch(savedMoviesDataActions.getSavedMoviesDataFailed({message: error.message}));
-        dispatch(errorsActions.getError({
+        dispatch(errorsActions.setLastError({
           error: {
             message: error.message,
-            status: error.status
           }
         }))
       })
@@ -60,10 +60,14 @@ export const saveMovie = (movie: TMovieItem): AppThunk => {
       })
       .catch(error => {
         dispatch(savedMoviesDataActions.getSavedMoviesDataFailed({message: error.message}));
-        dispatch(errorsActions.getError({
+        dispatch(errorsActions.setLastError({
           error: {
             message: error.message,
-            status: error.status
+          }
+        }))
+        dispatch(popupActions.getAppErrorToOpenPopup({
+          error: {
+            message: error.message
           }
         }))
       })
@@ -90,10 +94,9 @@ export const deleteMovie = (id: number): AppThunk => {
     })
       .catch(error => {
         dispatch(savedMoviesDataActions.getSavedMoviesDataFailed({message: error.message}));
-        dispatch(errorsActions.getError({
+        dispatch(errorsActions.setLastError({
           error: {
             message: error.message,
-            status: error.status
           }
         }))
       })

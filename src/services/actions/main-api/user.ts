@@ -25,10 +25,9 @@ export const getUser = (): AppThunk => {
       .catch((error) => {
         console.log(error);
         dispatch(userDataActions.getUserDataFailed({message: error.message}));
-        dispatch(errorsActions.getError({
+        dispatch(errorsActions.setLastError({
           error: {
             message: error.message,
-            status: error.status
           }
         }))
       })
@@ -60,10 +59,9 @@ export const updateUserData = (name?: string, email?: string): AppThunk => {
           message: error.message,
           type: ErrorType.UPDATE
         }));
-        dispatch(errorsActions.getError({
+        dispatch(errorsActions.setLastError({
           error: {
             message: error.message,
-            status: error.status
           }
         }))
       })

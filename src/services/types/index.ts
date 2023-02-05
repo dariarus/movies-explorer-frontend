@@ -26,7 +26,7 @@ export interface ISavedMoviesDataState {
 }
 
 export interface IErrors {
-  errors: Array<TError>
+  lastError: TError | undefined
 }
 
 export interface ISearchFormSliceState {
@@ -37,17 +37,12 @@ export interface ISearchFormSliceState {
 
 
 export type TPopupTypeState = {
-  // type: string
   show: boolean,
 }
 
 export interface IPopupState {
-  popupTypesToOpen: {
-    nothingFoundPopupIsOpened?: string,
-    errorPopupIsOpened?: string,
-    loadingErrorPopupIsOpened?: string
-  }
-  foundMovies: TPopupTypeState,
+  errorType: TPopupTypeState & {message?: string},
+  notFoundMoviesType: TPopupTypeState,
 }
 
 export interface IFilterCheckboxState {

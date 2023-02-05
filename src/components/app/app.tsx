@@ -1,8 +1,9 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import appStyles from './app.module.css';
 
+// Components
 import {Main} from '../../pages/main/main';
 import {Movies} from '../../pages/movies/movies';
 import {SavedMovies} from '../../pages/saved-movies/saved-movies';
@@ -12,22 +13,21 @@ import {Profile} from '../../pages/profile/profile';
 import {NotFound404} from '../../pages/not-found-404/not-found-404';
 import {Footer} from '../footer/footer';
 import {Header} from '../header/header';
-import {getMoviesDataFromSideApi} from '../../services/actions/movies-api';
-import {useAppDispatch, useSelector} from '../../services/types/hooks';
-import {moviesDataActions} from '../../services/state-slices/movies-data';
-import {getUser} from '../../services/actions/main-api/user';
-import {ProtectedRoute} from '../protected-route/protected-route';
-import {popupActions} from '../../services/state-slices/popup';
-
-
-import moviesPageStyles from '../../pages/movies/movies.module.css';
-import {getSavedMoviesData} from '../../services/actions/main-api/saved-movies';
-import savedMoviesData, {
-  savedMoviesDataActions,
-  savedMoviesDataSlice
-} from '../../services/state-slices/saved-movies-data';
 import {Preloader} from '../preloader/preloader';
 import {Popup} from '../popup/popup';
+import {ProtectedRoute} from '../protected-route/protected-route';
+
+// Storage
+import {useAppDispatch, useSelector} from '../../services/types/hooks';
+import {moviesDataActions} from '../../services/state-slices/movies-data';
+import {popupActions} from '../../services/state-slices/popup';
+import {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
+
+// Api
+import {getMoviesDataFromSideApi} from '../../services/actions/movies-api';
+import {getUser} from '../../services/actions/main-api/user';
+import {getSavedMoviesData} from '../../services/actions/main-api/saved-movies';
+import {errorsActions, errorsSlice} from '../../services/state-slices/errors';
 
 function App() {
   const {moviesDataState, userDataState, savedMoviesDataState, popupState, errorsState} = useSelector((state) => {
@@ -35,16 +35,9 @@ function App() {
   })
   const dispatch = useAppDispatch();
 
-  const handleOnOpenPopup = (popupType: string) => {
-    dispatch(popupActions.setIsOpen({
-      [popupType]: true
-    }));
-    document.body.classList.add(moviesPageStyles['body-overlay']);
-  }
-
   const handleOnClosePopup = () => {
     dispatch(popupActions.setIsClosed());
-    document.body.classList.remove(moviesPageStyles['body-overlay']);
+    document.body.classList.remove(appStyles['body-overlay']);
   }
 
   useEffect(() => {
@@ -59,12 +52,10 @@ function App() {
   }, [savedMoviesDataState.savedMoviesData])
 
   useEffect(() => {
-    if ((moviesDataState.hasError
-      || savedMoviesDataState.hasError
-      || userDataState.hasError) && (errorsState.errors.every(error => error.error.message !== "Ошибка авторизации"))) {
-      handleOnOpenPopup('loadingErrorPopupIsOpened');
+    if (errorsState.lastError) {
+      dispatch(popupActions.getAppErrorToOpenPopup(errorsState.lastError))
     }
-  }, [moviesDataState.hasError, userDataState.hasError, savedMoviesDataState.hasError])
+  }, [errorsState.lastError])
 
   if (moviesDataState.isLoading || userDataState.isLoading) {
     return (
@@ -106,8 +97,9 @@ function App() {
         </main>
         <Footer/>
         {
-          popupState.popupTypesToOpen.loadingErrorPopupIsOpened &&
-          <Popup primaryText="Не удалось загрузить данные" secondaryText="Попробуйте обновить страницу"
+          popupState.errorType.show &&
+          <Popup primaryText={popupState.errorType.message ? popupState.errorType.message : "Что-то пошло не так :("}
+                 secondaryText="Попробуйте повторить действие или обновить страницу"
                  onClose={handleOnClosePopup}/>
         }
       </BrowserRouter>

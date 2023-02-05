@@ -6,7 +6,7 @@ export type TErrorState = {
 };
 
 export type TError = {
-  error: Omit<TErrorState, 'type'> & {status: number}
+  error: Omit<TErrorState, 'type'>
 }
 
 export type TMovieItem = {

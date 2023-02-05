@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect} from 'react';
+import React, {FunctionComponent} from 'react';
 
 import moviesPageStyles from './movies.module.css';
 
@@ -11,7 +11,6 @@ import {useAppDispatch, useSelector} from '../../services/types/hooks';
 
 import {popupActions} from '../../services/state-slices/popup';
 import {ButtonView, MoviesPageType} from '../../services/types/props-types';
-import {moviesDataActions} from '../../services/state-slices/movies-data';
 
 export const Movies: FunctionComponent = () => {
   const {moviesDataState, searchFormState, popupState} = useSelector((state) => {
@@ -20,13 +19,6 @@ export const Movies: FunctionComponent = () => {
 
   const dispatch = useAppDispatch();
 
-  const handleOnOpenPopup = (popupType: string) => {
-    dispatch(popupActions.setIsOpen({
-      [popupType]: true
-    }));
-    document.body.classList.add(moviesPageStyles['body-overlay']);
-  }
-
   const handleOnClosePopup = () => {
     dispatch(popupActions.setIsClosed());
     document.body.classList.remove(moviesPageStyles['body-overlay']);
@@ -34,15 +26,7 @@ export const Movies: FunctionComponent = () => {
 
   return (
     <>
-      <SearchForm moviesArray={moviesDataState.moviesData}
-                  handleOpenPopup={() => {
-                    if (searchFormState.hasError) {
-                      handleOnOpenPopup('errorPopupIsOpened');
-                    } else if (moviesDataState.lastFoundMovies.length === 0) {
-                    // } else if ((JSON.parse(localStorage.getItem('lastFoundMovies') || '[]')) === '[]') {
-                      handleOnOpenPopup('nothingFoundPopupIsOpened');
-                    }
-                  }}/>
+      <SearchForm moviesArray={moviesDataState.moviesData}/>
       {
         searchFormState.isSearching
           ? <Preloader/>
@@ -54,14 +38,8 @@ export const Movies: FunctionComponent = () => {
       }
 
       {
-        // popupState.popupTypesToOpen.nothingFoundPopupIsOpened &&
-        popupState.foundMovies.show &&
+        popupState.notFoundMoviesType.show &&
         <Popup primaryText="Поиск не дал результатов" secondaryText="Попробуйте поискать другой фильм"
-               onClose={handleOnClosePopup}/>
-      }
-      {
-        popupState.popupTypesToOpen.errorPopupIsOpened &&
-        <Popup primaryText="Что-то пошло не так :(" secondaryText="Попробуйте повторить действие"
                onClose={handleOnClosePopup}/>
       }
     </>

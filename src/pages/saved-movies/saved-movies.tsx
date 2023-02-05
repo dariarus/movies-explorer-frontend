@@ -9,8 +9,7 @@ import {popupActions} from '../../services/state-slices/popup';
 import {Preloader} from '../../components/preloader/preloader';
 import {Popup} from '../../components/popup/popup';
 import {ButtonView, MoviesPageType} from '../../services/types/props-types';
-import {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
-import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
+import {TSavedMovieItem} from '../../services/types/data';
 
 export const SavedMovies: FunctionComponent = () => {
   const {searchFormState, savedMoviesDataState, popupState} = useSelector((state) => {
@@ -23,13 +22,6 @@ export const SavedMovies: FunctionComponent = () => {
     ? savedMoviesDataState.savedMoviesData
     : savedMoviesDataState.lastFoundSavedMovies
 
-  const handleOnOpenPopup = (popupType: string) => {
-    dispatch(popupActions.setIsOpen({
-      [popupType]: true
-    }));
-    document.body.classList.add(savedMoviesPageStyles['body-overlay']);
-  }
-
   const handleOnClosePopup = () => {
     dispatch(popupActions.setIsClosed());
     document.body.classList.remove(savedMoviesPageStyles['body-overlay']);
@@ -37,16 +29,7 @@ export const SavedMovies: FunctionComponent = () => {
 
   return (
     <>
-      <SearchForm moviesArray={savedMoviesDataState.savedMoviesData}
-                  handleOpenPopup={() => {
-                    if (searchFormState.hasError) {
-                      handleOnOpenPopup('errorPopupIsOpened')
-                    }
-                    if (savedMoviesDataState.lastFoundSavedMovies.length === 0) {
-                      handleOnOpenPopup('nothingFoundPopupIsOpened')
-                    }
-                  }
-                  }/>
+      <SearchForm moviesArray={savedMoviesDataState.savedMoviesData}/>
       {
         searchFormState.isSearching
           ? <Preloader/>
@@ -58,13 +41,8 @@ export const SavedMovies: FunctionComponent = () => {
       }
 
       {
-        popupState.foundMovies.show &&
+        popupState.notFoundMoviesType.show &&
         <Popup primaryText="Поиск не дал результатов" secondaryText="Попробуйте поискать другой фильм"
-               onClose={handleOnClosePopup}/>
-      }
-      {
-        popupState.popupTypesToOpen.errorPopupIsOpened &&
-        <Popup primaryText="Что-то пошло не так :(" secondaryText="Попробуйте повторить действие"
                onClose={handleOnClosePopup}/>
       }
     </>

@@ -23,10 +23,9 @@ export const getMoviesDataFromSideApi = (): AppThunk => {
       })
       .catch(error => {
         dispatch(moviesDataActions.getMoviesDataFailed({message: error.message}));
-        dispatch(errorsActions.getError({
+        dispatch(errorsActions.setLastError({
           error: {
             message: error.message,
-            status: error.status
           }
         }))
       })
