@@ -15,6 +15,7 @@
 
 # production
 /build
+/movies-explorer
 
 # misc
 .DS_Store
