@@ -19,7 +19,6 @@ export type TMovieItem = {
   image: { url: string },
   trailerLink: string,
   thumbnail: string,
-  movieId: number,
   nameRU: string,
   nameEN: string,
 }

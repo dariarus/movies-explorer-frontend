@@ -37,7 +37,8 @@ export interface IPopupActions {
 }
 
 export interface IFilterCheckboxActions {
-  toggleIsChecked: ActionCreatorWithoutPayload<string>
+  toggleIsChecked: ActionCreatorWithoutPayload<string>,
+  setIsChecked: ActionCreatorWithPayload<boolean>
 }
 
 export interface IInputValuesActions {

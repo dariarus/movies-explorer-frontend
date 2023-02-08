@@ -85,6 +85,9 @@ export const signout = (): AppThunk => {
       .then(res => getResponseData<{message: string}>(res))
       .then(() => {
         dispatch(userDataActions.deleteUserData());
+        localStorage.removeItem('lastFoundMovies');
+        localStorage.removeItem('lastSearchRequest');
+        localStorage.removeItem('lastFilterCheckboxState');
       })
       .catch((error) => {
         console.log(error);

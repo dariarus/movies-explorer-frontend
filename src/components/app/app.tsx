@@ -28,9 +28,16 @@ import {getMoviesDataFromSideApi} from '../../services/actions/movies-api';
 import {getUser} from '../../services/actions/main-api/user';
 import {getSavedMoviesData} from '../../services/actions/main-api/saved-movies';
 import {errorsActions, errorsSlice} from '../../services/state-slices/errors';
+import {filterCheckboxActions, filterCheckboxSlice} from '../../services/state-slices/filter-checkbox';
+import {searchFormActions} from '../../services/state-slices/search-form';
 
 function App() {
-  const {moviesDataState, userDataState, savedMoviesDataState, popupState, errorsState} = useSelector((state) => {
+  const {
+    moviesDataState,
+    userDataState,
+    popupState,
+    errorsState
+  } = useSelector((state) => {
     return state;
   })
   const dispatch = useAppDispatch();
@@ -44,12 +51,17 @@ function App() {
     dispatch(getMoviesDataFromSideApi());
     dispatch(getSavedMoviesData());
     dispatch(getUser());
+    dispatch(searchFormActions.setValue(JSON.parse(localStorage.getItem('lastSearchRequest') || 'null')))
     dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('lastFoundMovies') || '[]')));
   }, [])
 
   useEffect(() => {
-    dispatch(savedMoviesDataActions.setLastFoundSavedMovies(JSON.parse(localStorage.getItem('lastFoundSavedMovies') || '[]')));
-  }, [savedMoviesDataState.savedMoviesData])
+    let lastFilterInputState = localStorage.getItem('lastFilterCheckboxState')
+    if (!lastFilterInputState) {
+      return
+    }
+    dispatch(filterCheckboxActions.setIsChecked(JSON.parse(lastFilterInputState)));
+  }, [])
 
   useEffect(() => {
     if (errorsState.lastError) {

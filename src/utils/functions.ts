@@ -99,7 +99,7 @@ export const setRenderingTimer = async (ms: number) => {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export const getMoviesToShow = (isShortFilm: boolean, originalMoviesArray: Array<TMovieItem | TSavedMovieItem>, sliceEnd: number) => {
+export const getMoviesToShow = (isShortFilm: boolean | undefined, originalMoviesArray: Array<TMovieItem | TSavedMovieItem>, sliceEnd: number) => {
   if (isShortFilm) {
     return originalMoviesArray.filter(movie => movie.duration <= 2400).slice(0, sliceEnd)
   } else {

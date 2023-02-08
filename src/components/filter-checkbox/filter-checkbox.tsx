@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from 'react';
+import React, {FunctionComponent, useEffect} from 'react';
 
 import checkboxStyles from './filter-checkbox.module.css';
 import {filterCheckboxActions} from '../../services/state-slices/filter-checkbox';
@@ -12,7 +12,7 @@ export const FilterCheckbox: FunctionComponent = () => {
   const dispatch = useAppDispatch();
 
   const handleOnInputClick = () => {
-    dispatch(filterCheckboxActions.toggleIsChecked())
+    dispatch(filterCheckboxActions.toggleIsChecked());
   }
 
   return (

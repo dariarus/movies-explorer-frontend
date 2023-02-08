@@ -11,6 +11,7 @@ import {useAppDispatch, useSelector} from '../../services/types/hooks';
 
 import {popupActions} from '../../services/state-slices/popup';
 import {ButtonView, MoviesPageType} from '../../services/types/props-types';
+import {tmpMoviesArray} from '../../utils/constants';
 
 export const Movies: FunctionComponent = () => {
   const {moviesDataState, searchFormState, popupState} = useSelector((state) => {
@@ -30,10 +31,11 @@ export const Movies: FunctionComponent = () => {
       {
         searchFormState.isSearching
           ? <Preloader/>
-          : JSON.parse(localStorage.getItem('lastFoundMovies') || '[]').length === 0
-            ? <p className={moviesPageStyles.text}>Начните поиск по ключевому слову</p>
+          // : JSON.parse(localStorage.getItem('lastFoundMovies') || '[]').length === 0
+          //   ? <p className={moviesPageStyles.text}>Начните поиск по ключевому слову</p>
             : <MoviesCardList buttonView={ButtonView.ADD} moviesPageType={MoviesPageType.MOVIES}
-                              movies={moviesDataState.lastFoundMovies}/>
+                              movies={tmpMoviesArray}/>
+                              // movies={moviesDataState.lastFoundMovies}/>
 
       }
 

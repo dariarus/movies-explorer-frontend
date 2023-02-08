@@ -13,9 +13,9 @@ import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
 import {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
 import {popupActions} from '../../services/state-slices/popup';
 
-export const SearchForm: FunctionComponent<{moviesArray: Array<TMovieItem | TSavedMovieItem>}> = (props) => {
+export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSavedMovieItem> }> = (props) => {
 
-  const {moviesDataState} = useSelector((state) => {
+  const {moviesDataState, searchFormState} = useSelector((state) => {
     return state;
   })
 
@@ -45,15 +45,18 @@ export const SearchForm: FunctionComponent<{moviesArray: Array<TMovieItem | TSav
     lastFoundMovies = getLastFoundMovies()
 
     // проверка типа входящего массива: сохраненные фильмы или все
-    if (isArrayOfSavedMovies(props.moviesArray)) {
-      localStorage.setItem('lastFoundSavedMovies', JSON.stringify(lastFoundMovies));
-      dispatch(savedMoviesDataActions.setLastFoundSavedMovies(lastFoundMovies as Array<TSavedMovieItem>));
-      dispatch(popupActions.getLastFoundMoviesToOpenPopup(lastFoundMovies));
-    } else {
-      localStorage.setItem('lastFoundMovies', JSON.stringify(lastFoundMovies));
-      dispatch(moviesDataActions.setLastFoundMovies(lastFoundMovies));
-      dispatch(popupActions.getLastFoundMoviesToOpenPopup(lastFoundMovies));
-    }
+    // if (isArrayOfSavedMovies(props.moviesArray)) {
+    //   localStorage.setItem('lastFoundSavedMovies', JSON.stringify(lastFoundMovies));
+    //   dispatch(savedMoviesDataActions.setLastFoundSavedMovies(lastFoundMovies as Array<TSavedMovieItem>));
+    //   dispatch(popupActions.getLastFoundMoviesToOpenPopup(lastFoundMovies));
+    // } else {
+
+    localStorage.setItem('lastSearchRequest', JSON.stringify(value));
+
+    localStorage.setItem('lastFoundMovies', JSON.stringify(lastFoundMovies));
+    dispatch(moviesDataActions.setLastFoundMovies(lastFoundMovies));
+    dispatch(popupActions.getLastFoundMoviesToOpenPopup(lastFoundMovies));
+    // }
 
     dispatch(searchFormActions.setIsSearchingSuccess())
   }, [lastFoundMovies])
@@ -74,7 +77,16 @@ export const SearchForm: FunctionComponent<{moviesArray: Array<TMovieItem | TSav
         }}/>
         <FormButton name="Поиск" disabled={value !== '' ? false : true} needSearchMod={true} onClick={handleSubmit}/>
       </form>
-      <FilterCheckbox/>
+      <div className={searchFormStyles.info}>
+        <FilterCheckbox/>
+        <p className={searchFormStyles['info__text']}>Ваш последний запрос:
+          <span className={searchFormState.value
+            ? `${searchFormStyles['info__text']} ${searchFormStyles['info__text_bold']}`
+            : `${searchFormStyles['info__text']} ${searchFormStyles['info__text_secondary']}`}>
+            {searchFormState.value ? searchFormState.value : 'Вы пока ничего не искали'}
+          </span>
+        </p>
+      </div>
       <hr className={searchFormStyles.decor}/>
     </section>
   )

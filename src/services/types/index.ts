@@ -46,7 +46,8 @@ export interface IPopupState {
 }
 
 export interface IFilterCheckboxState {
-  isChecked: boolean
+  isChecked: boolean,
+  lastInputState?: boolean
 }
 
 export interface IInputValuesState {

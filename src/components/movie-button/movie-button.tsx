@@ -40,18 +40,10 @@ export const MovieButton: FunctionComponent<TMovieButton> = (props) => {
           : isSavedMovie(props.movieToSave)
           && <button className={`${filmButtonStyles.button} ${filmButtonStyles['button_delete']}`}
                      onClick={() => {
-                       // Promise.all([
-                       //   dispatch(deleteMovie(props.movieToSave.id)),
-                       //   dispatch(savedMoviesDataActions.deleteLastFoundSavedMovie(props.movieToSave.id))
-                       // ]).then(() => {
-                       //   localStorage.setItem('lastFoundSavedMovies', JSON.stringify(savedMoviesDataState.lastFoundSavedMovies));
-                       // })
-
                          dispatch(deleteMovie(props.movieToSave.id));
                          dispatch(savedMoviesDataActions.deleteLastFoundSavedMovie(props.movieToSave.id))
 
                          dispatch(savedMoviesDataActions.saveLastFoundSavedMoviesToLocalStorage())
-
                      }}></button>
       }
     </>

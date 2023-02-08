@@ -34,13 +34,13 @@ export const MoviesCardList: FunctionComponent<{
   useEffect(() => {
     const handleScreenWidth = () => setScreenWidth(getWindowWidth())
 
-    if (screenWidth.innerWidth >= 1200) {
+    if (screenWidth.innerWidth >= 1280) {
       setCountItemsToShow(12);
       setCountMoreItemsToShow(3);
-    } else if (screenWidth.innerWidth < 1200 && screenWidth.innerWidth >= 641) {
+    } else if (screenWidth.innerWidth < 1280 && screenWidth.innerWidth >= 480) {
       setCountItemsToShow(8);
       setCountMoreItemsToShow(2);
-    } else if (screenWidth.innerWidth < 641) {
+    } else if (screenWidth.innerWidth < 480) {
       setCountItemsToShow(5);
       setCountMoreItemsToShow(2);
     }
