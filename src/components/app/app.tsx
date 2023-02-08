@@ -51,7 +51,8 @@ function App() {
     dispatch(getMoviesDataFromSideApi());
     dispatch(getSavedMoviesData());
     dispatch(getUser());
-    dispatch(searchFormActions.setValue(JSON.parse(localStorage.getItem('lastSearchRequest') || 'null')))
+    dispatch(searchFormActions.setLastSearchedValue(JSON.parse(localStorage.getItem('lastSearchRequest') || 'null')))
+    dispatch(searchFormActions.setLastSearchedValueOfSaved(JSON.parse(localStorage.getItem('lastSearchRequestOfSaved') || 'null')))
     dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('lastFoundMovies') || '[]')));
   }, [])
 

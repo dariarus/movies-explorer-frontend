@@ -25,6 +25,8 @@ export interface IErrorsActions {
 export interface ISearchFormActions {
   setIsSearching: ActionCreatorWithoutPayload<string>,
   setValue: ActionCreatorWithPayload<string>,
+  setLastSearchedValue: ActionCreatorWithPayload<string>,
+  setLastSearchedValueOfSaved: ActionCreatorWithPayload<string>,
   setIsSearchingSuccess: ActionCreatorWithoutPayload<string>,
   setSearchingIsFailed: ActionCreatorWithoutPayload<string>
 }

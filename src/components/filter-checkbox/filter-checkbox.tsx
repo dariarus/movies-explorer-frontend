@@ -1,6 +1,7 @@
-import React, {FunctionComponent, useEffect} from 'react';
+import React, {FunctionComponent} from 'react';
 
 import checkboxStyles from './filter-checkbox.module.css';
+
 import {filterCheckboxActions} from '../../services/state-slices/filter-checkbox';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
 

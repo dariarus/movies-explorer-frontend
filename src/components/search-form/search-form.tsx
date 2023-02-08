@@ -12,8 +12,9 @@ import {isArrayOfSavedMovies, setRenderingTimer} from '../../utils/functions';
 import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
 import {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
 import {popupActions} from '../../services/state-slices/popup';
+import {MoviesPageType} from '../../services/types/props-types';
 
-export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSavedMovieItem> }> = (props) => {
+export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSavedMovieItem>, moviesPageType: MoviesPageType }> = (props) => {
 
   const {moviesDataState, searchFormState} = useSelector((state) => {
     return state;
@@ -24,6 +25,7 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
   const dispatch = useAppDispatch();
 
   let lastFoundMovies: Array<TMovieItem | TSavedMovieItem> = [];
+  let lastSearch: string = '';
 
   const getLastFoundMovies = () => {
     return props.moviesArray.filter(movie => {
@@ -42,22 +44,26 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
 
     await setRenderingTimer(1000);
 
-    lastFoundMovies = getLastFoundMovies()
+    lastFoundMovies = getLastFoundMovies();
 
     // проверка типа входящего массива: сохраненные фильмы или все
     if (isArrayOfSavedMovies(props.moviesArray)) {
       //   localStorage.setItem('lastFoundSavedMovies', JSON.stringify(lastFoundMovies));
       dispatch(savedMoviesDataActions.setLastFoundSavedMovies(lastFoundMovies as Array<TSavedMovieItem>));
+
+      localStorage.setItem('lastSearchRequestOfSaved', JSON.stringify(value));
+      dispatch(searchFormActions.setLastSearchedValueOfSaved(value));
+
       dispatch(popupActions.getLastFoundMoviesToOpenPopup(lastFoundMovies));
     } else {
-
-      localStorage.setItem('lastSearchRequest', JSON.stringify(value));
-
       localStorage.setItem('lastFoundMovies', JSON.stringify(lastFoundMovies));
       dispatch(moviesDataActions.setLastFoundMovies(lastFoundMovies));
+
+      localStorage.setItem('lastSearchRequest', JSON.stringify(value));
+      dispatch(searchFormActions.setLastSearchedValue(value));
+
       dispatch(popupActions.getLastFoundMoviesToOpenPopup(lastFoundMovies));
     }
-
     dispatch(searchFormActions.setIsSearchingSuccess())
   }, [lastFoundMovies])
 
@@ -80,11 +86,22 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
       <div className={searchFormStyles.info}>
         <FilterCheckbox/>
         <p className={searchFormStyles['info__text']}>Ваш последний запрос:
-          <span className={searchFormState.value
-            ? `${searchFormStyles['info__text']} ${searchFormStyles['info__text_bold']}`
-            : `${searchFormStyles['info__text']} ${searchFormStyles['info__text_secondary']}`}>
-            {searchFormState.value ? searchFormState.value : 'Вы пока ничего не искали'}
+          {
+            props.moviesPageType === MoviesPageType.SAVED_MOVIES &&
+            <span className={searchFormState.lastSearchedValueOfSaved
+              ? `${searchFormStyles['info__text']} ${searchFormStyles['info__text_bold']}`
+              : `${searchFormStyles['info__text']} ${searchFormStyles['info__text_secondary']}`}>
+            {searchFormState.lastSearchedValueOfSaved ? searchFormState.lastSearchedValueOfSaved : 'Вы пока ничего не искали'}
           </span>
+          }
+          {
+            props.moviesPageType === MoviesPageType.MOVIES &&
+            <span className={searchFormState.lastSearchedValue
+              ? `${searchFormStyles['info__text']} ${searchFormStyles['info__text_bold']}`
+              : `${searchFormStyles['info__text']} ${searchFormStyles['info__text_secondary']}`}>
+            {searchFormState.lastSearchedValue ? searchFormState.lastSearchedValue : 'Вы пока ничего не искали'}
+          </span>
+          }
         </p>
       </div>
       <hr className={searchFormStyles.decor}/>

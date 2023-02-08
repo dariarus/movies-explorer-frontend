@@ -24,12 +24,12 @@ export const MovieButton: FunctionComponent<TMovieButton> = (props) => {
           ? savedMoviesDataState.savedMoviesData.find((movie) => movie.id === props.movieToSave.id)
             ? <button className={`${filmButtonStyles.button} ${filmButtonStyles['button_active']}`}
                       onClick={() => {
-                        Promise.all([
-                          dispatch(deleteMovie(props.movieToSave.id)),
+                        // Promise.all([
+                          dispatch(deleteMovie(props.movieToSave.id));
                           dispatch(savedMoviesDataActions.deleteLastFoundSavedMovie(props.movieToSave.id))
-                        ]).then(() => {
-                          localStorage.setItem('lastFoundSavedMovies', JSON.stringify(savedMoviesDataState.lastFoundSavedMovies));
-                        })
+                        // ]).then(() => {
+                        //   localStorage.setItem('lastFoundSavedMovies', JSON.stringify(savedMoviesDataState.lastFoundSavedMovies));
+                        // })
                       }}></button>
             // "Сохранить"
             : <button className={`${filmButtonStyles.button} ${filmButtonStyles['button_default']}`}
@@ -43,7 +43,7 @@ export const MovieButton: FunctionComponent<TMovieButton> = (props) => {
                          dispatch(deleteMovie(props.movieToSave.id));
                          dispatch(savedMoviesDataActions.deleteLastFoundSavedMovie(props.movieToSave.id))
 
-                         dispatch(savedMoviesDataActions.saveLastFoundSavedMoviesToLocalStorage())
+                         // dispatch(savedMoviesDataActions.saveLastFoundSavedMoviesToLocalStorage())
                      }}></button>
       }
     </>

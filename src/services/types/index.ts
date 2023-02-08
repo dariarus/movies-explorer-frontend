@@ -31,6 +31,8 @@ export interface IErrors {
 
 export interface ISearchFormSliceState {
   value: string,
+  lastSearchedValue: string
+  lastSearchedValueOfSaved: string,
   isSearching: boolean,
   hasError: boolean
 }

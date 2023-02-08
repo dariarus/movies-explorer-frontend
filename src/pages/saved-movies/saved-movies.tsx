@@ -29,7 +29,7 @@ export const SavedMovies: FunctionComponent = () => {
 
   return (
     <>
-      <SearchForm moviesArray={savedMoviesDataState.savedMoviesData}/>
+      <SearchForm moviesArray={savedMoviesDataState.savedMoviesData} moviesPageType={MoviesPageType.SAVED_MOVIES}/>
       {
         searchFormState.isSearching
           ? <Preloader/>

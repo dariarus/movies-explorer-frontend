@@ -11,7 +11,6 @@ import {useAppDispatch, useSelector} from '../../services/types/hooks';
 
 import {popupActions} from '../../services/state-slices/popup';
 import {ButtonView, MoviesPageType} from '../../services/types/props-types';
-import {tmpMoviesArray} from '../../utils/constants';
 
 export const Movies: FunctionComponent = () => {
   const {moviesDataState, searchFormState, popupState} = useSelector((state) => {
@@ -27,7 +26,7 @@ export const Movies: FunctionComponent = () => {
 
   return (
     <>
-      <SearchForm moviesArray={moviesDataState.moviesData}/>
+      <SearchForm moviesArray={moviesDataState.moviesData} moviesPageType={MoviesPageType.MOVIES}/>
       {
         searchFormState.isSearching
           ? <Preloader/>
