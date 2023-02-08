@@ -13,7 +13,7 @@ export const Login: FunctionComponent = () => {
   if (userDataState.isAuthorized) {
     return (
       <Redirect
-        to={location.state?.from || '/'}
+        to={location.state?.from || '/movies'}
       />
     );
   }

@@ -8,11 +8,13 @@ import {FilterCheckbox} from '../filter-checkbox/filter-checkbox';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {searchFormActions} from '../../services/state-slices/search-form';
 import {moviesDataActions} from '../../services/state-slices/movies-data';
-import {isArrayOfSavedMovies, setRenderingTimer} from '../../utils/functions';
+import {isArrayOfSavedMovies, setOptionsForInputValidation, setRenderingTimer} from '../../utils/functions';
 import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
 import {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
 import {popupActions} from '../../services/state-slices/popup';
-import {MoviesPageType} from '../../services/types/props-types';
+import {IFormInputs, MoviesPageType} from '../../services/types/props-types';
+import {useForm} from 'react-hook-form';
+import profileStyles from '../../pages/profile/profile.module.css';
 
 export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSavedMovieItem>, moviesPageType: MoviesPageType }> = (props) => {
 
@@ -23,6 +25,11 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
   const [value, setValue] = useState<string>('');
 
   const dispatch = useAppDispatch();
+
+  const {handleSubmit, register, formState: {errors}} = useForm<IFormInputs>({
+    mode: 'all',
+    // reValidateMode: 'onChange'
+  });
 
   let lastFoundMovies: Array<TMovieItem | TSavedMovieItem> = [];
   let lastSearch: string = '';
@@ -39,7 +46,7 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
     dispatch(searchFormActions.setValue(event.target.value));
   }, [dispatch, value]);
 
-  const handleSubmit = useCallback(async () => {
+  const onSubmit = useCallback(async () => {
     dispatch(searchFormActions.setIsSearching());
 
     await setRenderingTimer(1000);
@@ -76,13 +83,21 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
   return (
     <section className={searchFormStyles.wrapper}>
       <form className={searchFormStyles['search-form']}>
-        <input type="text" className={searchFormStyles['search-form__input']} placeholder="Фильм" required
-               value={value} onChange={(e) => {
-          e.stopPropagation();
-          handleChange(e);
-        }}/>
-        <FormButton name="Поиск" disabled={value !== '' ? false : true} needSearchMod={true} onClick={handleSubmit}/>
+        <input type="text" value={value} required placeholder="Фильм"
+               className={errors.search
+                 ? `${searchFormStyles['search-form__input']} ${searchFormStyles['search-form__input_errored']}`
+                 : `${searchFormStyles['search-form__input']}`}
+               {...register('search', setOptionsForInputValidation('search'))}
+               onChange={(e) => {
+                 e.stopPropagation();
+                 handleChange(e);
+               }}/>
+        <FormButton name="Поиск" needSearchMod={true} onClick={handleSubmit(onSubmit)}/>
       </form>
+      {
+        errors.search &&
+        <p className={searchFormStyles['search-form__error-message']}>{errors.search?.message}</p>
+      }
       <div className={searchFormStyles.info}>
         <FilterCheckbox/>
         <p className={searchFormStyles['info__text']}>Ваш последний запрос:

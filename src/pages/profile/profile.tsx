@@ -19,7 +19,7 @@ export const Profile: FunctionComponent = () => {
   })
 
   const {handleSubmit, register, formState: {errors}} = useForm<IFormInputs>({
-    mode: 'all',
+    mode: 'onTouched',
     // reValidateMode: 'onChange'
   });
 

@@ -27,9 +27,9 @@ export type TProjectLink = {
 export type TFormButton = {
   name: string,
   needSearchMod: boolean,
-  disabled: boolean,
   onClick: () => void
   errorText?: string,
+  disabled?: boolean
 }
 
 export enum MoviesPageType {
@@ -67,6 +67,7 @@ export interface IFormInputs {
   name: string;
   email: string;
   password: string;
+  search: string
 }
 
 export type TInput = {

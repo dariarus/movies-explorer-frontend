@@ -23,7 +23,7 @@
   padding: 0;
 }
 
-@media screen and (max-width: 1141px) {
+@media screen and (max-width: 769px) {
   .movies {
     grid-template-columns: repeat(2, 345px);
     gap: 35px 24px;
@@ -31,7 +31,7 @@
   }
 }
 
-@media screen and (max-width: 641px) {
+@media screen and (max-width: 481px) {
   .movies-wrapper {
     padding: 40px 10px 0;
   }

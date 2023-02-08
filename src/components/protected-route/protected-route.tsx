@@ -21,7 +21,7 @@ export const ProtectedRoute: FunctionComponent<TProtectedRouteProps> = ({childre
                 // Передадим в пропс to не строку, а объект.
                 to={{
                   // Маршрут, на который произойдёт переадресация
-                  pathname: '/signin',
+                  pathname: '/',
                   // В from сохраним текущий маршрут
                   state: {from: location}
                 }} // все это после авторизации даст переадресацию на страницу, которую изначально открыл польз-ль, не будучи автор-ым
