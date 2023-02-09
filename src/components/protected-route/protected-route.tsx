@@ -17,7 +17,7 @@ export const ProtectedRoute: FunctionComponent<TProtectedRouteProps> = ({childre
         (userDataState.isAuthorized || userDataState.isAuthorized === undefined)
           ? (children)
           : (
-              <Redirect // Если пользователь не isAuthorized, происходит переадресация на роут /signin
+              <Redirect // Если пользователь не isAuthorized, происходит переадресация на роут /
                 // Передадим в пропс to не строку, а объект.
                 to={{
                   // Маршрут, на который произойдёт переадресация

@@ -32,7 +32,6 @@ export interface ISearchFormActions {
 }
 
 export interface IPopupActions {
-  setIsOpen: ActionCreatorWithPayload<{ [index: string]: boolean }>,
   setIsClosed: ActionCreatorWithoutPayload<string>,
   getLastFoundMoviesToOpenPopup: ActionCreatorWithPayload<Array<TMovieItem | TSavedMovieItem>>,
   getAppErrorToOpenPopup: ActionCreatorWithPayload<TError>,

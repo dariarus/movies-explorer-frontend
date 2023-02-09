@@ -15,26 +15,22 @@ export const popupSlice = createSlice({
     }
   } as IPopupState,
   reducers: {
-    setIsOpen: (state, action: PayloadAction<{ [index: string]: boolean }>) => {
-      return {
-        ...state,
-        popupTypesToOpen: action.payload
-      }
-    },
     setIsClosed: (state) => {
       return {
         ...state,
-        popupTypesToOpen: {},
         errorType: {
           show: false,
           message: undefined
         },
-        notFoundMovies: {
+        notFoundMoviesType: {
           show: false
         }
       }
     },
     getLastFoundMoviesToOpenPopup: (state, action: PayloadAction<Array<TMovieItem | TSavedMovieItem>>) => {
+      if (state.notFoundMoviesType.show) {
+        return state
+      }
       const isFoundedMovies = action.payload && action.payload.length > 0;
       return {
         ...state,
@@ -64,14 +60,12 @@ export const popupSlice = createSlice({
 export default popupSlice.reducer
 
 export const {
-  setIsOpen,
   setIsClosed,
   getLastFoundMoviesToOpenPopup,
   getAppErrorToOpenPopup
 } = popupSlice.actions
 
 export const popupActions: IPopupActions = {
-  setIsOpen: setIsOpen,
   setIsClosed: setIsClosed,
   getLastFoundMoviesToOpenPopup: getLastFoundMoviesToOpenPopup,
   getAppErrorToOpenPopup: getAppErrorToOpenPopup
