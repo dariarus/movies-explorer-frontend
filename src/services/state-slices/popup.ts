@@ -6,37 +6,26 @@ import {TError, TErrorState, TMovieItem, TSavedMovieItem} from '../types/data';
 export const popupSlice = createSlice({
   name: 'popup',
   initialState: {
+
+    notFoundMoviesType: {
+      show: false,
+    },
     errorType: {
       show: false,
       message: undefined
     },
-    notFoundMoviesType: {
-      show: false,
-    }
   } as IPopupState,
   reducers: {
-    setIsClosed: (state) => {
-      return {
-        ...state,
-        errorType: {
-          show: false,
-          message: undefined
-        },
-        notFoundMoviesType: {
-          show: false
-        }
-      }
-    },
     getLastFoundMoviesToOpenPopup: (state, action: PayloadAction<Array<TMovieItem | TSavedMovieItem>>) => {
       if (state.notFoundMoviesType.show) {
         return state
       }
-      const isFoundedMovies = action.payload && action.payload.length > 0;
+      const isFoundMovies = action.payload && action.payload.length > 0;
       return {
         ...state,
         notFoundMoviesType: {
           ...state.notFoundMoviesType,
-          show: !isFoundedMovies
+          show: !isFoundMovies
         }
       }
     },
@@ -53,20 +42,32 @@ export const popupSlice = createSlice({
           message: action.payload.error?.message
         }
       }
-    }
+    },
+    setIsClosed: (state) => {
+      return {
+        ...state,
+        errorType: {
+          show: false,
+          message: undefined
+        },
+        notFoundMoviesType: {
+          show: false
+        }
+      }
+    },
   },
 })
 
 export default popupSlice.reducer
 
 export const {
-  setIsClosed,
   getLastFoundMoviesToOpenPopup,
-  getAppErrorToOpenPopup
+  getAppErrorToOpenPopup,
+  setIsClosed
 } = popupSlice.actions
 
 export const popupActions: IPopupActions = {
-  setIsClosed: setIsClosed,
   getLastFoundMoviesToOpenPopup: getLastFoundMoviesToOpenPopup,
-  getAppErrorToOpenPopup: getAppErrorToOpenPopup
+  getAppErrorToOpenPopup: getAppErrorToOpenPopup,
+  setIsClosed: setIsClosed
 }

@@ -33,9 +33,9 @@ export interface ISearchFormActions {
 }
 
 export interface IPopupActions {
-  setIsClosed: ActionCreatorWithoutPayload<string>,
   getLastFoundMoviesToOpenPopup: ActionCreatorWithPayload<Array<TMovieItem | TSavedMovieItem>>,
   getAppErrorToOpenPopup: ActionCreatorWithPayload<TError>,
+  setIsClosed: ActionCreatorWithoutPayload<string>
 }
 
 export interface IFilterCheckboxActions {

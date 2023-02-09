@@ -43,8 +43,8 @@ export type TPopupTypeState = {
 }
 
 export interface IPopupState {
-  errorType: TPopupTypeState & {message?: string},
   notFoundMoviesType: TPopupTypeState,
+  errorType: TPopupTypeState & {message?: string},
 }
 
 export interface IFilterCheckboxState {

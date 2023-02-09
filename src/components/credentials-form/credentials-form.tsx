@@ -35,6 +35,8 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
     dispatch(inputValuesActions.clearInputValuesState())
   }
 
+  console.log(inputValuesState.inputValues)
+
     return (
       <div className={credentialsFormStyles['form-wrapper']}>
         <form className={credentialsFormStyles.form}>
@@ -56,7 +58,8 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
                      required errors={errors}/>
             </div>
             <FormButton name={props.buttonName} disabled={
-              errors.name || errors.email || errors.password
+              Object.keys(inputValuesState.inputValues).length === 0 ||
+              (errors.name || errors.email || errors.password)
                 ? true
                 : false
             } needSearchMod={false} onClick={handleSubmit(onSubmit)}/>
