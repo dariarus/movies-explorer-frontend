@@ -16,6 +16,7 @@ export interface ISavedMoviesDataActions {
   setLastFoundSavedMovies: ActionCreatorWithPayload<Array<TSavedMovieItem>>,
   deleteLastFoundSavedMovie: ActionCreatorWithPayload<number>,
   saveLastFoundSavedMoviesToLocalStorage: ActionCreatorWithoutPayload<string>,
+  resetSavedMoviesState: ActionCreatorWithoutPayload<string>
 }
 
 export interface IErrorsActions {

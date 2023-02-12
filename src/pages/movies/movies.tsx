@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from 'react';
+import React, {FunctionComponent, useEffect} from 'react';
 
 import moviesPageStyles from './movies.module.css';
 
@@ -11,6 +11,7 @@ import {useAppDispatch, useSelector} from '../../services/types/hooks';
 
 import {popupActions} from '../../services/state-slices/popup';
 import {ButtonView, MoviesPageType} from '../../services/types/props-types';
+import {getSavedMoviesData} from '../../services/actions/main-api/saved-movies';
 
 export const Movies: FunctionComponent = () => {
   const {moviesDataState, searchFormState, popupState} = useSelector((state) => {
@@ -23,6 +24,10 @@ export const Movies: FunctionComponent = () => {
     dispatch(popupActions.setIsClosed());
     document.body.classList.remove(moviesPageStyles['body-overlay']);
   }
+
+  useEffect(() => {
+    dispatch(getSavedMoviesData());
+  }, [])
 
   return (
     <>

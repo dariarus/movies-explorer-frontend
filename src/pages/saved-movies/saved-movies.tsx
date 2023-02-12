@@ -10,6 +10,7 @@ import {Preloader} from '../../components/preloader/preloader';
 import {Popup} from '../../components/popup/popup';
 import {ButtonView, MoviesPageType} from '../../services/types/props-types';
 import {TSavedMovieItem} from '../../services/types/data';
+import {getSavedMoviesData} from '../../services/actions/main-api/saved-movies';
 
 export const SavedMovies: FunctionComponent = () => {
   const {searchFormState, savedMoviesDataState, popupState} = useSelector((state) => {
@@ -26,6 +27,10 @@ export const SavedMovies: FunctionComponent = () => {
     dispatch(popupActions.setIsClosed());
     document.body.classList.remove(savedMoviesPageStyles['body-overlay']);
   }
+
+  useEffect(() => {
+    dispatch(getSavedMoviesData());
+  }, [])
 
   return (
     <>

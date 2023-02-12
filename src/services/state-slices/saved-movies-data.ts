@@ -3,16 +3,19 @@ import {ISavedMoviesDataState} from '../types';
 import {TErrorState, TSavedMovieItem} from '../types/data';
 import {ISavedMoviesDataActions} from '../types/action-type';
 
-export const savedMoviesDataSlice = createSlice({
-  name: 'savedMoviesData',
-  initialState: {
+const getInitialState = (): ISavedMoviesDataState => {
+  return {
     isLoading: false,
     hasError: false,
     error: {},
     savedMoviesData: [],
-    savingMovie: {},
     lastFoundSavedMovies: []
-  } as ISavedMoviesDataState,
+  }
+}
+
+export const savedMoviesDataSlice = createSlice({
+  name: 'savedMoviesData',
+  initialState: getInitialState(),
   reducers: {
     getSavedMoviesDataSuccess: (state, action: PayloadAction<Array<TSavedMovieItem>>) => {
       return {
@@ -56,6 +59,9 @@ export const savedMoviesDataSlice = createSlice({
     },
     saveLastFoundSavedMoviesToLocalStorage: (state) => {
       return localStorage.setItem('lastFoundSavedMovies', JSON.stringify(state.lastFoundSavedMovies));
+    },
+    resetSavedMoviesState: (state) => {
+      return getInitialState();
     }
   }
 })
@@ -68,7 +74,8 @@ export const {
   getSavedMoviesDataFailed,
   setLastFoundSavedMovies,
   deleteLastFoundSavedMovie,
-  saveLastFoundSavedMoviesToLocalStorage
+  saveLastFoundSavedMoviesToLocalStorage,
+  resetSavedMoviesState
 } = savedMoviesDataSlice.actions
 
 export const savedMoviesDataActions: ISavedMoviesDataActions = {
@@ -77,5 +84,6 @@ export const savedMoviesDataActions: ISavedMoviesDataActions = {
   getSavedMoviesDataFailed: getSavedMoviesDataFailed,
   setLastFoundSavedMovies: setLastFoundSavedMovies,
   deleteLastFoundSavedMovie: deleteLastFoundSavedMovie,
-  saveLastFoundSavedMoviesToLocalStorage: saveLastFoundSavedMoviesToLocalStorage
+  saveLastFoundSavedMoviesToLocalStorage: saveLastFoundSavedMoviesToLocalStorage,
+  resetSavedMoviesState: resetSavedMoviesState
 }
