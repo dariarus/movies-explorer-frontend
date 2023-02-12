@@ -8,7 +8,12 @@ import {setOptionsForInputValidation} from '../../utils/functions';
 import {inputValuesActions} from '../../services/state-slices/input-values';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
 
-export const Input: FunctionComponent<TInput & { registerInput: UseFormRegister<IFormInputs>, required: boolean, errors: any }> = (props) => {
+export const Input: FunctionComponent<TInput & {
+  registerInput: UseFormRegister<IFormInputs>,
+  required: boolean,
+  errors: any,
+  onChange: (value: string) => void
+}> = (props) => {
   const {inputValuesState} = useSelector((state) => {
     return state;
   })
@@ -36,6 +41,7 @@ export const Input: FunctionComponent<TInput & { registerInput: UseFormRegister<
                onChange={(event) => {
                  setInputValue(event.target.value);
                  handleSetInputValues(event.target.value);
+                 props.onChange(event.target.value)
                }}
         />
       </div>

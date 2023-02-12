@@ -1,5 +1,5 @@
-import React, {FunctionComponent, useState} from 'react';
-import {useForm} from 'react-hook-form';
+import React, {FunctionComponent} from 'react';
+import {useForm, Controller} from 'react-hook-form';
 
 import profileStyles from './profile.module.css';
 
@@ -18,9 +18,8 @@ export const Profile: FunctionComponent = () => {
     return state;
   })
 
-  const {handleSubmit, register, formState: {errors}} = useForm<IFormInputs>({
-    mode: 'onTouched',
-    // reValidateMode: 'onChange'
+  const {handleSubmit, control, register, formState: {errors}} = useForm<IFormInputs>({
+    mode: 'onChange',
   });
 
   const dispatch = useAppDispatch();
@@ -39,10 +38,39 @@ export const Profile: FunctionComponent = () => {
         <form className={profileStyles.form}>
           <h3 className={profileStyles['form__header']}>{`Привет, ${userDataState.userData.name}!`}</h3>
           <div className={profileStyles['form__input-wrapper']}>
-            <ProfileInput label="Имя" inputName="name" isLastOfType={false} value={userDataState.userData.name}
-                          registerInput={register} required errors={errors}/>
-            <ProfileInput label="E-mail" inputName="email" isLastOfType={true} value={userDataState.userData.email}
-                          registerInput={register} required errors={errors}/>
+            <Controller
+              control={control}
+              name="name"
+              render={({
+                         field: {onChange, onBlur, value, name, ref},
+                         fieldState: {invalid, isTouched, isDirty, error},
+                         formState,
+                       }) => (
+                <ProfileInput label="Имя" inputName="name" isLastOfType={false} value={userDataState.userData.name}
+                              registerInput={register} required errors={errors}
+                              onChange={(value: string) => {
+                                console.log({value})
+                                onChange(value)
+                              }}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="name"
+              render={({
+                         field: {onChange, onBlur, value, name, ref},
+                         fieldState: {invalid, isTouched, isDirty, error},
+                         formState,
+                       }) => (
+                <ProfileInput label="E-mail" inputName="email" isLastOfType={true} value={userDataState.userData.email}
+                              registerInput={register} required errors={errors} onChange={(value: string) => {
+                  console.log({value})
+                  onChange(value)
+                }}
+                />
+              )}
+            />
             {
               userDataState.isLoading &&
               <Preloader/>

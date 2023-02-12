@@ -9,7 +9,12 @@ import {inputValuesActions} from '../../services/state-slices/input-values';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
 
 export const ProfileInput:
-  FunctionComponent<TProfileInput & { registerInput: UseFormRegister<IFormInputs>, required: boolean, errors: any }> = (props) => {
+  FunctionComponent<TProfileInput & {
+  registerInput: UseFormRegister<IFormInputs>,
+    required: boolean,
+    errors: any,
+    onChange: (value: string) => void
+  }> = (props) => {
   const {inputValuesState} = useSelector((state) => {
     return state;
   })
@@ -37,6 +42,7 @@ export const ProfileInput:
              onChange={(event) => {
                setValue(event.target.value);
                handleSetInputValues(event.target.value);
+               props.onChange(event.target.value);
              }}/>
     </div>
   )

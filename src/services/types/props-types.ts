@@ -1,4 +1,4 @@
-import React, {RefObject} from 'react';
+import React, {ChangeEvent, RefObject} from 'react';
 import {TMovieItem, TSavedMovieItem} from './data';
 
 export type TSection = {
