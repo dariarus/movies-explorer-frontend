@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ISavedMoviesDataState} from '../types';
 import {TErrorState, TSavedMovieItem} from '../types/data';
 import {ISavedMoviesDataActions} from '../types/action-type';
+import {getLastFoundMovies} from '../../utils/functions';
 
 const getInitialState = (): ISavedMoviesDataState => {
   return {
@@ -40,12 +41,14 @@ export const savedMoviesDataSlice = createSlice({
         error: action.payload
       }
     },
-    setLastFoundSavedMovies: (state, action: PayloadAction<Array<TSavedMovieItem>>) => {
+    setLastFoundSavedMovies: (state, action: PayloadAction<string>) => {
+      const filteredMovies = getLastFoundMovies(state.savedMoviesData, action.payload);
+
       return {
         ...state,
         isLoading: false,
         hasError: false,
-        lastFoundSavedMovies: action.payload
+        lastFoundSavedMovies: filteredMovies
       }
     },
     deleteLastFoundSavedMovie: (state, action: PayloadAction<number>) => {
@@ -56,9 +59,6 @@ export const savedMoviesDataSlice = createSlice({
         hasError: false,
         lastFoundSavedMovies: updatedLastSavedFoundMovies
       }
-    },
-    saveLastFoundSavedMoviesToLocalStorage: (state) => {
-      return localStorage.setItem('lastFoundSavedMovies', JSON.stringify(state.lastFoundSavedMovies));
     },
     resetSavedMoviesState: (state) => {
       return getInitialState();
@@ -74,7 +74,7 @@ export const {
   getSavedMoviesDataFailed,
   setLastFoundSavedMovies,
   deleteLastFoundSavedMovie,
-  saveLastFoundSavedMoviesToLocalStorage,
+  // saveLastFoundSavedMoviesToLocalStorage,
   resetSavedMoviesState
 } = savedMoviesDataSlice.actions
 
@@ -84,6 +84,5 @@ export const savedMoviesDataActions: ISavedMoviesDataActions = {
   getSavedMoviesDataFailed: getSavedMoviesDataFailed,
   setLastFoundSavedMovies: setLastFoundSavedMovies,
   deleteLastFoundSavedMovie: deleteLastFoundSavedMovie,
-  saveLastFoundSavedMoviesToLocalStorage: saveLastFoundSavedMoviesToLocalStorage,
   resetSavedMoviesState: resetSavedMoviesState
 }

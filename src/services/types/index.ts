@@ -12,6 +12,7 @@ export type AppDispatch = ThunkDispatch<RootState, any, AnyAction>;
 export interface IMoviesDataSliceState {
   isLoading: boolean,
   hasError: boolean,
+  moviesDataIsLoaded: boolean,
   error: TErrorState,
   moviesData: Array<TMovieItem>,
   lastFoundMovies: Array<TMovieItem>

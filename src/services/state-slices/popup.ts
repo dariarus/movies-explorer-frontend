@@ -1,12 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IPopupState} from '../types';
+import {IPopupState, RootState} from '../types';
 import {IPopupActions} from '../types/action-type';
-import {TError, TErrorState, TMovieItem, TSavedMovieItem} from '../types/data';
+import {TError, TMovieItem, TSavedMovieItem} from '../types/data';
+import {store} from '../store';
 
 export const popupSlice = createSlice({
   name: 'popup',
   initialState: {
-
     notFoundMoviesType: {
       show: false,
     },

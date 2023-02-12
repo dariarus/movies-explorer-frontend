@@ -3,12 +3,14 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {IMoviesDataSliceState} from '../types/index';
 import {TErrorState, TMovieItem} from '../types/data'
 import {IMoviesDataActions} from '../types/action-type';
+import {getLastFoundMovies} from '../../utils/functions';
 
 export const moviesDataSlice = createSlice({
   name: 'moviesData', // префикс всех экшнов
   initialState: {
     isLoading: false,
     hasError: false,
+    moviesDataIsLoaded: false,
     error: {},
     moviesData: [],
     lastFoundMovies: [],
@@ -19,6 +21,7 @@ export const moviesDataSlice = createSlice({
         ...state,
         isLoading: false,
         hasError: false,
+        moviesDataIsLoaded: true,
         moviesData: action.payload
       }
     },
@@ -37,12 +40,15 @@ export const moviesDataSlice = createSlice({
         error: action.payload
       }
     },
-    setLastFoundMovies: (state, action: PayloadAction<Array<TMovieItem>>) => {
+    setLastFoundMovies: (state, action: PayloadAction<string>) => {
+      const filteredMovies = getLastFoundMovies(state.moviesData, action.payload);
+      localStorage.setItem('lastFoundMovies', JSON.stringify(filteredMovies));
+
       return {
         ...state,
         isLoading: false,
         hasError: false,
-        lastFoundMovies: action.payload
+        lastFoundMovies: filteredMovies
       }
     }
   }

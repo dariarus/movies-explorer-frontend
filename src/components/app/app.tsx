@@ -51,7 +51,6 @@ function App() {
 
   useEffect(() => {
     dispatch(userDataActions.setIsAuthorized(getCookie('jwt') !== undefined))
-    dispatch(getMoviesDataFromSideApi());
     dispatch(getUser());
     dispatch(searchFormActions.setLastSearchedValue(JSON.parse(localStorage.getItem('lastSearchRequest') || 'null')))
     dispatch(searchFormActions.setLastSearchedValueOfSaved(JSON.parse(localStorage.getItem('lastSearchRequestOfSaved') || 'null')))

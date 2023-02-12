@@ -8,17 +8,18 @@ import {FilterCheckbox} from '../filter-checkbox/filter-checkbox';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {searchFormActions} from '../../services/state-slices/search-form';
 import {moviesDataActions} from '../../services/state-slices/movies-data';
-import {isArrayOfSavedMovies, setOptionsForInputValidation, setRenderingTimer} from '../../utils/functions';
+import {setOptionsForInputValidation, setRenderingTimer} from '../../utils/functions';
 import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
-import {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
+import savedMoviesData, {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
 import {popupActions} from '../../services/state-slices/popup';
 import {IFormInputs, MoviesPageType} from '../../services/types/props-types';
 import {useForm} from 'react-hook-form';
-import profileStyles from '../../pages/profile/profile.module.css';
+import {getMoviesDataFromSideApi} from '../../services/actions/movies-api';
+import {store} from '../../services/store';
 
 export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSavedMovieItem>, moviesPageType: MoviesPageType }> = (props) => {
 
-  const {moviesDataState, searchFormState} = useSelector((state) => {
+  const {moviesDataState, savedMoviesDataState, searchFormState} = useSelector((state) => {
     return state;
   })
 
@@ -34,12 +35,12 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
   let lastFoundMovies: Array<TMovieItem | TSavedMovieItem> = [];
   let lastSearch: string = '';
 
-  const getLastFoundMovies = () => {
-    return props.moviesArray.filter(movie => {
-        return movie.nameRU.toLowerCase().includes(value.toLowerCase()) || movie.nameEN.toLowerCase().includes(value.toLowerCase())
-      }
-    )
-  }
+  // const getLastFoundMovies = () => {
+  //   return props.moviesArray.filter(movie => {
+  //       return movie.nameRU.toLowerCase().includes(value.toLowerCase()) || movie.nameEN.toLowerCase().includes(value.toLowerCase())
+  //     }
+  //   )
+  // }
 
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -47,29 +48,29 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
   }, [dispatch, value]);
 
   const onSubmit = useCallback(async () => {
+
+    if (!store.getState().moviesDataState.moviesDataIsLoaded) {
+      dispatch(getMoviesDataFromSideApi());
+    }
+
     dispatch(searchFormActions.setIsSearching());
 
     await setRenderingTimer(1000);
 
-    lastFoundMovies = getLastFoundMovies();
+    // lastFoundMovies = getLastFoundMovies();
 
     // проверка типа входящего массива: сохраненные фильмы или все
-    if (isArrayOfSavedMovies(props.moviesArray)) {
-      //   localStorage.setItem('lastFoundSavedMovies', JSON.stringify(lastFoundMovies));
-      dispatch(savedMoviesDataActions.setLastFoundSavedMovies(lastFoundMovies as Array<TSavedMovieItem>));
-
+    if (props.moviesPageType === MoviesPageType.SAVED_MOVIES) {
+      dispatch(savedMoviesDataActions.setLastFoundSavedMovies(value))
       localStorage.setItem('lastSearchRequestOfSaved', JSON.stringify(value));
       dispatch(searchFormActions.setLastSearchedValueOfSaved(value));
+      dispatch(popupActions.getLastFoundMoviesToOpenPopup(store.getState().savedMoviesDataState.lastFoundSavedMovies));
 
-      dispatch(popupActions.getLastFoundMoviesToOpenPopup(lastFoundMovies));
     } else {
-      localStorage.setItem('lastFoundMovies', JSON.stringify(lastFoundMovies));
-      dispatch(moviesDataActions.setLastFoundMovies(lastFoundMovies));
-
+      dispatch(moviesDataActions.setLastFoundMovies(value));
       localStorage.setItem('lastSearchRequest', JSON.stringify(value));
       dispatch(searchFormActions.setLastSearchedValue(value));
-
-      dispatch(popupActions.getLastFoundMoviesToOpenPopup(lastFoundMovies));
+      dispatch(popupActions.getLastFoundMoviesToOpenPopup(store.getState().moviesDataState.lastFoundMovies));
     }
     dispatch(searchFormActions.setIsSearchingSuccess())
   }, [lastFoundMovies])

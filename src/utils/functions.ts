@@ -119,3 +119,13 @@ export const isSavedMovie = (movie: TSavedMovieItem | TMovieItem): movie is TSav
 export const isArrayOfSavedMovies = (movieArray: Array<TSavedMovieItem | TMovieItem>): movieArray is Array<TSavedMovieItem> => {
   return movieArray.every((movie) => isSavedMovie(movie))
 }
+
+export function getLastFoundMovies<T extends TMovieItem | TSavedMovieItem>(
+  moviesArray: Array<T>,
+  inputValue: string
+): Array<T> {
+  return moviesArray.filter(movie => {
+      return movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) || movie.nameEN.toLowerCase().includes(inputValue.toLowerCase())
+    }
+  )
+}
