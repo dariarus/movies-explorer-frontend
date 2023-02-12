@@ -30,6 +30,8 @@ import {getSavedMoviesData} from '../../services/actions/main-api/saved-movies';
 import {errorsActions, errorsSlice} from '../../services/state-slices/errors';
 import {filterCheckboxActions, filterCheckboxSlice} from '../../services/state-slices/filter-checkbox';
 import {searchFormActions} from '../../services/state-slices/search-form';
+import {userDataActions} from '../../services/state-slices/user-data';
+import {getCookie} from '../../utils/cookie';
 
 function App() {
   const {
@@ -48,6 +50,7 @@ function App() {
   }
 
   useEffect(() => {
+    dispatch(userDataActions.setIsAuthorized(getCookie('jwt') !== undefined))
     dispatch(getMoviesDataFromSideApi());
     dispatch(getSavedMoviesData());
     dispatch(getUser());

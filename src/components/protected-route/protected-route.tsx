@@ -13,8 +13,8 @@ export const ProtectedRoute: FunctionComponent<TProtectedRouteProps> = ({childre
     <Route
       {...rest} // это пропсы path и exact
       // render - пропс компонента Route. Исп-ся как функция, в св.с чем избег-ся лишни рендеринг. Вызыв-ся при совпадении URL
-      render={({location}) =>
-        (userDataState.isAuthorized)
+      render={(address ) =>
+        (userDataState.isAuthorized || userDataState.isAuthorized === undefined)
           ? (children)
           : (
               <Redirect // Если пользователь не isAuthorized, происходит переадресация на роут /signin
@@ -23,7 +23,7 @@ export const ProtectedRoute: FunctionComponent<TProtectedRouteProps> = ({childre
                   // Маршрут, на который произойдёт переадресация
                   pathname: '/',
                   // В from сохраним текущий маршрут
-                  state: {from: location}
+                  state: {from: address.location.pathname}
                 }} // все это после авторизации даст переадресацию на страницу, которую изначально открыл польз-ль, не будучи автор-ым
               />)
       }

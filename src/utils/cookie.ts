@@ -26,6 +26,13 @@ const setCookie = (cookieName: string, tokenValue: string | number | boolean | n
   document.cookie = updatedCookie;
 }
 
-export const deleteCookie = (cookieName: string) => {
-  setCookie(cookieName, null, {expires: -1});
+export const getCookie = (cookieName: string) => {
+  const matches = document.cookie.match(
+    new RegExp('(?:^|; )' + cookieName.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
+  );
+  return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+
+// export const deleteCookie = (cookieName: string) => {
+//   setCookie(cookieName, null, {expires: -1});
+// }

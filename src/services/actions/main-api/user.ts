@@ -4,6 +4,7 @@ import {moviesApi} from '../../../utils/constants';
 import {getResponseData} from '../json-verifiction';
 import {ErrorType, TUser} from '../../types/data';
 import {errorsActions} from '../../state-slices/errors';
+import UnauthorizedError from '../../exceptions/error-401-unauthorized';
 
 export const getUser = (): AppThunk => {
   return function (dispatch: AppDispatch) {
@@ -17,19 +18,30 @@ export const getUser = (): AppThunk => {
         'Content-Type': 'application/json',
       },
     })
+      .then(res => {
+        if (res.ok || res.status !== 401) {
+          return res
+        } else {
+          throw new UnauthorizedError();
+        }
+      })
       .then(res => getResponseData<TUser>(res))
       .then(data => {
         dispatch(userDataActions.setUserData(data));
-        dispatch(userDataActions.setIsAuthorized());
+        dispatch(userDataActions.setIsAuthorized(true));
       })
       .catch((error) => {
         console.log(error);
+        if (error instanceof UnauthorizedError) {
+          dispatch(userDataActions.setIsAuthorized(false));
+        } else {
+          dispatch(errorsActions.setLastError({
+            error: {
+              message: error.message,
+            }
+          }));
+        }
         dispatch(userDataActions.getUserDataFailed({message: error.message}));
-        dispatch(errorsActions.setLastError({
-          error: {
-            message: error.message,
-          }
-        }))
       })
   }
 }

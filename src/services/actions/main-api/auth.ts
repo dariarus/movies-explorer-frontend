@@ -56,7 +56,7 @@ export const signin = (email?: string, password?: string): AppThunk => {
     })
       .then(res => getResponseData<{ token: string }>(res))
       .then(() => {
-        dispatch(userDataActions.setIsAuthorized());
+        dispatch(userDataActions.setIsAuthorized(true));
       })
       .catch((error) => {
         console.log(error)
@@ -87,6 +87,7 @@ export const signout = (): AppThunk => {
         dispatch(userDataActions.deleteUserData());
         localStorage.removeItem('lastFoundMovies');
         localStorage.removeItem('lastSearchRequest');
+        localStorage.removeItem('lastSearchRequestOfSaved');
         localStorage.removeItem('lastFilterCheckboxState');
       })
       .catch((error) => {

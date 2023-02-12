@@ -86,7 +86,7 @@ export type TProfileInput = {
 }
 
 export type THeaderNavigation = {
-  isAuthorized: boolean,
+  isAuthorized?: boolean,
 }
 
 export type TBurgerMenu = {

@@ -10,7 +10,7 @@ export const userDataSlice = createSlice({
     isLoading: false,
     hasError: false,
     success: false,
-    isAuthorized: false,
+    isAuthorized: undefined,
     error: {},
     userData: {
       email: '',
@@ -27,11 +27,11 @@ export const userDataSlice = createSlice({
         userData: action.payload
       }
     },
-    setIsAuthorized: (state) => {
+    setIsAuthorized: (state, action: PayloadAction<boolean>) => {
       return {
         ...state,
         isLoading: false,
-        isAuthorized: true,
+        isAuthorized: action.payload,
       }
     },
     getUserData: (state) => {
@@ -46,7 +46,8 @@ export const userDataSlice = createSlice({
         ...state,
         isLoading: false,
         hasError: true,
-        error: action.payload
+        error: action.payload,
+        isAuthorized: false
       }
     },
     updateUserData: (state, action: PayloadAction<TUser>) => {

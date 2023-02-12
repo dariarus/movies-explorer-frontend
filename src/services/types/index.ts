@@ -65,7 +65,7 @@ export interface IUserDataState {
   hasError: boolean,
   success: boolean,
   error: TErrorState,
-  isAuthorized: boolean,
+  isAuthorized?: boolean,
   userData: {
     name: string,
     email: string,
