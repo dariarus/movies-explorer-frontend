@@ -107,7 +107,7 @@ export const getMoviesToShow = (isShortFilm: boolean | undefined, originalMovies
   if (isShortFilm) {
     return originalMoviesArray.filter(movie => movie.duration <= 40).slice(0, sliceEnd)
   } else {
-    return originalMoviesArray.slice(0, sliceEnd)
+    return originalMoviesArray.filter(movie => movie.duration > 40).slice(0, sliceEnd)
   }
 }
 

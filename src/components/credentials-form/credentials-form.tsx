@@ -11,6 +11,7 @@ import {Link} from 'react-router-dom';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {signin, signup} from '../../services/actions/main-api/auth';
 import {inputValuesActions} from '../../services/state-slices/input-values';
+import {getUser} from '../../services/actions/main-api/user';
 
 export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: 'register' | 'login' }> = (props) => {
   const {inputValuesState} = useSelector((state) => {
@@ -28,7 +29,8 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
       if (props.pageType === 'register') {
         dispatch(signup(inputValuesState.inputValues.name, inputValuesState.inputValues.email, inputValuesState.inputValues.password));
       } else {
-        dispatch(signin(inputValuesState.inputValues.email, inputValuesState.inputValues.password))
+        Promise.resolve(dispatch(signin(inputValuesState.inputValues.email, inputValuesState.inputValues.password)))
+          .then(() => dispatch(getUser()));
       }
     }
     dispatch(inputValuesActions.clearInputValuesState())

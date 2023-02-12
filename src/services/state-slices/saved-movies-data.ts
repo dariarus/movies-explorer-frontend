@@ -41,6 +41,19 @@ export const savedMoviesDataSlice = createSlice({
         error: action.payload
       }
     },
+    addLikedMovieToSavedMovies: (state, action: PayloadAction<TSavedMovieItem>) => {
+      const copiedSavedMoviesData = [
+        ...state.savedMoviesData
+      ]
+      copiedSavedMoviesData.push(action.payload)
+
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        savedMoviesData: copiedSavedMoviesData
+      }
+    },
     setLastFoundSavedMovies: (state, action: PayloadAction<string>) => {
       const filteredMovies = getLastFoundMovies(state.savedMoviesData, action.payload);
 
@@ -72,9 +85,9 @@ export const {
   getSavedMoviesDataSuccess,
   getSavedMoviesData,
   getSavedMoviesDataFailed,
+  addLikedMovieToSavedMovies,
   setLastFoundSavedMovies,
   deleteLastFoundSavedMovie,
-  // saveLastFoundSavedMoviesToLocalStorage,
   resetSavedMoviesState
 } = savedMoviesDataSlice.actions
 
@@ -82,6 +95,7 @@ export const savedMoviesDataActions: ISavedMoviesDataActions = {
   getSavedMoviesDataSuccess: getSavedMoviesDataSuccess,
   getSavedMoviesData: getSavedMoviesData,
   getSavedMoviesDataFailed: getSavedMoviesDataFailed,
+  addLikedMovieToSavedMovies: addLikedMovieToSavedMovies,
   setLastFoundSavedMovies: setLastFoundSavedMovies,
   deleteLastFoundSavedMovie: deleteLastFoundSavedMovie,
   resetSavedMoviesState: resetSavedMoviesState

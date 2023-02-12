@@ -40,7 +40,17 @@ export const moviesDataSlice = createSlice({
         error: action.payload
       }
     },
-    setLastFoundMovies: (state, action: PayloadAction<string>) => {
+    setLastFoundMovies: (state, action: PayloadAction<Array<TMovieItem>>) => {
+      localStorage.setItem('lastFoundMovies', JSON.stringify(action.payload));
+
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        lastFoundMovies: action.payload
+      }
+    },
+    filterLastFoundMovies: (state, action: PayloadAction<string>) => {
       const filteredMovies = getLastFoundMovies(state.moviesData, action.payload);
       localStorage.setItem('lastFoundMovies', JSON.stringify(filteredMovies));
 
@@ -60,12 +70,14 @@ export const {
   getMoviesDataSuccess,
   getMoviesData,
   getMoviesDataFailed,
-  setLastFoundMovies
+  setLastFoundMovies,
+  filterLastFoundMovies
 } = moviesDataSlice.actions
 
 export const moviesDataActions: IMoviesDataActions = {
   getMoviesDataSuccess: getMoviesDataSuccess,
   getMoviesData: getMoviesData,
   getMoviesDataFailed: getMoviesDataFailed,
-  setLastFoundMovies: setLastFoundMovies
+  setLastFoundMovies: setLastFoundMovies,
+  filterLastFoundMovies: filterLastFoundMovies
 }

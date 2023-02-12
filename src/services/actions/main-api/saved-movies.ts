@@ -54,9 +54,9 @@ export const saveMovie = (movie: TMovieItem): AppThunk => {
         updated_at: undefined,
       })
     })
-      .then(res => getResponseData<TMovieItem>(res))
-      .then(() => {
-        dispatch(getSavedMoviesData());
+      .then(res => getResponseData<TSavedMovieItem>(res))
+      .then((savedMovie) => {
+        return dispatch(savedMoviesDataActions.addLikedMovieToSavedMovies(savedMovie));
       })
       .catch(error => {
         dispatch(savedMoviesDataActions.getSavedMoviesDataFailed({message: error.message}));

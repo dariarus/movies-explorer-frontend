@@ -6,16 +6,17 @@ export interface IMoviesDataActions {
   getMoviesDataSuccess: ActionCreatorWithPayload<Array<TMovieItem>>,
   getMoviesData: ActionCreatorWithoutPayload<string>,
   getMoviesDataFailed: ActionCreatorWithPayload<TErrorState>,
-  setLastFoundMovies: ActionCreatorWithPayload<string>
+  setLastFoundMovies: ActionCreatorWithPayload<Array<TMovieItem>>,
+  filterLastFoundMovies: ActionCreatorWithPayload<string>,
 }
 
 export interface ISavedMoviesDataActions {
   getSavedMoviesDataSuccess: ActionCreatorWithPayload<Array<TSavedMovieItem>>,
   getSavedMoviesData: ActionCreatorWithoutPayload<string>,
   getSavedMoviesDataFailed: ActionCreatorWithPayload<TErrorState>,
+  addLikedMovieToSavedMovies: ActionCreatorWithPayload<TSavedMovieItem>,
   setLastFoundSavedMovies: ActionCreatorWithPayload<string>,
   deleteLastFoundSavedMovie: ActionCreatorWithPayload<number>,
-  // saveLastFoundSavedMoviesToLocalStorage: ActionCreatorWithoutPayload<string>,
   resetSavedMoviesState: ActionCreatorWithoutPayload<string>
 }
 

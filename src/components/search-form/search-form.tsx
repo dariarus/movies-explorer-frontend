@@ -27,10 +27,7 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
 
   const dispatch = useAppDispatch();
 
-  const {handleSubmit, register, formState: {errors}} = useForm<IFormInputs>({
-    mode: 'all',
-    // reValidateMode: 'onChange'
-  });
+  const {handleSubmit, register, formState: {errors}} = useForm<IFormInputs>();
 
   let lastFoundMovies: Array<TMovieItem | TSavedMovieItem> = [];
   let lastSearch: string = '';
@@ -67,7 +64,7 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
       dispatch(popupActions.getLastFoundMoviesToOpenPopup(store.getState().savedMoviesDataState.lastFoundSavedMovies));
 
     } else {
-      dispatch(moviesDataActions.setLastFoundMovies(value));
+      dispatch(moviesDataActions.filterLastFoundMovies(value));
       localStorage.setItem('lastSearchRequest', JSON.stringify(value));
       dispatch(searchFormActions.setLastSearchedValue(value));
       dispatch(popupActions.getLastFoundMoviesToOpenPopup(store.getState().moviesDataState.lastFoundMovies));

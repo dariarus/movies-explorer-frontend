@@ -25,7 +25,7 @@ export const signup = (name?: string, email?: string, password?: string): AppThu
       .then(res => getResponseData<TUser>(res))
       .then(data => {
         if (data) {
-          dispatch(userDataActions.setUserData(data))
+          return dispatch(userDataActions.setUserData(data))
         }
       })
       .catch((error) => {
@@ -57,7 +57,7 @@ export const signin = (email?: string, password?: string): AppThunk => {
     })
       .then(res => getResponseData<{ token: string }>(res))
       .then(() => {
-        dispatch(userDataActions.setIsAuthorized(true));
+        return dispatch(userDataActions.setIsAuthorized(true));
       })
       .catch((error) => {
         console.log(error)
