@@ -18,9 +18,9 @@ export const SavedMovies: FunctionComponent = () => {
 
   const dispatch = useAppDispatch();
 
-  const renderingMovies: Array<TSavedMovieItem> = JSON.parse(localStorage.getItem('lastFoundSavedMovies') || '[]').length === 0
-    ? savedMoviesDataState.savedMoviesData
-    : savedMoviesDataState.lastFoundSavedMovies
+  const renderingMovies: Array<TSavedMovieItem> = savedMoviesDataState.lastFoundSavedMovies.length !== 0
+    ? savedMoviesDataState.lastFoundSavedMovies
+    : savedMoviesDataState.savedMoviesData
 
   const handleOnClosePopup = () => {
     dispatch(popupActions.setIsClosed());

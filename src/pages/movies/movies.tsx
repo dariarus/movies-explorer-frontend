@@ -31,11 +31,10 @@ export const Movies: FunctionComponent = () => {
       {
         searchFormState.isSearching
           ? <Preloader/>
-          // : JSON.parse(localStorage.getItem('lastFoundMovies') || '[]').length === 0
-          //   ? <p className={moviesPageStyles.text}>Начните поиск по ключевому слову</p>
+          : JSON.parse(localStorage.getItem('lastFoundMovies') || '[]').length === 0
+            ? <p className={moviesPageStyles.text}>Начните поиск по ключевому слову</p>
             : <MoviesCardList buttonView={ButtonView.ADD} moviesPageType={MoviesPageType.MOVIES}
-                              movies={tmpMoviesArray}/>
-                              // movies={moviesDataState.lastFoundMovies}/>
+                              movies={moviesDataState.lastFoundMovies}/>
 
       }
 

@@ -45,18 +45,18 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
     lastFoundMovies = getLastFoundMovies()
 
     // проверка типа входящего массива: сохраненные фильмы или все
-    // if (isArrayOfSavedMovies(props.moviesArray)) {
-    //   localStorage.setItem('lastFoundSavedMovies', JSON.stringify(lastFoundMovies));
-    //   dispatch(savedMoviesDataActions.setLastFoundSavedMovies(lastFoundMovies as Array<TSavedMovieItem>));
-    //   dispatch(popupActions.getLastFoundMoviesToOpenPopup(lastFoundMovies));
-    // } else {
+    if (isArrayOfSavedMovies(props.moviesArray)) {
+      //   localStorage.setItem('lastFoundSavedMovies', JSON.stringify(lastFoundMovies));
+      dispatch(savedMoviesDataActions.setLastFoundSavedMovies(lastFoundMovies as Array<TSavedMovieItem>));
+      dispatch(popupActions.getLastFoundMoviesToOpenPopup(lastFoundMovies));
+    } else {
 
-    localStorage.setItem('lastSearchRequest', JSON.stringify(value));
+      localStorage.setItem('lastSearchRequest', JSON.stringify(value));
 
-    localStorage.setItem('lastFoundMovies', JSON.stringify(lastFoundMovies));
-    dispatch(moviesDataActions.setLastFoundMovies(lastFoundMovies));
-    dispatch(popupActions.getLastFoundMoviesToOpenPopup(lastFoundMovies));
-    // }
+      localStorage.setItem('lastFoundMovies', JSON.stringify(lastFoundMovies));
+      dispatch(moviesDataActions.setLastFoundMovies(lastFoundMovies));
+      dispatch(popupActions.getLastFoundMoviesToOpenPopup(lastFoundMovies));
+    }
 
     dispatch(searchFormActions.setIsSearchingSuccess())
   }, [lastFoundMovies])
