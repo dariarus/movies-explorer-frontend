@@ -10,7 +10,7 @@ import {searchFormActions} from '../../services/state-slices/search-form';
 import {moviesDataActions} from '../../services/state-slices/movies-data';
 import {setOptionsForInputValidation, setRenderingTimer} from '../../utils/functions';
 import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
-import savedMoviesData, {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
+import {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
 import {popupActions} from '../../services/state-slices/popup';
 import {IFormInputs, MoviesPageType} from '../../services/types/props-types';
 import {useForm} from 'react-hook-form';
@@ -19,7 +19,7 @@ import {store} from '../../services/store';
 
 export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSavedMovieItem>, moviesPageType: MoviesPageType }> = (props) => {
 
-  const {moviesDataState, savedMoviesDataState, searchFormState} = useSelector((state) => {
+  const {moviesDataState, searchFormState} = useSelector((state) => {
     return state;
   })
 
@@ -30,14 +30,6 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
   const {handleSubmit, register, formState: {errors}} = useForm<IFormInputs>();
 
   let lastFoundMovies: Array<TMovieItem | TSavedMovieItem> = [];
-  let lastSearch: string = '';
-
-  // const getLastFoundMovies = () => {
-  //   return props.moviesArray.filter(movie => {
-  //       return movie.nameRU.toLowerCase().includes(value.toLowerCase()) || movie.nameEN.toLowerCase().includes(value.toLowerCase())
-  //     }
-  //   )
-  // }
 
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -54,9 +46,7 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
 
     await setRenderingTimer(1000);
 
-    // lastFoundMovies = getLastFoundMovies();
-
-    // проверка типа входящего массива: сохраненные фильмы или все
+    // проверка типа страницы: сохраненные фильмы или все
     if (props.moviesPageType === MoviesPageType.SAVED_MOVIES) {
       dispatch(savedMoviesDataActions.setLastFoundSavedMovies(value))
       localStorage.setItem('lastSearchRequestOfSaved', JSON.stringify(value));

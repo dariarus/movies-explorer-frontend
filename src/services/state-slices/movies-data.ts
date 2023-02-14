@@ -60,7 +60,8 @@ export const moviesDataSlice = createSlice({
         hasError: false,
         lastFoundMovies: filteredMovies
       }
-    }
+    },
+
   }
 })
 

@@ -7,7 +7,7 @@ export interface IMoviesDataActions {
   getMoviesData: ActionCreatorWithoutPayload<string>,
   getMoviesDataFailed: ActionCreatorWithPayload<TErrorState>,
   setLastFoundMovies: ActionCreatorWithPayload<Array<TMovieItem>>,
-  filterLastFoundMovies: ActionCreatorWithPayload<string>,
+  filterLastFoundMovies: ActionCreatorWithPayload<string>
 }
 
 export interface ISavedMoviesDataActions {
@@ -41,7 +41,8 @@ export interface IPopupActions {
 
 export interface IFilterCheckboxActions {
   toggleIsChecked: ActionCreatorWithoutPayload<string>,
-  setIsChecked: ActionCreatorWithPayload<boolean>
+  setIsChecked: ActionCreatorWithPayload<boolean>,
+  setIsMoviesToShowExist: ActionCreatorWithPayload<boolean>
 }
 
 export interface IInputValuesActions {

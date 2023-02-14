@@ -1,6 +1,6 @@
 import React, {FunctionComponent, useEffect, useState} from 'react';
 
-import {useSelector} from "../../services/types/hooks";
+import {useAppDispatch, useSelector} from "../../services/types/hooks";
 
 import moviesListStyles from './movies-card-list.module.css';
 
@@ -9,6 +9,18 @@ import {MoreMoviesButton} from '../more-movies-button/more-movies-button';
 import {convertMinutes, getMoviesToShow, getWindowWidth, isSavedMovie} from '../../utils/functions';
 import {ButtonView, MoviesPageType} from '../../services/types/props-types';
 import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
+import {moviesDataActions} from '../../services/state-slices/movies-data';
+import {filterCheckboxActions} from '../../services/state-slices/filter-checkbox';
+import {popupActions} from '../../services/state-slices/popup';
+import {
+  COUNT_ITEMS_TO_SHOW_BIG_SCREEN,
+  COUNT_ITEMS_TO_SHOW_MIDI_SCREEN,
+  COUNT_ITEMS_TO_SHOW_SMALL_SCREEN,
+  COUNT_MORE_ITEMS_TO_SHOW_BIG_SCREEN,
+  COUNT_MORE_ITEMS_TO_SHOW_MIDI_SCREEN,
+  COUNT_MORE_ITEMS_TO_SHOW_SMALL_SCREEN,
+  SIZE_BIG_SCREEN, SIZE_MIDI_SCREEN
+} from '../../utils/constants';
 
 export const MoviesCardList: FunctionComponent<{
   buttonView: ButtonView,
@@ -23,6 +35,8 @@ export const MoviesCardList: FunctionComponent<{
   const [countItemsToShow, setCountItemsToShow] = useState<number>(0);
   const [countMoreItemsToShow, setCountMoreItemsToShow] = useState<number>(0);
 
+  const dispatch = useAppDispatch();
+
   // отрисовка нужного кол-ва карточек с учетом фильтрации короткометражек
   let moviesToShow = getMoviesToShow(filterCheckboxState.isChecked, props.movies, countItemsToShow);
   const moreButtonDisabled = moviesToShow.length === props.movies.length || moviesToShow.length < countItemsToShow;
@@ -34,15 +48,15 @@ export const MoviesCardList: FunctionComponent<{
   useEffect(() => {
     const handleScreenWidth = () => setScreenWidth(getWindowWidth())
 
-    if (screenWidth.innerWidth >= 1280) {
-      setCountItemsToShow(12);
-      setCountMoreItemsToShow(3);
-    } else if (screenWidth.innerWidth < 1280 && screenWidth.innerWidth >= 480) {
-      setCountItemsToShow(8);
-      setCountMoreItemsToShow(2);
-    } else if (screenWidth.innerWidth < 480) {
-      setCountItemsToShow(5);
-      setCountMoreItemsToShow(2);
+    if (screenWidth.innerWidth >= SIZE_BIG_SCREEN) {
+      setCountItemsToShow(COUNT_ITEMS_TO_SHOW_BIG_SCREEN);
+      setCountMoreItemsToShow(COUNT_MORE_ITEMS_TO_SHOW_BIG_SCREEN);
+    } else if (screenWidth.innerWidth < SIZE_BIG_SCREEN && screenWidth.innerWidth >= SIZE_MIDI_SCREEN) {
+      setCountItemsToShow(COUNT_ITEMS_TO_SHOW_MIDI_SCREEN);
+      setCountMoreItemsToShow(COUNT_MORE_ITEMS_TO_SHOW_MIDI_SCREEN);
+    } else if (screenWidth.innerWidth < SIZE_MIDI_SCREEN) {
+      setCountItemsToShow(COUNT_ITEMS_TO_SHOW_SMALL_SCREEN);
+      setCountMoreItemsToShow(COUNT_MORE_ITEMS_TO_SHOW_SMALL_SCREEN);
     }
 
     window.addEventListener('resize', handleScreenWidth);
@@ -50,6 +64,14 @@ export const MoviesCardList: FunctionComponent<{
       window.removeEventListener('resize', handleScreenWidth);
     };
   }, [])
+
+  useEffect(() => {
+    dispatch(filterCheckboxActions.setIsMoviesToShowExist(moviesToShow.length !== 0))
+    if (!filterCheckboxState.isMoviesToShowExist) {
+      dispatch(popupActions.getLastFoundMoviesToOpenPopup(moviesToShow))
+    }
+  }, [moviesToShow.length, filterCheckboxState.isMoviesToShowExist])
+  console.log(filterCheckboxState.isMoviesToShowExist)
 
   return (
     <section className={moviesListStyles['movies-container']}>

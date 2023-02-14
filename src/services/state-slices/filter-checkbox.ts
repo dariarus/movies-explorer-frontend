@@ -6,7 +6,8 @@ export const filterCheckboxSlice = createSlice({
   name: 'filterCheckbox',
   initialState: {
     isChecked: false,
-    lastInputState: undefined
+    isMoviesToShowExist: false,
+    lastInputState: undefined,
   } as IFilterCheckboxState,
   reducers: {
     toggleIsChecked: (state) => {
@@ -24,6 +25,14 @@ export const filterCheckboxSlice = createSlice({
         ...state,
         isChecked: action.payload
       }
+    },
+    setIsMoviesToShowExist: (state, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        isMoviesToShowExist: action.payload,
+      }
     }
   }
 })
@@ -32,10 +41,12 @@ export default filterCheckboxSlice.reducer
 
 export const {
   toggleIsChecked,
-  setIsChecked
+  setIsChecked,
+  setIsMoviesToShowExist
 } = filterCheckboxSlice.actions
 
 export const filterCheckboxActions: IFilterCheckboxActions = {
   toggleIsChecked: toggleIsChecked,
-  setIsChecked: setIsChecked
+  setIsChecked: setIsChecked,
+  setIsMoviesToShowExist: setIsMoviesToShowExist
 }
