@@ -21,14 +21,10 @@ import {ProtectedRoute} from '../protected-route/protected-route';
 import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {moviesDataActions} from '../../services/state-slices/movies-data';
 import {popupActions} from '../../services/state-slices/popup';
-import {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
 
 // Api
-import {getMoviesDataFromSideApi} from '../../services/actions/movies-api';
 import {getUser} from '../../services/actions/main-api/user';
-import {getSavedMoviesData} from '../../services/actions/main-api/saved-movies';
-import {errorsActions, errorsSlice} from '../../services/state-slices/errors';
-import {filterCheckboxActions, filterCheckboxSlice} from '../../services/state-slices/filter-checkbox';
+import {filterCheckboxActions} from '../../services/state-slices/filter-checkbox';
 import {searchFormActions} from '../../services/state-slices/search-form';
 import {userDataActions} from '../../services/state-slices/user-data';
 import {getCookie} from '../../utils/cookie';
@@ -37,6 +33,7 @@ function App() {
   const {
     moviesDataState,
     userDataState,
+    searchFormState,
     popupState,
     errorsState
   } = useSelector((state) => {
@@ -58,11 +55,11 @@ function App() {
   }, [])
 
   useEffect(() => {
-    let lastFilterInputState = localStorage.getItem('lastFilterCheckboxState')
-    if (!lastFilterInputState) {
+    let lastFilterCheckboxState = localStorage.getItem('lastFilterCheckboxState')
+    if (!lastFilterCheckboxState) {
       return
     }
-    dispatch(filterCheckboxActions.setIsChecked(JSON.parse(lastFilterInputState)));
+    dispatch(filterCheckboxActions.setIsChecked(JSON.parse(lastFilterCheckboxState)));
   }, [])
 
   useEffect(() => {
@@ -71,7 +68,7 @@ function App() {
     }
   }, [errorsState.lastError])
 
-  if (moviesDataState.isLoading || userDataState.isLoading) {
+  if ((moviesDataState.isLoading || userDataState.isLoading) && !searchFormState.isSearching) {
     return (
       <div className={appStyles.preloader}>
         <Preloader/>

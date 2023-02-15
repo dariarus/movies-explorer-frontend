@@ -14,7 +14,7 @@ import {inputValuesActions} from '../../services/state-slices/input-values';
 import {getUser} from '../../services/actions/main-api/user';
 
 export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: 'register' | 'login' }> = (props) => {
-  const {inputValuesState} = useSelector((state) => {
+  const {userDataState, inputValuesState} = useSelector((state) => {
     return state;
   })
 
@@ -27,13 +27,23 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
   const onSubmit = () => {
     if (inputValuesState.inputValues.email || inputValuesState.inputValues.password || inputValuesState.inputValues.name) {
       if (props.pageType === 'register') {
-        dispatch(signup(inputValuesState.inputValues.name, inputValuesState.inputValues.email, inputValuesState.inputValues.password));
+        Promise.resolve(
+          dispatch(signup(
+            inputValuesState.inputValues.name,
+            inputValuesState.inputValues.email,
+            inputValuesState.inputValues.password
+          ))
+        )
+          .then(() => dispatch(inputValuesActions.clearInputValuesState()))
       } else {
         Promise.resolve(dispatch(signin(inputValuesState.inputValues.email, inputValuesState.inputValues.password)))
-          .then(() => dispatch(getUser()));
+          .then(() => {
+            dispatch(getUser());
+            dispatch(inputValuesActions.clearInputValuesState())
+          });
       }
     }
-    dispatch(inputValuesActions.clearInputValuesState())
+
   }
 
   console.log(inputValuesState.inputValues)
@@ -56,7 +66,7 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
                            formState,
                          }) => (
                   <Input label="Имя" autocomplete="name" type="text" inputName="name" isLastOfType={false}
-                         registerInput={register} required errors={errors}
+                         registerInput={register} required errors={errors} isDisabled={userDataState.isLoading}
                          onChange={(value: string) => {
                            console.log({value})
                            onChange(value)
@@ -74,7 +84,7 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
                          formState,
                        }) => (
                 <Input label="E-mail" autocomplete="email" type="text" inputName="email" isLastOfType={false}
-                       registerInput={register} required errors={errors}
+                       registerInput={register} required errors={errors} isDisabled={userDataState.isLoading}
                        onChange={(value: string) => {
                          console.log({value})
                          onChange(value)
@@ -92,6 +102,7 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
                        }) => (
                 <Input label="Пароль" autocomplete="new-password" type="password" inputName="password"
                        isLastOfType={true} registerInput={register} required errors={errors}
+                       isDisabled={userDataState.isLoading}
                        onChange={(value: string) => {
                          console.log({value})
                          onChange(value)
@@ -102,7 +113,7 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
           </div>
           <FormButton name={props.buttonName} disabled={
             Object.keys(inputValuesState.inputValues).length === 0 ||
-            (errors.name || errors.email || errors.password)
+            (errors.name || errors.email || errors.password) || userDataState.isLoading
               ? true
               : false
           } needSearchMod={false} onClick={handleSubmit(onSubmit)}/>

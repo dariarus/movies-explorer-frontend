@@ -88,7 +88,7 @@ export const Profile: FunctionComponent = () => {
               </p>
             }
             {
-              userDataState.success && !userDataState.isLoading && !userDataState.hasError &&
+              userDataState.updateIsSuccess && !userDataState.isLoading && !userDataState.hasError &&
               <p
                 className={`${profileStyles['change-response-notification']} ${profileStyles['change-response-notification_success']}`}>
                 Данные успешно изменены

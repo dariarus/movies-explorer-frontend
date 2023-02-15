@@ -14,7 +14,7 @@ export const FormButton: FunctionComponent<TFormButton> = (props) => {
   return (
     <div>
       {
-       userDataState.hasError && userDataState.error.type === ErrorType.SIGNIN &&
+        userDataState.hasError && userDataState.error.type === ErrorType.SIGNIN &&
         <p className={formButtonStyles.error}>{`${userDataState.error.message}. Повторите попытку`}</p>
       }
       <button type="submit"

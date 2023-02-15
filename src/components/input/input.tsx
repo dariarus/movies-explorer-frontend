@@ -34,7 +34,7 @@ export const Input: FunctionComponent<TInput & {
       <div className={inputStyles['input-wrapper']}>
         <label htmlFor={props.inputName} className={inputStyles.label}>{props.label}</label>
         <input type={props.type} value={inputValue} id={props.inputName} autoComplete={props.autocomplete}
-               className={props.errors[props.inputName]
+               disabled={props.isDisabled} className={props.errors[props.inputName]
                  ? `${inputStyles.input} ${inputStyles['input_errored']}`
                  : `${inputStyles.input} ${inputStyles['input_default']}`}
                {...props.registerInput(props.inputName, setOptionsForInputValidation(props.inputName))} // валидация

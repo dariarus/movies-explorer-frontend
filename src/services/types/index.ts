@@ -65,7 +65,7 @@ export interface IInputValuesState {
 export interface IUserDataState {
   isLoading: boolean,
   hasError: boolean,
-  success: boolean,
+  updateIsSuccess: boolean,
   error: TErrorState,
   isAuthorized?: boolean,
   userData: {

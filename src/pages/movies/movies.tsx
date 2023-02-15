@@ -12,10 +12,9 @@ import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {popupActions} from '../../services/state-slices/popup';
 import {ButtonView, MoviesPageType} from '../../services/types/props-types';
 import {getSavedMoviesData} from '../../services/actions/main-api/saved-movies';
-import {tmpMoviesArray} from '../../utils/constants';
 
 export const Movies: FunctionComponent = () => {
-  const {moviesDataState, searchFormState, popupState, filterCheckboxState} = useSelector((state) => {
+  const {moviesDataState, searchFormState, popupState} = useSelector((state) => {
     return state;
   });
 

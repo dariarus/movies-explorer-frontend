@@ -75,7 +75,8 @@ export type TInput = {
   inputName: 'name' | 'email' | 'password',
   type: string,
   isLastOfType: boolean,
-  autocomplete: string
+  autocomplete: string,
+  isDisabled: boolean
 }
 
 export type TProfileInput = {

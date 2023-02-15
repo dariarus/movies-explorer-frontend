@@ -9,7 +9,6 @@ import {MoreMoviesButton} from '../more-movies-button/more-movies-button';
 import {convertMinutes, getMoviesToShow, getWindowWidth, isSavedMovie} from '../../utils/functions';
 import {ButtonView, MoviesPageType} from '../../services/types/props-types';
 import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
-import {moviesDataActions} from '../../services/state-slices/movies-data';
 import {filterCheckboxActions} from '../../services/state-slices/filter-checkbox';
 import {popupActions} from '../../services/state-slices/popup';
 import {

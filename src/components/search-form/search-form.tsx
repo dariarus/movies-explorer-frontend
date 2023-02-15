@@ -71,7 +71,7 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
   return (
     <section className={searchFormStyles.wrapper}>
       <form className={searchFormStyles['search-form']}>
-        <input type="text" value={value} required placeholder="Фильм"
+        <input type="text" value={value} required placeholder="Фильм" disabled={searchFormState.isSearching}
                className={errors.search
                  ? `${searchFormStyles['search-form__input']} ${searchFormStyles['search-form__input_errored']}`
                  : `${searchFormStyles['search-form__input']}`}
@@ -80,7 +80,7 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
                  e.stopPropagation();
                  handleChange(e);
                }}/>
-        <FormButton name="Поиск" needSearchMod={true} onClick={handleSubmit(onSubmit)}/>
+        <FormButton name="Поиск" needSearchMod={true} onClick={handleSubmit(onSubmit)} disabled={searchFormState.isSearching}/>
       </form>
       {
         errors.search &&
