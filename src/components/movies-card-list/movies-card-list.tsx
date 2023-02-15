@@ -33,7 +33,6 @@ export const MoviesCardList: FunctionComponent<{
   const [screenWidth, setScreenWidth] = useState(getWindowWidth())
   const [countItemsToShow, setCountItemsToShow] = useState<number>(0);
   const [countMoreItemsToShow, setCountMoreItemsToShow] = useState<number>(0);
-  const [isEmptyMoviesBlock, setIsEmptyMoviesBlock] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
 
@@ -68,15 +67,12 @@ export const MoviesCardList: FunctionComponent<{
   useEffect(() => {
     dispatch(filterCheckboxActions.setIsMoviesToShowExist(moviesToShow.length !== 0));
     dispatch(popupActions.getLastFoundMoviesToOpenPopup(moviesToShow));
-    if (!filterCheckboxState.isMoviesToShowExist) {
-      setIsEmptyMoviesBlock(!isEmptyMoviesBlock);
-    }
   }, [moviesToShow.length, filterCheckboxState.isMoviesToShowExist])
 
   return (
     <section className={moviesListStyles['movies-container']}>
       {
-        isEmptyMoviesBlock &&
+        filterCheckboxState.isEmptyMoviesBlock &&
         <p className={moviesListStyles.text}>По Вашему запросу короткометражек нет</p>
       }
       <ul className={moviesListStyles.movies}>
