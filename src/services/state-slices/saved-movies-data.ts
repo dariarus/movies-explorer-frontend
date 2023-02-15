@@ -54,7 +54,7 @@ export const savedMoviesDataSlice = createSlice({
         savedMoviesData: copiedSavedMoviesData
       }
     },
-    setLastFoundSavedMovies: (state, action: PayloadAction<string>) => {
+    filterLastFoundSavedMovies: (state, action: PayloadAction<string>) => {
       const filteredMovies = getLastFoundMovies(state.savedMoviesData, action.payload);
 
       return {
@@ -86,7 +86,7 @@ export const {
   getSavedMoviesData,
   getSavedMoviesDataFailed,
   addLikedMovieToSavedMovies,
-  setLastFoundSavedMovies,
+  filterLastFoundSavedMovies,
   deleteLastFoundSavedMovie,
   resetSavedMoviesState
 } = savedMoviesDataSlice.actions
@@ -96,7 +96,7 @@ export const savedMoviesDataActions: ISavedMoviesDataActions = {
   getSavedMoviesData: getSavedMoviesData,
   getSavedMoviesDataFailed: getSavedMoviesDataFailed,
   addLikedMovieToSavedMovies: addLikedMovieToSavedMovies,
-  setLastFoundSavedMovies: setLastFoundSavedMovies,
+  filterLastFoundSavedMovies: filterLastFoundSavedMovies,
   deleteLastFoundSavedMovie: deleteLastFoundSavedMovie,
   resetSavedMoviesState: resetSavedMoviesState
 }

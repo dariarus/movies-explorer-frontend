@@ -117,9 +117,9 @@ export const isSavedMovie = (movie: TSavedMovieItem | TMovieItem): movie is TSav
   return (movie as TSavedMovieItem).owner !== undefined;
 }
 
-export const isArrayOfSavedMovies = (movieArray: Array<TSavedMovieItem | TMovieItem>): movieArray is Array<TSavedMovieItem> => {
-  return movieArray.every((movie) => isSavedMovie(movie))
-}
+// export const isArrayOfSavedMovies = (movieArray: Array<TSavedMovieItem | TMovieItem>): movieArray is Array<TSavedMovieItem> => {
+//   return movieArray.every((movie) => isSavedMovie(movie))
+// }
 
 export function getLastFoundMovies<T extends TMovieItem | TSavedMovieItem>(
   moviesArray: Array<T>,

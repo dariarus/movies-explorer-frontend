@@ -15,7 +15,7 @@ export interface ISavedMoviesDataActions {
   getSavedMoviesData: ActionCreatorWithoutPayload<string>,
   getSavedMoviesDataFailed: ActionCreatorWithPayload<TErrorState>,
   addLikedMovieToSavedMovies: ActionCreatorWithPayload<TSavedMovieItem>,
-  setLastFoundSavedMovies: ActionCreatorWithPayload<string>,
+  filterLastFoundSavedMovies: ActionCreatorWithPayload<string>,
   deleteLastFoundSavedMovie: ActionCreatorWithPayload<number>,
   resetSavedMoviesState: ActionCreatorWithoutPayload<string>
 }

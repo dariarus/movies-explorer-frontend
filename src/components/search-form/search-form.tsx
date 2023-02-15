@@ -48,7 +48,7 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
 
     // проверка типа страницы: сохраненные фильмы или все
     if (props.moviesPageType === MoviesPageType.SAVED_MOVIES) {
-      dispatch(savedMoviesDataActions.setLastFoundSavedMovies(value))
+      dispatch(savedMoviesDataActions.filterLastFoundSavedMovies(value))
       localStorage.setItem('lastSearchRequestOfSaved', JSON.stringify(value));
       dispatch(searchFormActions.setLastSearchedValueOfSaved(value));
       dispatch(popupActions.getLastFoundMoviesToOpenPopup(store.getState().savedMoviesDataState.lastFoundSavedMovies));

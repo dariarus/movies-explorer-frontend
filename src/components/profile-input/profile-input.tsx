@@ -34,7 +34,7 @@ export const ProfileInput:
       ? `${profileInputStyles['input-wrapper']} ${profileInputStyles['input-wrapper_last-of-type']}`
       : `${profileInputStyles['input-wrapper']}`}>
       <label htmlFor={props.inputName} className={profileInputStyles.label}>{props.label}</label>
-      <input type="text" value={value} id={props.inputName}
+      <input type="text" value={value} id={props.inputName} disabled={props.isDisabled}
              className={props.errors[props.inputName]
                ? `${profileInputStyles.input} ${profileInputStyles['input_errored']}`
                : `${profileInputStyles.input} ${profileInputStyles['input_default']}`}

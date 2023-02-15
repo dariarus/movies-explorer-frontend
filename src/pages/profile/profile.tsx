@@ -47,7 +47,7 @@ export const Profile: FunctionComponent = () => {
                          formState,
                        }) => (
                 <ProfileInput label="Имя" inputName="name" isLastOfType={false} value={userDataState.userData.name}
-                              registerInput={register} required errors={errors}
+                              registerInput={register} required errors={errors} isDisabled={userDataState.isLoading}
                               onChange={(value: string) => {
                                 console.log({value})
                                 onChange(value)
@@ -64,10 +64,11 @@ export const Profile: FunctionComponent = () => {
                          formState,
                        }) => (
                 <ProfileInput label="E-mail" inputName="email" isLastOfType={true} value={userDataState.userData.email}
-                              registerInput={register} required errors={errors} onChange={(value: string) => {
-                  console.log({value})
-                  onChange(value)
-                }}
+                              registerInput={register} required errors={errors} isDisabled={userDataState.isLoading}
+                              onChange={(value: string) => {
+                                console.log({value})
+                                onChange(value)
+                              }}
                 />
               )}
             />
@@ -100,6 +101,7 @@ export const Profile: FunctionComponent = () => {
           || errors.email
           || (updatingNameValue === userDataState.userData.name
             && updatingEmailValue === userDataState.userData.email)
+          || userDataState.isLoading
             ? true
             : false}
                   className={profileStyles['form__button']}

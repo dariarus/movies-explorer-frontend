@@ -5,6 +5,7 @@ import {getResponseData} from '../json-verifiction';
 import {ErrorType, TUser} from '../../types/data';
 import {errorsActions} from '../../state-slices/errors';
 import UnauthorizedError from '../../exceptions/error-401-unauthorized';
+import {signout} from './auth';
 
 export const getUser = (): AppThunk => {
   return function (dispatch: AppDispatch) {
@@ -34,6 +35,7 @@ export const getUser = (): AppThunk => {
         console.log(error);
         if (error instanceof UnauthorizedError) {
           dispatch(userDataActions.setIsAuthorized(false));
+          dispatch(signout());
         } else {
           dispatch(errorsActions.setLastError({
             error: {
@@ -61,21 +63,33 @@ export const updateUserData = (name?: string, email?: string): AppThunk => {
         email
       })
     })
+      .then(res => {
+        if (res.ok || res.status !== 401) {
+          return res
+        } else {
+          throw new UnauthorizedError();
+        }
+      })
       .then(res => getResponseData<TUser>(res))
       .then(data => {
         dispatch(userDataActions.updateUserData(data));
       })
       .catch((error) => {
         console.log(error);
-        dispatch(userDataActions.getUserDataFailed({
-          message: error.message,
-          type: ErrorType.UPDATE
-        }));
-        dispatch(errorsActions.setLastError({
-          error: {
+        if (error instanceof UnauthorizedError) {
+          dispatch(userDataActions.setIsAuthorized(false));
+          dispatch(signout());
+        } else {
+          dispatch(userDataActions.getUserDataFailed({
             message: error.message,
-          }
-        }))
+            type: ErrorType.UPDATE
+          }));
+          dispatch(errorsActions.setLastError({
+            error: {
+              message: error.message,
+            }
+          }))
+        }
       })
   }
 }

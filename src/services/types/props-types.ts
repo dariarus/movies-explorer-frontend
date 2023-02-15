@@ -82,6 +82,7 @@ export type TInput = {
 export type TProfileInput = {
   label: string,
   isLastOfType: boolean,
+  isDisabled: boolean,
   inputName: 'name' | 'email' | 'password',
   value: string,
 }

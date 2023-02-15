@@ -17,9 +17,6 @@ export const popupSlice = createSlice({
   } as IPopupState,
   reducers: {
     getLastFoundMoviesToOpenPopup: (state, action: PayloadAction<Array<TMovieItem | TSavedMovieItem>>) => {
-      if (state.notFoundMoviesType.show) {
-        return state
-      }
       const isFoundMovies = action.payload && action.payload.length > 0;
       return {
         ...state,

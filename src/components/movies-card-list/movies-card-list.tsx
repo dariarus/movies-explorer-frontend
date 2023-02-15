@@ -33,6 +33,7 @@ export const MoviesCardList: FunctionComponent<{
   const [screenWidth, setScreenWidth] = useState(getWindowWidth())
   const [countItemsToShow, setCountItemsToShow] = useState<number>(0);
   const [countMoreItemsToShow, setCountMoreItemsToShow] = useState<number>(0);
+  const [isEmptyMoviesBlock, setIsEmptyMoviesBlock] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
 
@@ -65,18 +66,22 @@ export const MoviesCardList: FunctionComponent<{
   }, [])
 
   useEffect(() => {
-    dispatch(filterCheckboxActions.setIsMoviesToShowExist(moviesToShow.length !== 0))
+    dispatch(filterCheckboxActions.setIsMoviesToShowExist(moviesToShow.length !== 0));
+    dispatch(popupActions.getLastFoundMoviesToOpenPopup(moviesToShow));
     if (!filterCheckboxState.isMoviesToShowExist) {
-      dispatch(popupActions.getLastFoundMoviesToOpenPopup(moviesToShow))
+      setIsEmptyMoviesBlock(!isEmptyMoviesBlock);
     }
   }, [moviesToShow.length, filterCheckboxState.isMoviesToShowExist])
-  console.log(filterCheckboxState.isMoviesToShowExist)
 
   return (
     <section className={moviesListStyles['movies-container']}>
+      {
+        isEmptyMoviesBlock &&
+        <p className={moviesListStyles.text}>По Вашему запросу короткометражек нет</p>
+      }
       <ul className={moviesListStyles.movies}>
         {
-          moviesToShow.map((movie, index) => {
+          moviesToShow.map((movie) => {
               const durationConversion = convertMinutes(movie.duration);
               return (
                 <MoviesCard key={movie.id} name={movie.nameRU} duration={durationConversion} image={movie.image.url}
