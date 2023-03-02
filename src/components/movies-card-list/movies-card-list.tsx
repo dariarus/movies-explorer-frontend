@@ -18,7 +18,8 @@ import {
   COUNT_MORE_ITEMS_TO_SHOW_BIG_SCREEN,
   COUNT_MORE_ITEMS_TO_SHOW_MIDI_SCREEN,
   COUNT_MORE_ITEMS_TO_SHOW_SMALL_SCREEN,
-  SIZE_BIG_SCREEN, SIZE_MIDI_SCREEN
+  SIZE_MIDI_SCREEN,
+  SIZE_SMALL_SCREEN,
 } from '../../utils/constants';
 
 export const MoviesCardList: FunctionComponent<{
@@ -47,13 +48,13 @@ export const MoviesCardList: FunctionComponent<{
   useEffect(() => {
     const handleScreenWidth = () => setScreenWidth(getWindowWidth())
 
-    if (screenWidth.innerWidth >= SIZE_BIG_SCREEN) {
+    if (screenWidth.innerWidth >= SIZE_MIDI_SCREEN ) {
       setCountItemsToShow(COUNT_ITEMS_TO_SHOW_BIG_SCREEN);
       setCountMoreItemsToShow(COUNT_MORE_ITEMS_TO_SHOW_BIG_SCREEN);
-    } else if (screenWidth.innerWidth < SIZE_BIG_SCREEN && screenWidth.innerWidth >= SIZE_MIDI_SCREEN) {
+    } else if (screenWidth.innerWidth < SIZE_MIDI_SCREEN && screenWidth.innerWidth >= SIZE_SMALL_SCREEN) {
       setCountItemsToShow(COUNT_ITEMS_TO_SHOW_MIDI_SCREEN);
       setCountMoreItemsToShow(COUNT_MORE_ITEMS_TO_SHOW_MIDI_SCREEN);
-    } else if (screenWidth.innerWidth < SIZE_MIDI_SCREEN) {
+    } else if (screenWidth.innerWidth < SIZE_SMALL_SCREEN) {
       setCountItemsToShow(COUNT_ITEMS_TO_SHOW_SMALL_SCREEN);
       setCountMoreItemsToShow(COUNT_MORE_ITEMS_TO_SHOW_SMALL_SCREEN);
     }
