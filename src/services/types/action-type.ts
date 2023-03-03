@@ -29,6 +29,7 @@ export interface ISearchFormActions {
   setValue: ActionCreatorWithPayload<string>,
   setLastSearchedValue: ActionCreatorWithPayload<string>,
   setLastSearchedValueOfSaved: ActionCreatorWithPayload<string>,
+  deleteLastSearchedValues: ActionCreatorWithoutPayload<string>,
   setIsSearchingSuccess: ActionCreatorWithoutPayload<string>,
   setSearchingIsFailed: ActionCreatorWithoutPayload<string>
 }

@@ -23,7 +23,13 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
     return state;
   })
 
-  const [value, setValue] = useState<string>('');
+  const initialInputValue = props.moviesPageType === MoviesPageType.MOVIES && searchFormState.lastSearchedValue
+    ? searchFormState.lastSearchedValue
+    : props.moviesPageType === MoviesPageType.SAVED_MOVIES && searchFormState.lastSearchedValueOfSaved
+      ? searchFormState.lastSearchedValueOfSaved
+      : ''
+
+  const [value, setValue] = useState<string>(initialInputValue);
 
   const dispatch = useAppDispatch();
 
@@ -80,7 +86,8 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
                  e.stopPropagation();
                  handleChange(e);
                }}/>
-        <FormButton name="Поиск" needSearchMod={true} onClick={handleSubmit(onSubmit)} disabled={searchFormState.isSearching}/>
+        <FormButton name="Поиск" needSearchMod={true} onClick={handleSubmit(onSubmit)}
+                    disabled={searchFormState.isSearching}/>
       </form>
       {
         errors.search &&
@@ -88,24 +95,6 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
       }
       <div className={searchFormStyles.info}>
         <FilterCheckbox/>
-        <p className={searchFormStyles['info__text']}>Ваш последний запрос:
-          {
-            props.moviesPageType === MoviesPageType.SAVED_MOVIES &&
-            <span className={searchFormState.lastSearchedValueOfSaved
-              ? `${searchFormStyles['info__text']} ${searchFormStyles['info__text_bold']}`
-              : `${searchFormStyles['info__text']} ${searchFormStyles['info__text_secondary']}`}>
-            {searchFormState.lastSearchedValueOfSaved ? searchFormState.lastSearchedValueOfSaved : 'Вы пока ничего не искали'}
-          </span>
-          }
-          {
-            props.moviesPageType === MoviesPageType.MOVIES &&
-            <span className={searchFormState.lastSearchedValue
-              ? `${searchFormStyles['info__text']} ${searchFormStyles['info__text_bold']}`
-              : `${searchFormStyles['info__text']} ${searchFormStyles['info__text_secondary']}`}>
-            {searchFormState.lastSearchedValue ? searchFormState.lastSearchedValue : 'Вы пока ничего не искали'}
-          </span>
-          }
-        </p>
       </div>
       <hr className={searchFormStyles.decor}/>
     </section>

@@ -5,6 +5,7 @@ import {moviesApi} from '../../../utils/constants';
 import {ErrorType, TUser} from '../../types/data';
 import {errorsActions} from '../../state-slices/errors';
 import {savedMoviesDataActions} from '../../state-slices/saved-movies-data';
+import {searchFormActions} from '../../state-slices/search-form';
 
 export const signup = (name?: string, email?: string, password?: string): AppThunk => {
   return function (dispatch: AppDispatch) {
@@ -87,6 +88,7 @@ export const signout = (): AppThunk => {
       .then(() => {
         dispatch(userDataActions.deleteUserData());
         dispatch(savedMoviesDataActions.resetSavedMoviesState());
+        dispatch(searchFormActions.deleteLastSearchedValues());
         localStorage.removeItem('lastFoundMovies');
         localStorage.removeItem('lastSearchRequest');
         localStorage.removeItem('lastSearchRequestOfSaved');

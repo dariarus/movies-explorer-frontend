@@ -39,6 +39,13 @@ export const searchFormSlice = createSlice({
         isSearching: false,
       }
     },
+    deleteLastSearchedValues: (state) => {
+      return {
+        ...state,
+        lastSearchedValue: '',
+        lastSearchedValueOfSaved: '',
+      }
+    },
     setIsSearchingSuccess: (state) => {
       return {
         ...state,
@@ -62,6 +69,7 @@ export const {
   setValue,
   setLastSearchedValue,
   setLastSearchedValueOfSaved,
+  deleteLastSearchedValues,
   setIsSearchingSuccess,
   setSearchingIsFailed
 } = searchFormSlice.actions
@@ -71,6 +79,7 @@ export const searchFormActions: ISearchFormActions = {
   setValue: setValue,
   setLastSearchedValue: setLastSearchedValue,
   setLastSearchedValueOfSaved: setLastSearchedValueOfSaved,
+  deleteLastSearchedValues: deleteLastSearchedValues,
   setIsSearchingSuccess: setIsSearchingSuccess,
   setSearchingIsFailed: setSearchingIsFailed,
 }
