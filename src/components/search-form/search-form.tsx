@@ -94,7 +94,7 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
         <p className={searchFormStyles['search-form__error-message']}>{errors.search?.message}</p>
       }
       <div className={searchFormStyles.info}>
-        <FilterCheckbox/>
+        <FilterCheckbox moviesPageType={props.moviesPageType}/>
       </div>
       <hr className={searchFormStyles.decor}/>
     </section>

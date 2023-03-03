@@ -41,8 +41,10 @@ export interface IPopupActions {
 }
 
 export interface IFilterCheckboxActions {
-  toggleIsChecked: ActionCreatorWithoutPayload<string>,
-  setIsChecked: ActionCreatorWithPayload<boolean>,
+  toggleIsCheckedOnMoviesPage: ActionCreatorWithoutPayload<string>,
+  toggleIsCheckedOnSavedMoviesPage: ActionCreatorWithoutPayload<string>,
+  setIsCheckedOnMoviesPage: ActionCreatorWithPayload<boolean>,
+  setIsCheckedOnSavedMoviesPage: ActionCreatorWithPayload<boolean>,
   setIsMoviesToShowExist: ActionCreatorWithPayload<boolean>
 }
 

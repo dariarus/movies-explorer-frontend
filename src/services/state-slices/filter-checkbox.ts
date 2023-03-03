@@ -5,26 +5,43 @@ import {IFilterCheckboxActions} from '../types/action-type';
 export const filterCheckboxSlice = createSlice({
   name: 'filterCheckbox',
   initialState: {
-    isChecked: false,
+    isCheckedOnMoviesPage: false,
+    isCheckedOnSavedMoviesPage: false,
     isEmptyMoviesBlock: false,
     isMoviesToShowExist: false,
     lastInputState: undefined,
   } as IFilterCheckboxState,
   reducers: {
-    toggleIsChecked: (state) => {
-      localStorage.setItem('lastFilterCheckboxState', JSON.stringify(!state.isChecked));
+    toggleIsCheckedOnMoviesPage: (state) => {
+      localStorage.setItem('lastFilterCheckboxStateOnMoviesPage', JSON.stringify(!state.isCheckedOnMoviesPage));
 
       return {
         ...state,
-        isChecked: !state.isChecked
+        isCheckedOnMoviesPage: !state.isCheckedOnMoviesPage
       }
     },
-    setIsChecked(state, action: PayloadAction<boolean>) {
-      localStorage.setItem('lastFilterCheckboxState', JSON.stringify(action.payload));
+    toggleIsCheckedOnSavedMoviesPage: (state) => {
+      localStorage.setItem('lastFilterCheckboxStateOnSavedMoviesPage', JSON.stringify(!state.isCheckedOnSavedMoviesPage));
 
       return {
         ...state,
-        isChecked: action.payload
+        isCheckedOnSavedMoviesPage: !state.isCheckedOnSavedMoviesPage
+      }
+    },
+    setIsCheckedOnMoviesPage(state, action: PayloadAction<boolean>) {
+      localStorage.setItem('lastFilterCheckboxStateOnMoviesPage', JSON.stringify(action.payload));
+
+      return {
+        ...state,
+        isCheckedOnMoviesPage: action.payload
+      }
+    },
+    setIsCheckedOnSavedMoviesPage(state, action: PayloadAction<boolean>) {
+      localStorage.setItem('lastFilterCheckboxStateOnSavedMoviesPage', JSON.stringify(action.payload));
+
+      return {
+        ...state,
+        isCheckedOnSavedMoviesPage: action.payload
       }
     },
     setIsMoviesToShowExist: (state, action: PayloadAction<boolean>) => {
@@ -42,13 +59,17 @@ export const filterCheckboxSlice = createSlice({
 export default filterCheckboxSlice.reducer
 
 export const {
-  toggleIsChecked,
-  setIsChecked,
+  toggleIsCheckedOnMoviesPage,
+  toggleIsCheckedOnSavedMoviesPage,
+  setIsCheckedOnMoviesPage,
+  setIsCheckedOnSavedMoviesPage,
   setIsMoviesToShowExist
 } = filterCheckboxSlice.actions
 
 export const filterCheckboxActions: IFilterCheckboxActions = {
-  toggleIsChecked: toggleIsChecked,
-  setIsChecked: setIsChecked,
+  toggleIsCheckedOnMoviesPage: toggleIsCheckedOnMoviesPage,
+  toggleIsCheckedOnSavedMoviesPage: toggleIsCheckedOnSavedMoviesPage,
+  setIsCheckedOnMoviesPage: setIsCheckedOnMoviesPage,
+  setIsCheckedOnSavedMoviesPage: setIsCheckedOnSavedMoviesPage,
   setIsMoviesToShowExist: setIsMoviesToShowExist
 }

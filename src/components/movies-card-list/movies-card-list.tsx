@@ -37,8 +37,12 @@ export const MoviesCardList: FunctionComponent<{
 
   const dispatch = useAppDispatch();
 
+  const isChecked = props.moviesPageType === MoviesPageType.MOVIES
+    ? filterCheckboxState.isCheckedOnMoviesPage
+    : filterCheckboxState.isCheckedOnSavedMoviesPage
+
   // отрисовка нужного кол-ва карточек с учетом фильтрации короткометражек
-  let moviesToShow = getMoviesToShow(filterCheckboxState.isChecked, props.movies, countItemsToShow);
+  let moviesToShow = getMoviesToShow(isChecked, props.movies, countItemsToShow);
   const moreButtonDisabled = moviesToShow.length === props.movies.length || moviesToShow.length < countItemsToShow;
 
   const onClickMoreMoviesButton = () => {

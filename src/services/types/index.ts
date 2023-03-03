@@ -49,7 +49,8 @@ export interface IPopupState {
 }
 
 export interface IFilterCheckboxState {
-  isChecked: boolean,
+  isCheckedOnMoviesPage: boolean,
+  isCheckedOnSavedMoviesPage: boolean,
   isEmptyMoviesBlock: boolean,
   isMoviesToShowExist: boolean,
   lastInputState?: boolean

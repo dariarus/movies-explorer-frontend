@@ -55,11 +55,18 @@ function App() {
   }, [])
 
   useEffect(() => {
-    let lastFilterCheckboxState = localStorage.getItem('lastFilterCheckboxState')
-    if (!lastFilterCheckboxState) {
+    let lastFilterCheckboxStateOnMoviesPage = localStorage.getItem('lastFilterCheckboxStateOnMoviesPage')
+    let lastFilterCheckboxStateOnSavedMoviesPage = localStorage.getItem('lastFilterCheckboxStateOnSavedMoviesPage')
+
+    if (!lastFilterCheckboxStateOnMoviesPage && !lastFilterCheckboxStateOnSavedMoviesPage) {
       return
     }
-    dispatch(filterCheckboxActions.setIsChecked(JSON.parse(lastFilterCheckboxState)));
+    if (lastFilterCheckboxStateOnMoviesPage) {
+      dispatch(filterCheckboxActions.setIsCheckedOnMoviesPage(JSON.parse(lastFilterCheckboxStateOnMoviesPage)));
+    }
+    if (lastFilterCheckboxStateOnSavedMoviesPage) {
+      dispatch(filterCheckboxActions.setIsCheckedOnSavedMoviesPage(JSON.parse(lastFilterCheckboxStateOnSavedMoviesPage)));
+    }
   }, [])
 
   useEffect(() => {
