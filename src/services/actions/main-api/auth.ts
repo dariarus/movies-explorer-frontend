@@ -91,7 +91,6 @@ export const signout = (): AppThunk => {
         dispatch(searchFormActions.deleteLastSearchedValues());
         localStorage.removeItem('lastFoundMovies');
         localStorage.removeItem('lastSearchRequest');
-        localStorage.removeItem('lastSearchRequestOfSaved');
         localStorage.removeItem('lastFilterCheckboxState');
       })
       .catch((error) => {

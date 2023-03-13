@@ -105,12 +105,24 @@ export const setRenderingTimer = async (ms: number) => {
 }
 
 export const getMoviesToShow = (isShortFilm: boolean | undefined, originalMoviesArray: Array<TMovieItem | TSavedMovieItem>, sliceEnd: number) => {
+let result;
   if (isShortFilm) {
-    return originalMoviesArray.filter(movie => movie.duration <= SHORT_FILM_DURATION).slice(0, sliceEnd)
+    result = originalMoviesArray.filter(movie => movie.duration <= SHORT_FILM_DURATION).slice(0, sliceEnd)
   } else {
-    return originalMoviesArray.filter(movie => movie.duration > SHORT_FILM_DURATION).slice(0, sliceEnd)
+    result = originalMoviesArray.filter(movie => movie.duration > SHORT_FILM_DURATION).slice(0, sliceEnd)
   }
+  return result;
 }
+
+// export const getMoviesToShow = (isShortFilm: boolean | undefined, originalMoviesArray: Array<TMovieItem | TSavedMovieItem>) => {
+//   let result;
+//   if (isShortFilm) {
+//     result = originalMoviesArray.filter(movie => movie.duration <= SHORT_FILM_DURATION)
+//   } else {
+//     result = originalMoviesArray.filter(movie => movie.duration > SHORT_FILM_DURATION)
+//   }
+//   return result;
+// }
 
 // использую type predicate для определения типа массива из пропсов для сохранения найденных фильмов в нужный slice
 export const isSavedMovie = (movie: TSavedMovieItem | TMovieItem): movie is TSavedMovieItem => {

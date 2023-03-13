@@ -50,7 +50,6 @@ function App() {
     dispatch(userDataActions.setIsAuthorized(getCookie('jwt') !== undefined))
     dispatch(getUser());
     dispatch(searchFormActions.setLastSearchedValue(JSON.parse(localStorage.getItem('lastSearchRequest') || 'null')))
-    dispatch(searchFormActions.setLastSearchedValueOfSaved(JSON.parse(localStorage.getItem('lastSearchRequestOfSaved') || 'null')))
     dispatch(moviesDataActions.setLastFoundMovies(JSON.parse(localStorage.getItem('lastFoundMovies') || '[]')));
   }, [])
 

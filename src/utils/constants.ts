@@ -3,6 +3,8 @@ export const beatfilmMoviesPath = 'https://api.nomoreparties.co';
 // export const moviesApi = 'https://api.my-movies.students.nomoredomains.icu';
 export const moviesApi = 'http://localhost:3000';
 
+export const renderingTime = 1000;
+
 export const SHORT_FILM_DURATION = 40;
 
 export const SIZE_BIG_SCREEN = 1280;

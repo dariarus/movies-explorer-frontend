@@ -18,11 +18,25 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
     return state;
   })
 
-  const {register, control, handleSubmit, formState: {errors}} = useForm<IFormInputs>({
+  const {register, control, handleSubmit, formState: {errors, isDirty}, setValue} = useForm<IFormInputs>({
     mode: 'onChange',
+    reValidateMode: 'onChange',
+    defaultValues: {
+      name: '',
+      email: '',
+      password: ''
+    }
   });
 
   const dispatch = useAppDispatch();
+
+  const checkInputValuesNotEmpty = () => {
+    if (props.pageType === 'register') {
+      return Object.keys(inputValuesState.inputValues).length === 3
+    } else if (props.pageType === 'login') {
+      return Object.keys(inputValuesState.inputValues).length === 2
+    }
+  }
 
   const onSubmit = () => {
     if (inputValuesState.inputValues.email || inputValuesState.inputValues.password || inputValuesState.inputValues.name) {
@@ -66,10 +80,10 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
                            formState,
                          }) => (
                   <Input label="Имя" autocomplete="name" type="text" inputName="name" isLastOfType={false}
-                         registerInput={register} required errors={errors} isDisabled={userDataState.isLoading}
+                         registerInput={register} required={true} errors={errors} isDisabled={userDataState.isLoading}
                          onChange={(value: string) => {
-                           console.log({value})
-                           onChange(value)
+                           onChange(value);
+                           setValue('name', value)
                          }}
                   />
                 )}
@@ -84,10 +98,10 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
                          formState,
                        }) => (
                 <Input label="E-mail" autocomplete="email" type="text" inputName="email" isLastOfType={false}
-                       registerInput={register} required errors={errors} isDisabled={userDataState.isLoading}
+                       registerInput={register} required={true} errors={errors} isDisabled={userDataState.isLoading}
                        onChange={(value: string) => {
-                         console.log({value})
-                         onChange(value)
+                         onChange(value);
+                         setValue('email', value);
                        }}
                 />
               )}
@@ -101,19 +115,21 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
                          formState,
                        }) => (
                 <Input label="Пароль" autocomplete="new-password" type="password" inputName="password"
-                       isLastOfType={true} registerInput={register} required errors={errors}
+                       isLastOfType={true} registerInput={register} required={true} errors={errors}
                        isDisabled={userDataState.isLoading}
                        onChange={(value: string) => {
-                         console.log({value})
-                         onChange(value)
+                         onChange(value);
+                         setValue('password', value);
                        }}
                 />
               )}
             />
           </div>
           <FormButton name={props.buttonName} disabled={
-            Object.keys(inputValuesState.inputValues).length === 0 ||
-            (errors.name || errors.email || errors.password) || userDataState.isLoading
+            // Object.keys(inputValuesState.inputValues).some((key: any) => inputValuesState.inputValues[key] && inputValuesState.inputValues[key].length === 0)
+            !checkInputValuesNotEmpty()
+            || (errors.name || errors.email || errors.password) || userDataState.isLoading
+              // || isDirty
               ? true
               : false
           } needSearchMod={false} onClick={handleSubmit(onSubmit)}/>

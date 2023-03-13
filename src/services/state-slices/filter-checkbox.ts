@@ -7,7 +7,6 @@ export const filterCheckboxSlice = createSlice({
   initialState: {
     isCheckedOnMoviesPage: false,
     isCheckedOnSavedMoviesPage: false,
-    isEmptyMoviesBlock: false,
     isMoviesToShowExist: false,
     lastInputState: undefined,
   } as IFilterCheckboxState,
@@ -49,7 +48,6 @@ export const filterCheckboxSlice = createSlice({
         ...state,
         isLoading: false,
         hasError: false,
-        isEmptyMoviesBlock: !action.payload,
         isMoviesToShowExist: action.payload,
       }
     }

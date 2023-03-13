@@ -1,4 +1,5 @@
 import React, {ChangeEvent, FunctionComponent, useCallback, useEffect, useState} from 'react';
+import {useForm, Controller} from 'react-hook-form';
 
 import searchFormStyles from './search-form.module.css';
 
@@ -13,9 +14,9 @@ import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
 import {savedMoviesDataActions} from '../../services/state-slices/saved-movies-data';
 import {popupActions} from '../../services/state-slices/popup';
 import {IFormInputs, MoviesPageType} from '../../services/types/props-types';
-import {useForm} from 'react-hook-form';
 import {getMoviesDataFromSideApi} from '../../services/actions/movies-api';
 import {store} from '../../services/store';
+import {renderingTime} from '../../utils/constants';
 
 export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSavedMovieItem>, moviesPageType: MoviesPageType }> = (props) => {
 
@@ -25,22 +26,26 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
 
   const initialInputValue = props.moviesPageType === MoviesPageType.MOVIES && searchFormState.lastSearchedValue
     ? searchFormState.lastSearchedValue
-    : props.moviesPageType === MoviesPageType.SAVED_MOVIES && searchFormState.lastSearchedValueOfSaved
-      ? searchFormState.lastSearchedValueOfSaved
-      : ''
+    : ''
 
-  const [value, setValue] = useState<string>(initialInputValue);
+  const [inputValue, setInputValue] = useState<string>(initialInputValue);
 
   const dispatch = useAppDispatch();
 
-  const {handleSubmit, register, formState: {errors}} = useForm<IFormInputs>();
+  const {register, control, handleSubmit, formState: {errors}, setValue} = useForm<IFormInputs>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    defaultValues: {
+      search: ''
+    }
+  })
 
   let lastFoundMovies: Array<TMovieItem | TSavedMovieItem> = [];
 
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    setInputValue(event.target.value);
     dispatch(searchFormActions.setValue(event.target.value));
-  }, [dispatch, value]);
+  }, [dispatch, inputValue]);
 
   const onSubmit = useCallback(async () => {
 
@@ -50,21 +55,20 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
 
     dispatch(searchFormActions.setIsSearching());
 
-    await setRenderingTimer(1000);
+    await setRenderingTimer(renderingTime);
 
     // проверка типа страницы: сохраненные фильмы или все
-    if (props.moviesPageType === MoviesPageType.SAVED_MOVIES) {
-      dispatch(savedMoviesDataActions.filterLastFoundSavedMovies(value))
-      localStorage.setItem('lastSearchRequestOfSaved', JSON.stringify(value));
-      dispatch(searchFormActions.setLastSearchedValueOfSaved(value));
-      dispatch(popupActions.getLastFoundMoviesToOpenPopup(store.getState().savedMoviesDataState.lastFoundSavedMovies));
-
-    } else {
-      dispatch(moviesDataActions.filterLastFoundMovies(value));
-      localStorage.setItem('lastSearchRequest', JSON.stringify(value));
-      dispatch(searchFormActions.setLastSearchedValue(value));
+    if (props.moviesPageType === MoviesPageType.MOVIES) {
+      dispatch(moviesDataActions.filterLastFoundMovies(inputValue));
+      localStorage.setItem('lastSearchRequest', JSON.stringify(inputValue));
+      dispatch(searchFormActions.setLastSearchedValue(inputValue));
       dispatch(popupActions.getLastFoundMoviesToOpenPopup(store.getState().moviesDataState.lastFoundMovies));
+    } else {
+      dispatch(savedMoviesDataActions.filterLastFoundSavedMovies(inputValue));
+      dispatch(searchFormActions.setLastSearchedValueOfSaved(inputValue));
+      dispatch(popupActions.getLastFoundMoviesToOpenPopup(store.getState().savedMoviesDataState.lastFoundSavedMovies));
     }
+
     dispatch(searchFormActions.setIsSearchingSuccess())
   }, [lastFoundMovies])
 
@@ -77,15 +81,24 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
   return (
     <section className={searchFormStyles.wrapper}>
       <form className={searchFormStyles['search-form']}>
-        <input type="text" value={value} required placeholder="Фильм" disabled={searchFormState.isSearching}
-               className={errors.search
-                 ? `${searchFormStyles['search-form__input']} ${searchFormStyles['search-form__input_errored']}`
-                 : `${searchFormStyles['search-form__input']}`}
-               {...register('search', setOptionsForInputValidation('search'))}
-               onChange={(e) => {
-                 e.stopPropagation();
-                 handleChange(e);
-               }}/>
+        <Controller
+          control={control}
+          name="search"
+          render={({
+                     field: {onChange, onBlur, value, name, ref},
+                     fieldState: {invalid, isTouched, isDirty, error},
+                     formState,
+                   }) => (
+            <input type="text" value={inputValue} required placeholder="Фильм" disabled={searchFormState.isSearching}
+                   className={errors.search
+                     ? `${searchFormStyles['search-form__input']} ${searchFormStyles['search-form__input_errored']}`
+                     : `${searchFormStyles['search-form__input']}`}
+                   {...register('search', setOptionsForInputValidation('search'))}
+                   onChange={(e) => {
+                     e.stopPropagation();
+                     handleChange(e);
+                   }}/>
+          )}/>
         <FormButton name="Поиск" needSearchMod={true} onClick={handleSubmit(onSubmit)}
                     disabled={searchFormState.isSearching}/>
       </form>

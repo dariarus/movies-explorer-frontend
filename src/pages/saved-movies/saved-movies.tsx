@@ -11,6 +11,8 @@ import {Popup} from '../../components/popup/popup';
 import {ButtonView, MoviesPageType} from '../../services/types/props-types';
 import {TSavedMovieItem} from '../../services/types/data';
 import {getSavedMoviesData} from '../../services/actions/main-api/saved-movies';
+import {filterCheckboxActions} from '../../services/state-slices/filter-checkbox';
+import {store} from '../../services/store';
 
 export const SavedMovies: FunctionComponent = () => {
   const {searchFormState, savedMoviesDataState, popupState} = useSelector((state) => {
@@ -19,7 +21,7 @@ export const SavedMovies: FunctionComponent = () => {
 
   const dispatch = useAppDispatch();
 
-  const renderingMovies: Array<TSavedMovieItem> = savedMoviesDataState.lastFoundSavedMovies.length !== 0
+  const renderingMovies: Array<TSavedMovieItem> = searchFormState.lastSearchedValueOfSaved
     ? savedMoviesDataState.lastFoundSavedMovies
     : savedMoviesDataState.savedMoviesData
 
@@ -30,6 +32,10 @@ export const SavedMovies: FunctionComponent = () => {
 
   useEffect(() => {
     dispatch(getSavedMoviesData());
+    return () => {
+      dispatch(filterCheckboxActions.setIsCheckedOnSavedMoviesPage(false))
+      localStorage.removeItem('lastFilterCheckboxStateOnSavedMoviesPage');
+    }
   }, [])
 
   return (

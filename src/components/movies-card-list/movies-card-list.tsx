@@ -32,7 +32,7 @@ export const MoviesCardList: FunctionComponent<{
   });
 
   const [screenWidth, setScreenWidth] = useState(getWindowWidth())
-  const [countItemsToShow, setCountItemsToShow] = useState<number>(0);
+  const [countItemsToShow, setCountItemsToShow] = useState<number>(1);
   const [countMoreItemsToShow, setCountMoreItemsToShow] = useState<number>(0);
 
   const dispatch = useAppDispatch();
@@ -77,8 +77,8 @@ export const MoviesCardList: FunctionComponent<{
   return (
     <section className={moviesListStyles['movies-container']}>
       {
-        filterCheckboxState.isEmptyMoviesBlock &&
-        <p className={moviesListStyles.text}>По Вашему запросу короткометражек нет</p>
+        !filterCheckboxState.isMoviesToShowExist &&
+        <p className={moviesListStyles.text}>По Вашему запросу ничего не найдено</p>
       }
       <ul className={moviesListStyles.movies}>
         {

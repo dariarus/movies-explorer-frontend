@@ -12,6 +12,7 @@ import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {popupActions} from '../../services/state-slices/popup';
 import {ButtonView, MoviesPageType} from '../../services/types/props-types';
 import {getSavedMoviesData} from '../../services/actions/main-api/saved-movies';
+import {store} from '../../services/store';
 
 export const Movies: FunctionComponent = () => {
   const {moviesDataState, searchFormState, popupState} = useSelector((state) => {
@@ -38,7 +39,7 @@ export const Movies: FunctionComponent = () => {
           : moviesDataState.lastFoundMovies.length === 0
             ? <p className={moviesPageStyles.text}>Начните поиск по ключевому слову</p>
             : <MoviesCardList buttonView={ButtonView.ADD} moviesPageType={MoviesPageType.MOVIES}
-                              movies={moviesDataState.lastFoundMovies}/>
+                              movies={store.getState().moviesDataState.lastFoundMovies}/>
       }
 
       {

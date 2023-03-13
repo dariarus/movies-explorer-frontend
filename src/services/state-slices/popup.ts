@@ -1,8 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IPopupState, RootState} from '../types';
+import {IPopupState} from '../types';
 import {IPopupActions} from '../types/action-type';
 import {TError, TMovieItem, TSavedMovieItem} from '../types/data';
-import {store} from '../store';
 
 export const popupSlice = createSlice({
   name: 'popup',
