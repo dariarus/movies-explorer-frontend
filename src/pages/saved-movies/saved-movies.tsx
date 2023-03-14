@@ -12,6 +12,7 @@ import {ButtonView, MoviesPageType} from '../../services/types/props-types';
 import {TSavedMovieItem} from '../../services/types/data';
 import {getSavedMoviesData} from '../../services/actions/main-api/saved-movies';
 import {filterCheckboxActions} from '../../services/state-slices/filter-checkbox';
+import {searchFormActions} from '../../services/state-slices/search-form';
 
 export const SavedMovies: FunctionComponent = () => {
   const {searchFormState, savedMoviesDataState, popupState} = useSelector((state) => {

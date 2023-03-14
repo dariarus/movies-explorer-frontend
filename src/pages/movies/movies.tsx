@@ -27,7 +27,9 @@ export const Movies: FunctionComponent = () => {
   }
 
   useEffect(() => {
-    dispatch(getSavedMoviesData());
+    if (searchFormState.lastSearchedValue) {
+      dispatch(getSavedMoviesData());
+    }
   }, [])
 
   return (
