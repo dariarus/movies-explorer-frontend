@@ -17,7 +17,7 @@ import {
   COUNT_ITEMS_TO_SHOW_SMALL_SCREEN,
   COUNT_MORE_ITEMS_TO_SHOW_BIG_SCREEN,
   COUNT_MORE_ITEMS_TO_SHOW_MIDI_SCREEN,
-  COUNT_MORE_ITEMS_TO_SHOW_SMALL_SCREEN,
+  COUNT_MORE_ITEMS_TO_SHOW_SMALL_SCREEN, initialCountItemsToShow,
   SIZE_MIDI_SCREEN,
   SIZE_SMALL_SCREEN,
 } from '../../utils/constants';
@@ -32,7 +32,7 @@ export const MoviesCardList: FunctionComponent<{
   });
 
   const [screenWidth, setScreenWidth] = useState(getWindowWidth())
-  const [countItemsToShow, setCountItemsToShow] = useState<number>(1);
+  const [countItemsToShow, setCountItemsToShow] = useState<number>(initialCountItemsToShow);
   const [countMoreItemsToShow, setCountMoreItemsToShow] = useState<number>(0);
 
   const dispatch = useAppDispatch();

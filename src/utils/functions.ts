@@ -60,7 +60,11 @@ export const convertMinutes = (minutes: number) => {
 }
 
 export const setOptionsForInputValidation = (inputName: string) => {
-  if (inputName === 'name') {
+  if (inputName === 'search') {
+    return {
+      required: "Нужно ввести ключевое слово"
+    }
+  } else if (inputName === 'name') {
     return {
       required: "Необходимо заполнить данное поле",
       pattern: {
@@ -84,10 +88,6 @@ export const setOptionsForInputValidation = (inputName: string) => {
         message: "Введите корректный e-mail",
       },
     }
-  } else if (inputName === 'search') {
-    return {
-      required: "Нужно ввести ключевое слово"
-    }
   } else {
     return {
       required: "Необходимо заполнить данное поле"
@@ -105,7 +105,7 @@ export const setRenderingTimer = async (ms: number) => {
 }
 
 export const getMoviesToShow = (isShortFilm: boolean | undefined, originalMoviesArray: Array<TMovieItem | TSavedMovieItem>, sliceEnd: number) => {
-let result;
+  let result;
   if (isShortFilm) {
     result = originalMoviesArray.filter(movie => movie.duration <= SHORT_FILM_DURATION).slice(0, sliceEnd)
   } else {

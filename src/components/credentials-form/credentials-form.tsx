@@ -12,29 +12,26 @@ import {useAppDispatch, useSelector} from '../../services/types/hooks';
 import {signin, signup} from '../../services/actions/main-api/auth';
 import {inputValuesActions} from '../../services/state-slices/input-values';
 import {getUser} from '../../services/actions/main-api/user';
+import {inputsCountSignin, inputsCountSignup} from '../../utils/constants';
 
 export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: 'register' | 'login' }> = (props) => {
   const {userDataState, inputValuesState} = useSelector((state) => {
     return state;
   })
 
-  const {register, control, handleSubmit, formState: {errors, isDirty}, setValue} = useForm<IFormInputs>({
+  const {register, control, handleSubmit, formState: {errors}} = useForm<IFormInputs>({
     mode: 'onChange',
     reValidateMode: 'onChange',
-    defaultValues: {
-      name: '',
-      email: '',
-      password: ''
-    }
   });
 
   const dispatch = useAppDispatch();
 
+  // проверить, все ли поля заполнены, чтобы активировать кнопку
   const checkInputValuesNotEmpty = () => {
     if (props.pageType === 'register') {
-      return Object.keys(inputValuesState.inputValues).length === 3
-    } else if (props.pageType === 'login') {
-      return Object.keys(inputValuesState.inputValues).length === 2
+      return Object.keys(inputValuesState.inputValues).length === inputsCountSignup;
+    } else {
+      return Object.keys(inputValuesState.inputValues).length === inputsCountSignin;
     }
   }
 
@@ -83,7 +80,6 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
                          registerInput={register} required={true} errors={errors} isDisabled={userDataState.isLoading}
                          onChange={(value: string) => {
                            onChange(value);
-                           setValue('name', value)
                          }}
                   />
                 )}
@@ -101,7 +97,6 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
                        registerInput={register} required={true} errors={errors} isDisabled={userDataState.isLoading}
                        onChange={(value: string) => {
                          onChange(value);
-                         setValue('email', value);
                        }}
                 />
               )}
@@ -119,17 +114,14 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
                        isDisabled={userDataState.isLoading}
                        onChange={(value: string) => {
                          onChange(value);
-                         setValue('password', value);
                        }}
                 />
               )}
             />
           </div>
           <FormButton name={props.buttonName} disabled={
-            // Object.keys(inputValuesState.inputValues).some((key: any) => inputValuesState.inputValues[key] && inputValuesState.inputValues[key].length === 0)
             !checkInputValuesNotEmpty()
             || (errors.name || errors.email || errors.password) || userDataState.isLoading
-              // || isDirty
               ? true
               : false
           } needSearchMod={false} onClick={handleSubmit(onSubmit)}/>

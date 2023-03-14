@@ -32,12 +32,9 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
 
   const dispatch = useAppDispatch();
 
-  const {register, control, handleSubmit, formState: {errors}, setValue} = useForm<IFormInputs>({
+  const {register, control, handleSubmit, formState: {errors}} = useForm<IFormInputs>({
     mode: 'onChange',
     reValidateMode: 'onChange',
-    defaultValues: {
-      search: ''
-    }
   })
 
   let lastFoundMovies: Array<TMovieItem | TSavedMovieItem> = [];
@@ -94,9 +91,10 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
                      ? `${searchFormStyles['search-form__input']} ${searchFormStyles['search-form__input_errored']}`
                      : `${searchFormStyles['search-form__input']}`}
                    {...register('search', setOptionsForInputValidation('search'))}
-                   onChange={(e) => {
+                   onChange={(e:ChangeEvent<HTMLInputElement>) => {
                      e.stopPropagation();
                      handleChange(e);
+                     onChange(e.target.value);
                    }}/>
           )}/>
         <FormButton name="Поиск" needSearchMod={true} onClick={handleSubmit(onSubmit)}
