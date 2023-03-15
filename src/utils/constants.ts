@@ -13,7 +13,7 @@ export const inputsCountSignup = 3;
 export const SHORT_FILM_DURATION = 40;
 
 export const SIZE_BIG_SCREEN = 1280;
-export const SIZE_MIDI_SCREEN = 768;
+export const SIZE_MIDI_SCREEN = 1141; // 768 - эндпоинт, но 1141 - по css-свойствам
 export const SIZE_SMALL_SCREEN = 480;
 
 export const COUNT_ITEMS_TO_SHOW_BIG_SCREEN = 12;
