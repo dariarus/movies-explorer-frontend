@@ -41,7 +41,7 @@ export const Movies: FunctionComponent = () => {
           : moviesDataState.lastFoundMovies.length === 0
             ? <p className={moviesPageStyles.text}>Начните поиск по ключевому слову</p>
             : <MoviesCardList buttonView={ButtonView.ADD} moviesPageType={MoviesPageType.MOVIES}
-                              movies={store.getState().moviesDataState.lastFoundMovies}/>
+                              movies={moviesDataState.lastFoundMovies}/>
       }
 
       {

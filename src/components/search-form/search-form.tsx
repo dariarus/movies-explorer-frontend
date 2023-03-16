@@ -26,7 +26,9 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
 
   const initialInputValue = props.moviesPageType === MoviesPageType.MOVIES && searchFormState.lastSearchedValue
     ? searchFormState.lastSearchedValue
-    : ''
+    : MoviesPageType.SAVED_MOVIES && searchFormState.lastSearchedValueOfSaved
+      ? searchFormState.lastSearchedValueOfSaved
+      : ''
 
   const [inputValue, setInputValue] = useState<string>(initialInputValue);
 
@@ -46,27 +48,28 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
 
   const onSubmit = useCallback(async () => {
 
+    let promise: Promise<any> = Promise.resolve();
+
     if (!store.getState().moviesDataState.moviesDataIsLoaded) {
-      dispatch(getMoviesDataFromSideApi());
+      promise = promise.then(() => dispatch(getMoviesDataFromSideApi()))
     }
 
-    dispatch(searchFormActions.setIsSearching());
-
-    await setRenderingTimer(renderingTime);
+    promise = promise.then(() => dispatch(searchFormActions.setIsSearching()));
 
     // проверка типа страницы: сохраненные фильмы или все
     if (props.moviesPageType === MoviesPageType.MOVIES) {
-      dispatch(moviesDataActions.filterLastFoundMovies(inputValue));
-      localStorage.setItem('lastSearchRequest', JSON.stringify(inputValue));
-      dispatch(searchFormActions.setLastSearchedValue(inputValue));
-      dispatch(popupActions.getLastFoundMoviesToOpenPopup(store.getState().moviesDataState.lastFoundMovies));
+      promise = promise.then(() => dispatch(moviesDataActions.filterLastFoundMovies(inputValue)));
+      promise = promise.then(() => localStorage.setItem('lastSearchRequest', JSON.stringify(inputValue)));
+      promise = promise.then(() => dispatch(searchFormActions.setLastSearchedValue(inputValue)));
+      promise = promise.then(() => dispatch(popupActions.getLastFoundMoviesToOpenPopup(store.getState().moviesDataState.lastFoundMovies)));
     } else {
-      dispatch(savedMoviesDataActions.filterLastFoundSavedMovies(inputValue));
-      dispatch(searchFormActions.setLastSearchedValueOfSaved(inputValue));
-      dispatch(popupActions.getLastFoundMoviesToOpenPopup(store.getState().savedMoviesDataState.lastFoundSavedMovies));
+      promise = promise.then(() => dispatch(savedMoviesDataActions.filterLastFoundSavedMovies(inputValue)));
+      promise = promise.then(() => dispatch(searchFormActions.setLastSearchedValueOfSaved(inputValue)));
+      promise = promise.then(() => dispatch(popupActions.getLastFoundMoviesToOpenPopup(store.getState().savedMoviesDataState.lastFoundSavedMovies)));
     }
 
-    dispatch(searchFormActions.setIsSearchingSuccess())
+    promise = promise.then(() => dispatch(searchFormActions.setIsSearchingSuccess()))
+    return promise
   }, [lastFoundMovies])
 
   useEffect(() => {
@@ -91,7 +94,7 @@ export const SearchForm: FunctionComponent<{ moviesArray: Array<TMovieItem | TSa
                      ? `${searchFormStyles['search-form__input']} ${searchFormStyles['search-form__input_errored']}`
                      : `${searchFormStyles['search-form__input']}`}
                    {...register('search', setOptionsForInputValidation('search'))}
-                   onChange={(e:ChangeEvent<HTMLInputElement>) => {
+                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
                      e.stopPropagation();
                      handleChange(e);
                      onChange(e.target.value);

@@ -7,7 +7,8 @@ export interface IMoviesDataActions {
   getMoviesData: ActionCreatorWithoutPayload<string>,
   getMoviesDataFailed: ActionCreatorWithPayload<TErrorState>,
   setLastFoundMovies: ActionCreatorWithPayload<Array<TMovieItem>>,
-  filterLastFoundMovies: ActionCreatorWithPayload<string>
+  filterLastFoundMovies: ActionCreatorWithPayload<string>,
+  resetMoviesState: ActionCreatorWithoutPayload<string>,
 }
 
 export interface ISavedMoviesDataActions {

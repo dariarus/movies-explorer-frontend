@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect, useState} from 'react';
+import React, {FunctionComponent, useCallback, useEffect, useState} from 'react';
 
 import {useAppDispatch, useSelector} from "../../services/types/hooks";
 
@@ -45,9 +45,9 @@ export const MoviesCardList: FunctionComponent<{
   let moviesToShow = getMoviesToShow(isChecked, props.movies, countItemsToShow);
   const moreButtonDisabled = moviesToShow.length === props.movies.length || moviesToShow.length < countItemsToShow;
 
-  const onClickMoreMoviesButton = () => {
+  const onClickMoreMoviesButton = useCallback(() => {
     setCountItemsToShow(countItemsToShow + countMoreItemsToShow)
-  }
+  }, [countItemsToShow, countMoreItemsToShow])
 
   useEffect(() => {
     const handleScreenWidth = () => setScreenWidth(getWindowWidth())
@@ -67,7 +67,7 @@ export const MoviesCardList: FunctionComponent<{
     return () => {
       window.removeEventListener('resize', handleScreenWidth);
     };
-  }, [])
+  }, [screenWidth.innerWidth])
 
   useEffect(() => {
     dispatch(filterCheckboxActions.setIsMoviesToShowExist(moviesToShow.length !== 0));

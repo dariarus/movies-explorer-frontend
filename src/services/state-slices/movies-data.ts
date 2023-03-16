@@ -1,20 +1,24 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-import {IMoviesDataSliceState} from '../types/index';
+import {IMoviesDataSliceState, ISavedMoviesDataState} from '../types/index';
 import {TErrorState, TMovieItem} from '../types/data'
 import {IMoviesDataActions} from '../types/action-type';
 import {getLastFoundMovies} from '../../utils/functions';
 
-export const moviesDataSlice = createSlice({
-  name: 'moviesData', // префикс всех экшнов
-  initialState: {
+const getInitialState = (): IMoviesDataSliceState => {
+  return {
     isLoading: false,
     hasError: false,
     moviesDataIsLoaded: false,
     error: {},
     moviesData: [],
     lastFoundMovies: [],
-  } as IMoviesDataSliceState,
+  }
+}
+
+export const moviesDataSlice = createSlice({
+  name: 'moviesData', // префикс всех экшнов
+  initialState: getInitialState(),
   reducers: {
     getMoviesDataSuccess: (state, action: PayloadAction<Array<TMovieItem>>) => {
       return {
@@ -61,7 +65,9 @@ export const moviesDataSlice = createSlice({
         lastFoundMovies: filteredMovies
       }
     },
-
+    resetMoviesState: (state) => {
+      return getInitialState();
+    }
   }
 })
 
@@ -72,7 +78,8 @@ export const {
   getMoviesData,
   getMoviesDataFailed,
   setLastFoundMovies,
-  filterLastFoundMovies
+  filterLastFoundMovies,
+  resetMoviesState
 } = moviesDataSlice.actions
 
 export const moviesDataActions: IMoviesDataActions = {
@@ -80,5 +87,6 @@ export const moviesDataActions: IMoviesDataActions = {
   getMoviesData: getMoviesData,
   getMoviesDataFailed: getMoviesDataFailed,
   setLastFoundMovies: setLastFoundMovies,
-  filterLastFoundMovies: filterLastFoundMovies
+  filterLastFoundMovies: filterLastFoundMovies,
+  resetMoviesState: resetMoviesState
 }
