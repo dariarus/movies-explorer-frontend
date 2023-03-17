@@ -51,6 +51,7 @@ export interface IFilterCheckboxActions {
 
 export interface IInputValuesActions {
   setInputValues: ActionCreatorWithPayload<{ [index: string]: string }>,
+  clearPassword: ActionCreatorWithoutPayload<string>,
   clearInputValuesState: ActionCreatorWithoutPayload<string>
 }
 

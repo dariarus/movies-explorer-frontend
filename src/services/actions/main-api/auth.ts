@@ -7,6 +7,7 @@ import {errorsActions} from '../../state-slices/errors';
 import {savedMoviesDataActions} from '../../state-slices/saved-movies-data';
 import {searchFormActions} from '../../state-slices/search-form';
 import {moviesDataActions} from '../../state-slices/movies-data';
+import {inputValuesActions} from '../../state-slices/input-values';
 
 export const signup = (name?: string, email?: string, password?: string): AppThunk => {
   return function (dispatch: AppDispatch) {
@@ -88,6 +89,7 @@ export const signout = (): AppThunk => {
       .then(res => getResponseData<{message: string}>(res))
       .then(() => {
         dispatch(userDataActions.deleteUserData());
+        dispatch(inputValuesActions.clearInputValuesState());
         dispatch(moviesDataActions.resetMoviesState());
         dispatch(savedMoviesDataActions.resetSavedMoviesState());
         dispatch(searchFormActions.deleteLastSearchedValues());

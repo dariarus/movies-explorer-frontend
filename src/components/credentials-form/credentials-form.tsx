@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from 'react';
+import React, {FunctionComponent, useCallback} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 
 import credentialsFormStyles from './credentials-form.module.css';
@@ -13,9 +13,11 @@ import {signin, signup} from '../../services/actions/main-api/auth';
 import {inputValuesActions} from '../../services/state-slices/input-values';
 import {getUser} from '../../services/actions/main-api/user';
 import {inputsCountSignin, inputsCountSignup} from '../../utils/constants';
+import {popupSlice} from '../../services/state-slices/popup';
+import {store} from '../../services/store';
 
 export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: 'register' | 'login' }> = (props) => {
-  const {userDataState, inputValuesState} = useSelector((state) => {
+  const {userDataState, inputValuesState, popupState} = useSelector((state) => {
     return state;
   })
 
@@ -27,13 +29,13 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
   const dispatch = useAppDispatch();
 
   // проверить, все ли поля заполнены, чтобы активировать кнопку
-  const checkInputValuesNotEmpty = () => {
+  const checkInputValuesNotEmpty = useCallback(() => {
     if (props.pageType === 'register') {
-      return Object.keys(inputValuesState.inputValues).length === inputsCountSignup;
+      return inputValuesState.inputValues.name && inputValuesState.inputValues.email && inputValuesState.inputValues.password
     } else {
-      return Object.keys(inputValuesState.inputValues).length === inputsCountSignin;
+      return inputValuesState.inputValues.email && inputValuesState.inputValues.password
     }
-  }
+  }, [inputValuesState.inputValues])
 
   const onSubmit = () => {
     if (inputValuesState.inputValues.email || inputValuesState.inputValues.password || inputValuesState.inputValues.name) {
@@ -45,19 +47,26 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
             inputValuesState.inputValues.password
           ))
         )
-          .then(() => dispatch(inputValuesActions.clearInputValuesState()))
+          .then(() => {
+            if (!errors && !popupState.errorType.show) {
+              return dispatch(inputValuesActions.clearInputValuesState())
+            } else {
+              return dispatch(inputValuesActions.clearPassword());
+            }
+          })
       } else {
         Promise.resolve(dispatch(signin(inputValuesState.inputValues.email, inputValuesState.inputValues.password)))
           .then(() => {
             dispatch(getUser());
-            dispatch(inputValuesActions.clearInputValuesState())
+            if (!errors && !popupState.errorType.show) {
+              return dispatch(inputValuesActions.clearInputValuesState())
+            } else {
+              return dispatch(inputValuesActions.clearPassword());
+            }
           });
       }
     }
-
   }
-
-  console.log(inputValuesState.inputValues)
 
   return (
     <div className={credentialsFormStyles['form-wrapper']}>
@@ -76,7 +85,8 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
                            fieldState: {invalid, isTouched, isDirty, error},
                            formState,
                          }) => (
-                  <Input label="Имя" autocomplete="name" type="text" inputName="name" isLastOfType={false}
+                  <Input label="Имя" autocomplete="name" type="text" inputName="name"
+                         isLastOfType={false}
                          registerInput={register} required={true} errors={errors} isDisabled={userDataState.isLoading}
                          onChange={(value: string) => {
                            onChange(value);
@@ -93,7 +103,8 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
                          fieldState: {invalid, isTouched, isDirty, error},
                          formState,
                        }) => (
-                <Input label="E-mail" autocomplete="email" type="text" inputName="email" isLastOfType={false}
+                <Input label="E-mail" autocomplete="email" type="text" inputName="email"
+                       isLastOfType={false}
                        registerInput={register} required={true} errors={errors} isDisabled={userDataState.isLoading}
                        onChange={(value: string) => {
                          onChange(value);
@@ -109,7 +120,8 @@ export const CredentialsForm: FunctionComponent<TCredentialsForm & { pageType: '
                          fieldState: {invalid, isTouched, isDirty, error},
                          formState,
                        }) => (
-                <Input label="Пароль" autocomplete="new-password" type="password" inputName="password"
+                <Input label="Пароль" autocomplete="new-password" type="password"
+                       inputName="password"
                        isLastOfType={true} registerInput={register} required={true} errors={errors}
                        isDisabled={userDataState.isLoading}
                        onChange={(value: string) => {

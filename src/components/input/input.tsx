@@ -18,7 +18,7 @@ export const Input: FunctionComponent<TInput & {
     return state;
   })
 
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState<string | undefined>(inputValuesState.inputValues[props.inputName]);
 
   const dispatch = useAppDispatch();
 
@@ -33,10 +33,11 @@ export const Input: FunctionComponent<TInput & {
     <>
       <div className={inputStyles['input-wrapper']}>
         <label htmlFor={props.inputName} className={inputStyles.label}>{props.label}</label>
-        <input type={props.type} value={inputValue} id={props.inputName} autoComplete={props.autocomplete} required={props.required}
+        <input type={props.type} value={inputValue} id={props.inputName} autoComplete={props.autocomplete}
+               required={props.required}
                disabled={props.isDisabled} className={props.errors[props.inputName]
-                 ? `${inputStyles.input} ${inputStyles['input_errored']}`
-                 : `${inputStyles.input} ${inputStyles['input_default']}`}
+          ? `${inputStyles.input} ${inputStyles['input_errored']}`
+          : `${inputStyles.input} ${inputStyles['input_default']}`}
                {...props.registerInput(props.inputName, setOptionsForInputValidation(props.inputName))} // валидация
                onChange={(event) => {
                  setInputValue(event.target.value);

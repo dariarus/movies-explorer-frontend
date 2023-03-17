@@ -14,6 +14,15 @@ export const inputValuesSlice = createSlice({
         inputValues: action.payload
       }
     },
+    clearPassword: (state) => {
+      return {
+        ...state,
+        inputValues: {
+          ...state.inputValues,
+          password: undefined
+        }
+      }
+    },
     clearInputValuesState: (state) => {
       return {
         ...state,
@@ -27,10 +36,12 @@ export default inputValuesSlice.reducer
 
 export const {
   setInputValues,
+  clearPassword,
   clearInputValuesState
 } = inputValuesSlice.actions
 
 export const inputValuesActions: IInputValuesActions = {
   setInputValues: setInputValues,
+  clearPassword: clearPassword,
   clearInputValuesState: clearInputValuesState
 }

@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect} from 'react';
+import React, {FunctionComponent} from 'react';
 import {CredentialsForm} from '../../components/credentials-form/credentials-form';
 import {Redirect, useLocation} from 'react-router-dom';
 import {useSelector} from '../../services/types/hooks';
