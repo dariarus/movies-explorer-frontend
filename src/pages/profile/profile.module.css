@@ -48,6 +48,11 @@
   color: #3ddC84;
 }
 
+.form__button:disabled {
+  color: #8b8b8b;
+  cursor: auto;
+}
+
 .link {
   margin: 0;
   font-family: 'Inter', 'Arial', sans-serif;
@@ -72,6 +77,24 @@
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
+  color: #ee3465;
+}
+
+.change-response-notification {
+  margin: 0 0 10px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+}
+
+.change-response-notification_success {
+  color: #3ddC84;
+}
+
+.change-response-notification_error {
   color: #ee3465;
 }
 

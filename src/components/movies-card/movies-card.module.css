@@ -1,7 +1,14 @@
+.link {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
 .movie {
   list-style: none;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   margin: 0;
   padding: 0;
   background-color: #222;
@@ -25,16 +32,25 @@
 }
 
 .movie__text {
-  margin: 0;
+  max-height: 18px;
+  margin: 0 5px 0 0;
   font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
   line-height: 18px;
   color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movie__text_primary {
+  max-width: 230px;
+  white-space: nowrap; /* запретить перенос сроки */
 }
 
 .movie__text_secondary {
+  margin: 0;
   font-weight: 400;
   font-size: 13px;
   line-height: 18px;

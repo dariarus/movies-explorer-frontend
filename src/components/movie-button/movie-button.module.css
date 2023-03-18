@@ -1,0 +1,42 @@
+.button {
+  all: unset;
+  margin: 18px auto;
+  min-width: 100px;
+  min-height: 29px;
+  border-radius: 30px;
+  box-shadow: none;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 11px;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color .2s ease, color .2s ease, opacity .2s ease, box-shadow .2s ease;
+}
+
+.button_default {
+  background-color: #313131;
+}
+
+.button_default:hover {
+  background-color: rgba(49, 49, 49, 0.5);
+  color: #3ddC84;
+}
+
+.button_active {
+  background: url('../../images/tick.svg') center center no-repeat #ee3465;
+}
+
+.button_active:hover {
+  box-shadow: 0 0 16px 8px rgba(238, 52, 101, .25), 0 0 16px 8px rgba(238, 52, 101, .25);
+}
+
+.button_delete {
+  background: url('../../images/cross.svg') center center no-repeat #313131;
+}
+
+.button_delete:hover {
+  background-color: rgba(238, 52, 101, .35);
+}

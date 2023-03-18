@@ -1,23 +1,54 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent, useEffect} from 'react';
+
+import moviesPageStyles from './movies.module.css';
+
 import {SearchForm} from '../../components/search-form/search-form';
 import {Preloader} from '../../components/preloader/preloader';
 import {MoviesCardList} from '../../components/movies-card-list/movies-card-list';
-import {Header} from '../../components/header/header';
-import {Footer} from '../../components/footer/footer';
+import {Popup} from '../../components/popup/popup';
+
+import {useAppDispatch, useSelector} from '../../services/types/hooks';
+
+import {popupActions} from '../../services/state-slices/popup';
+import {ButtonView, MoviesPageType} from '../../services/types/props-types';
+import {getSavedMoviesData} from '../../services/actions/main-api/saved-movies';
+import {store} from '../../services/store';
 
 export const Movies: FunctionComponent = () => {
-  const [isSearching, setIsSearching] = useState<boolean>(false)
+  const {moviesDataState, searchFormState, popupState} = useSelector((state) => {
+    return state;
+  });
+
+  const dispatch = useAppDispatch();
+
+  const handleOnClosePopup = () => {
+    dispatch(popupActions.setIsClosed());
+    document.body.classList.remove(moviesPageStyles['body-overlay']);
+  }
+
+  useEffect(() => {
+    if (searchFormState.lastSearchedValue) {
+      dispatch(getSavedMoviesData());
+    }
+  }, [])
 
   return (
     <>
-      {/*<Header/>*/}
-      <SearchForm/>
+      <SearchForm moviesArray={moviesDataState.moviesData} moviesPageType={MoviesPageType.MOVIES}/>
       {
-        isSearching
+        searchFormState.isSearching
           ? <Preloader/>
-          : <MoviesCardList buttonView='add'/>
+          : moviesDataState.lastFoundMovies.length === 0
+            ? <p className={moviesPageStyles.text}>Начните поиск по ключевому слову</p>
+            : <MoviesCardList buttonView={ButtonView.ADD} moviesPageType={MoviesPageType.MOVIES}
+                              movies={moviesDataState.lastFoundMovies}/>
       }
-      {/*<Footer/>*/}
+
+      {
+        popupState.notFoundMoviesType.show &&
+        <Popup primaryText="Поиск не дал результатов" secondaryText="Попробуйте поискать другой фильм"
+               onClose={handleOnClosePopup}/>
+      }
     </>
   )
 }

@@ -2,7 +2,7 @@ import React from "react";
 
 import promoStyles from './promo.module.css';
 import {NavTab} from '../nav-tab/nav-tab';
-import {TCombinedRef} from '../../services/types/data';
+import {TCombinedRef} from '../../services/types/props-types';
 
 export const Promo = (props: {refs: TCombinedRef}) => {
   return (

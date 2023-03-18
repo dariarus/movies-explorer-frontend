@@ -1,26 +1,50 @@
-import React, {FunctionComponent, useEffect, useState} from 'react';
-import {useForm, UseFormRegister} from 'react-hook-form';
+import React, {FunctionComponent, useCallback, useState} from 'react';
+import {UseFormRegister,} from 'react-hook-form';
 
 import inputStyles from './input.module.css';
 
-import {IFormValues, TInput} from '../../services/types/data';
+import {IFormInputs, TInput} from '../../services/types/props-types';
 import {setOptionsForInputValidation} from '../../utils/functions';
+import {inputValuesActions} from '../../services/state-slices/input-values';
+import {useAppDispatch, useSelector} from '../../services/types/hooks';
 
-export const Input: FunctionComponent<TInput & { registerInput: UseFormRegister<IFormValues>, required: boolean, errors: any }> = (props) => {
-  const [inputValue, setInputValue] = useState('');
+export const Input: FunctionComponent<TInput & {
+  registerInput: UseFormRegister<IFormInputs>,
+  required: boolean,
+  errors: any,
+  onChange: (value: string) => void
+}> = (props) => {
+  const {inputValuesState} = useSelector((state) => {
+    return state;
+  })
+
+  const [inputValue, setInputValue] = useState<string | undefined>(inputValuesState.inputValues[props.inputName]);
+
+  const dispatch = useAppDispatch();
+
+  const handleSetInputValues = useCallback((value: string) => {
+    dispatch(inputValuesActions.setInputValues({
+      ...inputValuesState.inputValues,
+      [props.inputName]: value
+    }))
+  }, [inputValuesState.inputValues, props.inputName])
 
   return (
     <>
       <div className={inputStyles['input-wrapper']}>
-          <label htmlFor={props.inputName} className={inputStyles.label}>{props.label}</label>
-          <input type={props.type} id={props.inputName}
-                 className={props.errors[props.inputName]
-                   ? `${inputStyles.input} ${inputStyles['input_errored']}`
-                   : `${inputStyles.input} ${inputStyles['input_default']}`}
-                 autoComplete={props.autocomplete}
-                 {...props.registerInput(props.inputName, setOptionsForInputValidation(props.inputName))} // валидация
-                 onChange={event => setInputValue(event.target.value)}
-          />
+        <label htmlFor={props.inputName} className={inputStyles.label}>{props.label}</label>
+        <input type={props.type} value={inputValue} id={props.inputName} autoComplete={props.autocomplete}
+               required={props.required}
+               disabled={props.isDisabled} className={props.errors[props.inputName]
+          ? `${inputStyles.input} ${inputStyles['input_errored']}`
+          : `${inputStyles.input} ${inputStyles['input_default']}`}
+               {...props.registerInput(props.inputName, setOptionsForInputValidation(props.inputName))} // валидация
+               onChange={(event) => {
+                 setInputValue(event.target.value);
+                 handleSetInputValues(event.target.value);
+                 props.onChange(event.target.value)
+               }}
+        />
       </div>
       {
         props.errors[props.inputName] &&

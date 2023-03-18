@@ -1,4 +1,12 @@
+.body-overlay {
+  overflow: hidden;
+}
+
 .main {
   box-sizing: border-box;
   margin: 0 auto;
+}
+
+.preloader {
+  margin-top: 30vh;
 }

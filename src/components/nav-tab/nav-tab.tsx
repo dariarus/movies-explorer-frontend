@@ -3,7 +3,7 @@ import React from 'react';
 import navStyles from './nav-tab.module.css';
 
 import {LandingNavButton} from '../landing-nav-button/landing-nav-button';
-import {TCombinedRef} from '../../services/types/data';
+import {TCombinedRef} from '../../services/types/props-types';
 
 export const NavTab = (props: {refs: TCombinedRef}) => {
    return (

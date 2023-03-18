@@ -5,8 +5,13 @@ import headerStyles from './header.module.css';
 
 import {Navigation} from '../navigation/navigation';
 import {Logo} from '../logo/logo';
+import {useSelector} from '../../services/types/hooks';
 
 export const Header: FunctionComponent = () => {
+  const {userDataState} = useSelector((state) => {
+    return state;
+  })
+
   const location = useLocation();
 
   if (location.pathname !== '/'
@@ -16,12 +21,10 @@ export const Header: FunctionComponent = () => {
     return null;
   }
 
-  // TODO: перенести авторизацию в хранилище
   return (
     <header className={headerStyles.header}>
       <Logo/>
-      <Navigation isAuthorized={true}/>
-      {/*<Navigation isAuthorized={false}/>*/}
+      <Navigation isAuthorized={userDataState.isAuthorized}/>
     </header>
   )
 }

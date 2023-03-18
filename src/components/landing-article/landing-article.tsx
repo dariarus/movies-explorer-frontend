@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import {TLandingArticle} from '../../services/types/data';
+import {TLandingArticle} from '../../services/types/props-types';
 
 import landingArticleStyles from './landing-article.module.css';
 

@@ -1,93 +1,25 @@
-export const tmpMoviesArray = [
-  {
-    duration: "1411",
-    image: "https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg",
-    nameRU: "фильм",
-  },
-  {
-    duration: "1411",
-    image: "https://lumiere-a.akamaihd.net/v1/images/p_encanto_homeent_22359_4892ae1c.jpeg",
-    nameRU: "фильм",
-  },
-  {
-    duration: "1411",
-    image: "https://lumiere-a.akamaihd.net/v1/images/p_shangchiandthelegendofthetenringshomeentupdate_22055_7b62fa67.jpeg?region=0%2C0%2C540%2C800",
-    nameRU: "фильм",
-  },
-  {
-    duration: "1411",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdPM0LjvTSE5ve2klQZHH13x9yl8pjM9XELg&usqp=CAU",
-    nameRU: "фильм",
-  },
-  {
-    duration: "1411",
-    image: "https://lumiere-a.akamaihd.net/v1/images/pp_lightyear_herobanner_mobile_v2_22043_48d47fc7.jpeg?region=0,0,640,480",
-    nameRU: "фильм",
-  },
-  {
-    duration: "1411",
-    image: "https://lumiere-a.akamaihd.net/v1/images/p_shangchiandthelegendofthetenringshomeentupdate_22055_7b62fa67.jpeg?region=0%2C0%2C540%2C800",
-    nameRU: "фильм",
-  },
-  {
-    duration: "1411",
-    image: "https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg",
-    nameRU: "фильм",
-  },
-  {
-    duration: "1411",
-    image: "https://img.freepik.com/premium-vector/realistic-cinema-poster-popcorn-bucket-clapperboard-movie-tape-reel-flying-popcorn-motion_208581-1714.jpg?w=2000",
-    nameRU: "фильм",
-  },
-  {
-    duration: "3855",
-    image: "https://lumiere-a.akamaihd.net/v1/images/p_shangchiandthelegendofthetenringshomeentupdate_22055_7b62fa67.jpeg?region=0%2C0%2C540%2C800",
-    nameRU: "фильм",
-  },
-  {
-    duration: "3452",
-    image: "https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg",
-    nameRU: "фильм",
-  },
-  {
-    duration: "3600",
-    image: "https://img.freepik.com/premium-vector/realistic-cinema-poster-popcorn-bucket-clapperboard-movie-tape-reel-flying-popcorn-motion_208581-1714.jpg?w=2000",
-    nameRU: "фильм",
-  },
-  {
-    duration: "1411",
-    image: "https://lumiere-a.akamaihd.net/v1/images/p_shangchiandthelegendofthetenringshomeentupdate_22055_7b62fa67.jpeg?region=0%2C0%2C540%2C800",
-    nameRU: "фильм",
-  },
-  {
-    duration: "3855",
-    image: "https://lumiere-a.akamaihd.net/v1/images/p_shangchiandthelegendofthetenringshomeentupdate_22055_7b62fa67.jpeg?region=0%2C0%2C540%2C800",
-    nameRU: "фильм",
-  },
-  {
-    duration: "3452",
-    image: "https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg",
-    nameRU: "фильм",
-  },
-  {
-    duration: "3600",
-    image: "https://img.freepik.com/premium-vector/realistic-cinema-poster-popcorn-bucket-clapperboard-movie-tape-reel-flying-popcorn-motion_208581-1714.jpg?w=2000",
-    nameRU: "фильм",
-  },
-  {
-    duration: "1411",
-    image: "https://lumiere-a.akamaihd.net/v1/images/p_shangchiandthelegendofthetenringshomeentupdate_22055_7b62fa67.jpeg?region=0%2C0%2C540%2C800",
-    nameRU: "фильм",
-  },
-  {
-    duration: "3600",
-    image: "https://img.freepik.com/premium-vector/realistic-cinema-poster-popcorn-bucket-clapperboard-movie-tape-reel-flying-popcorn-motion_208581-1714.jpg?w=2000",
-    nameRU: "фильм",
-  },
-];
+export const beatfilmMoviesApi = 'https://api.nomoreparties.co/beatfilm-movies';
+export const beatfilmMoviesPath = 'https://api.nomoreparties.co';
+export const moviesApi = 'https://api.my-movies.students.nomoredomains.icu';
+// export const moviesApi = 'http://localhost:3000'
 
-export const tmpAccountData = {
-  name: "Dasha",
-  email: "test1@mail.ru",
-}
+export const renderingTime = 1000;
 
+export const initialCountItemsToShow = 1;
+
+export const inputsCountSignin = 2;
+export const inputsCountSignup = 3;
+
+export const SHORT_FILM_DURATION = 40;
+
+export const SIZE_BIG_SCREEN = 1280;
+export const SIZE_MIDI_SCREEN = 1141; // 768 - эндпоинт, но 1141 - по css-свойствам
+export const SIZE_SMALL_SCREEN = 650;
+
+export const COUNT_ITEMS_TO_SHOW_BIG_SCREEN = 12;
+export const COUNT_ITEMS_TO_SHOW_MIDI_SCREEN = 8;
+export const COUNT_ITEMS_TO_SHOW_SMALL_SCREEN = 5;
+
+export const COUNT_MORE_ITEMS_TO_SHOW_BIG_SCREEN = 3;
+export const COUNT_MORE_ITEMS_TO_SHOW_MIDI_SCREEN = 2;
+export const COUNT_MORE_ITEMS_TO_SHOW_SMALL_SCREEN = 2;

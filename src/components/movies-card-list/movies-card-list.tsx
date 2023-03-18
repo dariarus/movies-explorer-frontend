@@ -1,88 +1,100 @@
-import React, {FunctionComponent, useEffect, useState} from 'react';
+import React, {FunctionComponent, useCallback, useEffect, useState} from 'react';
+
+import {useAppDispatch, useSelector} from "../../services/types/hooks";
 
 import moviesListStyles from './movies-card-list.module.css';
 
-import {tmpMoviesArray} from '../../utils/constants';
 import {MoviesCard} from '../movies-card/movies-card';
 import {MoreMoviesButton} from '../more-movies-button/more-movies-button';
-import {Preloader} from '../preloader/preloader';
-import {convertSeconds, getWindowWidth} from '../../utils/functions';
-import {TButtonView} from '../../services/types/data';
-import {Popup} from '../popup/popup';
+import {convertMinutes, getMoviesToShow, getWindowWidth, isSavedMovie} from '../../utils/functions';
+import {ButtonView, MoviesPageType} from '../../services/types/props-types';
+import {TMovieItem, TSavedMovieItem} from '../../services/types/data';
+import {filterCheckboxActions} from '../../services/state-slices/filter-checkbox';
+import {popupActions} from '../../services/state-slices/popup';
+import {
+  COUNT_ITEMS_TO_SHOW_BIG_SCREEN,
+  COUNT_ITEMS_TO_SHOW_MIDI_SCREEN,
+  COUNT_ITEMS_TO_SHOW_SMALL_SCREEN,
+  COUNT_MORE_ITEMS_TO_SHOW_BIG_SCREEN,
+  COUNT_MORE_ITEMS_TO_SHOW_MIDI_SCREEN,
+  COUNT_MORE_ITEMS_TO_SHOW_SMALL_SCREEN, initialCountItemsToShow,
+  SIZE_MIDI_SCREEN,
+  SIZE_SMALL_SCREEN,
+} from '../../utils/constants';
 
-export const MoviesCardList: FunctionComponent<{ buttonView: TButtonView }> = (props) => {
-  // const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+export const MoviesCardList: FunctionComponent<{
+  buttonView: ButtonView,
+  movies: Array<TMovieItem | TSavedMovieItem>,
+  moviesPageType: MoviesPageType
+}> = (props) => {
+  const {filterCheckboxState} = useSelector(state => {
+    return state
+  });
 
   const [screenWidth, setScreenWidth] = useState(getWindowWidth())
-  const [itemsToShow, setItemsToShow] = useState<number>(0);
-  const [moreItemsToShow, setMoreItemsToShow] = useState<number>(0);
+  const [countItemsToShow, setCountItemsToShow] = useState<number>(initialCountItemsToShow);
+  const [countMoreItemsToShow, setCountMoreItemsToShow] = useState<number>(0);
 
-  // const [popupIsOpen, setPopupIsOpen] = useState(true);
-  const [popupIsOpen, setPopupIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
 
-  const itemsToShowArray = tmpMoviesArray.slice(0, itemsToShow);
+  const isChecked = props.moviesPageType === MoviesPageType.MOVIES
+    ? filterCheckboxState.isCheckedOnMoviesPage
+    : filterCheckboxState.isCheckedOnSavedMoviesPage
 
-  const onClickMoreMoviesButton = () => {
-    setItemsToShow(itemsToShow + moreItemsToShow)
-  }
+  // отрисовка нужного кол-ва карточек с учетом фильтрации короткометражек
+  let moviesToShow = getMoviesToShow(isChecked, props.movies, countItemsToShow);
+  const moreButtonDisabled = moviesToShow.length === props.movies.length || moviesToShow.length < countItemsToShow;
 
-  const moreButtonDisabled = itemsToShowArray.length === tmpMoviesArray.length;
-
-  const handleOnOpen = () => {
-    setPopupIsOpen(true);
-    document.body.classList.toggle(moviesListStyles['body-overlay']);
-  }
-
-  // TODO: Перенести состояние попапа в хранилище
-  const handleOnClose = () => {
-    setPopupIsOpen(false);
-  }
+  const onClickMoreMoviesButton = useCallback(() => {
+    setCountItemsToShow(countItemsToShow + countMoreItemsToShow)
+  }, [countItemsToShow, countMoreItemsToShow])
 
   useEffect(() => {
     const handleScreenWidth = () => setScreenWidth(getWindowWidth())
 
-    if (screenWidth.innerWidth >= 1200) {
-      setItemsToShow(12);
-      setMoreItemsToShow(3);
-    } else if (screenWidth.innerWidth < 1200 && screenWidth.innerWidth >= 641) {
-      setItemsToShow(8);
-      setMoreItemsToShow(2);
-    } else if (screenWidth.innerWidth < 641) {
-      setItemsToShow(5);
-      setMoreItemsToShow(2);
+    if (screenWidth.innerWidth >= SIZE_MIDI_SCREEN ) {
+      setCountItemsToShow(COUNT_ITEMS_TO_SHOW_BIG_SCREEN);
+      setCountMoreItemsToShow(COUNT_MORE_ITEMS_TO_SHOW_BIG_SCREEN);
+    } else if (screenWidth.innerWidth < SIZE_MIDI_SCREEN && screenWidth.innerWidth >= SIZE_SMALL_SCREEN) {
+      setCountItemsToShow(COUNT_ITEMS_TO_SHOW_MIDI_SCREEN);
+      setCountMoreItemsToShow(COUNT_MORE_ITEMS_TO_SHOW_MIDI_SCREEN);
+    } else if (screenWidth.innerWidth < SIZE_SMALL_SCREEN) {
+      setCountItemsToShow(COUNT_ITEMS_TO_SHOW_SMALL_SCREEN);
+      setCountMoreItemsToShow(COUNT_MORE_ITEMS_TO_SHOW_SMALL_SCREEN);
     }
 
     window.addEventListener('resize', handleScreenWidth);
     return () => {
       window.removeEventListener('resize', handleScreenWidth);
     };
-  }, [])
+  }, [screenWidth.innerWidth])
+
+  useEffect(() => {
+    dispatch(filterCheckboxActions.setIsMoviesToShowExist(moviesToShow.length !== 0));
+    dispatch(popupActions.getLastFoundMoviesToOpenPopup(moviesToShow));
+  }, [moviesToShow.length, filterCheckboxState.isMoviesToShowExist])
 
   return (
-    <section className={moviesListStyles['movies-wrapper']}>
+    <section className={moviesListStyles['movies-container']}>
+      {
+        !filterCheckboxState.isMoviesToShowExist &&
+        <p className={moviesListStyles.text}>По Вашему запросу ничего не найдено</p>
+      }
       <ul className={moviesListStyles.movies}>
         {
-          itemsToShowArray.map((movie, index) => {
-              const durationConversion = convertSeconds(movie.duration);
+          moviesToShow.map((movie) => {
+              const durationConversion = convertMinutes(movie.duration);
               return (
-                <MoviesCard key={index} name={movie.nameRU} duration={durationConversion} image={movie.image}
-                            buttonView={props.buttonView}/>
+                <MoviesCard key={movie.id} name={movie.nameRU} duration={durationConversion} image={movie.image.url}
+                            buttonView={props.buttonView}
+                            itemToSave={movie}
+                            moviePageType={props.moviesPageType}/>
               )
             }
           )
         }
       </ul>
-      {
-        isLoading
-          ? <Preloader/>
-          : <MoreMoviesButton onClick={() => onClickMoreMoviesButton()} disabled={moreButtonDisabled}/>
-      }
-      {
-        popupIsOpen &&
-        <Popup primaryText="Поиск не дал результатов" secondaryText="Попробуйте поискать другой фильм"
-               onClose={handleOnClose}/>
-      }
+      <MoreMoviesButton onClick={onClickMoreMoviesButton} disabled={moreButtonDisabled}/>
     </section>
   )
 }
